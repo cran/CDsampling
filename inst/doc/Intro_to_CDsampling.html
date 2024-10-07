@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>Introduction to CDsampling</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Introduction to CDsampling</h1>
+
+
+
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(CDsampling)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span></code></pre></div>
+<p>In the context of paid research studies and clinical trials, budget
+considerations and patient sampling from available populations are
+subject to inherent constraints. <strong>CDsampling</strong> integrates
+optimal design theories within the framework of constrained
+sampling.</p>
+<ul>
+<li><p>This package offers the possibility to find both D-optimal
+approximate and exact allocations for sampling with or without
+constraints.</p></li>
+<li><p>Additionally, it provides functions to find constrained uniform
+sampling as a robust sampling strategy with limited model
+information.</p></li>
+<li><p>It also provides tool for computation of Fisher information
+matrix of the generalized linear models (GLMs) including regular linear
+regression model and the multinomial logistic models (MLMs).</p></li>
+<li><p>Two datasets are embedded in the package for application
+examples</p></li>
+</ul>
+<p>Reference: Constrained D-optimal Design for Paid Research Study
+(2024+), Statistica Sinica, to appear, DOI: 10.5705/ss.202022.0414,
+Yifei Huang, Liping Tong, and Jie Yang</p>
+<div id="computation-of-fisher-information-matrix" class="section level2">
+<h2>Computation of Fisher information matrix</h2>
+<div id="example-glm-fisher-information-matrix" class="section level4">
+<h4>Example GLM Fisher information matrix</h4>
+<p>Consider a research study with a simple logistic regression model
+<span class="math display">\[\log(\frac{\mu_i}{1-\mu_i}) = \beta_0 +
+\beta_1 x_{i1} + \beta_2 x_{i2}\]</span> where <span class="math inline">\(\mu_i = E(Y_i\mid {\mathbf x}_i)\)</span>, <span class="math inline">\({\mathbf x}_i = (x_{i1}, x_{i2})^\top \in \{(-1,
+-1), (-1, +1), (+1, -1)\}\)</span> and parameters <span class="math inline">\(\boldsymbol \beta = (\beta_0, \beta_1, \beta_2) =
+(0.5, 0.5, 0.5)\)</span>. The approximate allocation to the three design
+points is <span class="math inline">\(\mathbf w =
+(1/3,1/3,1/3)^\top\)</span></p>
+<p>To calculate Fisher information matrix of the design with GLM, we can
+use <em>F_func_GLM</em> in the package.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>beta <span class="ot">=</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="fl">0.5</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>X <span class="ot">=</span> <span class="fu">matrix</span>(<span class="at">data=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="sc">-</span><span class="dv">1</span>,<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>,<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="sc">-</span><span class="dv">1</span>), <span class="at">byrow=</span><span class="cn">TRUE</span>, <span class="at">nrow=</span><span class="dv">3</span>) </span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>w <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>,<span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>,<span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>) <span class="co">#approximate allocation</span></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="fu">F_func_GLM</span>(<span class="at">w=</span>w, <span class="at">beta=</span>beta, <span class="at">X=</span>X, <span class="at">link=</span><span class="st">&#39;logit&#39;</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="co">#&gt;             [,1]        [,2]        [,3]</span></span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a><span class="co">#&gt; [1,]  0.23500371 -0.07833457 -0.07833457</span></span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a><span class="co">#&gt; [2,] -0.07833457  0.23500371 -0.07833457</span></span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a><span class="co">#&gt; [3,] -0.07833457 -0.07833457  0.23500371</span></span></code></pre></div>
+</div>
+<div id="example-of-mlm-fisher-information-matrix" class="section level4">
+<h4>Example of MLM Fisher information matrix</h4>
+<p>Consider a research study with cumulative npo multinomial logit model
+with <span class="math inline">\(J=5\)</span> response levels with
+covariates <span class="math inline">\((x_{i1},
+x_{i2})=\{(1,0),(2,0),(3,0), (4,0),(1,1),(2,1),(3,1),(4,1)\}\)</span>.
+The model can be written as:<span class="math display">\[\log(\frac{\pi_{i1}}{\pi_{i2}+\dots+\pi_{i5}}) =
+\beta_{11}+\beta_{12}x_{i1}+\beta_{13}x_{i2}\]</span> <span class="math display">\[\log(\frac{\pi_{i1}+\pi_{i2}}{\pi_{i3}+\pi_{i4}+\pi_{i5}})
+= \beta_{21}+\beta_{22}x_{i1}+\beta_{23}x_{i2}\]</span> <span class="math display">\[\log(\frac{\pi_{i1}+\pi_{i2}+\pi_{i3}}{\pi_{i4}+\pi_{i5}})
+= \beta_{31}+\beta_{32}x_{i1}+\beta_{33}x_{i2}\]</span> <span class="math display">\[\log(\frac{\pi_{i1}+\dots+\pi_{i4}}{\pi_{i5}}) =
+\beta_{41}+\beta_{42}x_{i1}+\beta_{43}x_{i2}\]</span> where <span class="math inline">\(i=1,\dots,8\)</span>, we assume the parameters
+<span class="math inline">\(\boldsymbol \beta = (\beta_{11}, \beta_{12},
+\beta_{13}, \beta_{21}, \beta_{22}, \beta_{23}, \beta_{31}, \beta_{32},
+\beta_{33}, \beta_{41}, \beta_{42}, \beta_{43})^\top = (-4.047, -0.131,
+4.214, -2.225, -0.376,\)</span> <span class="math inline">\(3.519,
+-0.302, -0.237, 2.420, 1.386, -0.120, 1.284)^\top\)</span>. The
+approximate allocation for the eight design points is <span class="math inline">\(\mathbf w = (1/8, 1/8, 1/8, 1/8, 1/8, 1/8, 1/8,
+1/8)^\top\)</span>.</p>
+<p>To calculate the Fisher information matrix with MLM, we can use the
+<em>F_func_MLM</em> in the package.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>J<span class="ot">=</span><span class="dv">5</span>; p<span class="ot">=</span><span class="dv">12</span>; m<span class="ot">=</span><span class="dv">8</span>; </span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>beta <span class="ot">=</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">4.047</span>, <span class="sc">-</span><span class="fl">0.131</span>, <span class="fl">4.214</span>, <span class="sc">-</span><span class="fl">2.225</span>, <span class="sc">-</span><span class="fl">0.376</span>, <span class="fl">3.519</span>, <span class="sc">-</span><span class="fl">0.302</span>,</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>    <span class="sc">-</span><span class="fl">0.237</span>,  <span class="fl">2.420</span>, <span class="fl">1.386</span>,  <span class="sc">-</span><span class="fl">0.120</span>,  <span class="fl">1.284</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>Xi<span class="ot">=</span><span class="fu">rep</span>(<span class="dv">0</span>,J<span class="sc">*</span>p<span class="sc">*</span>m)   </span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a><span class="fu">dim</span>(Xi)<span class="ot">=</span><span class="fu">c</span>(J,p,m)</span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a>Xi[,,<span class="dv">1</span>] <span class="ot">=</span> <span class="fu">rbind</span>(<span class="fu">c</span>( <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a>                <span class="fu">c</span>( <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a>                <span class="fu">c</span>( <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a>                <span class="fu">c</span>( <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>),</span>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a>                <span class="fu">c</span>( <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>))</span>
+<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a>Xi[,,<span class="dv">2</span>] <span class="ot">=</span> <span class="fu">rbind</span>(<span class="fu">c</span>( <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
+<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a>                <span class="fu">c</span>( <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
+<span id="cb4-14"><a href="#cb4-14" tabindex="-1"></a>                <span class="fu">c</span>( <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
+<span id="cb4-15"><a href="#cb4-15" tabindex="-1"></a>                <span class="fu">c</span>( <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">0</span>),</span>
+<span id="cb4-16"><a href="#cb4-16" tabindex="-1"></a>                <span class="fu">c</span>( <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>))</span>
+<span id="cb4-17"><a href="#cb4-17" tabindex="-1"></a></span>
+<span id="cb4-18"><a href="#cb4-18" tabindex="-1"></a>Xi[,,<span class="dv">3</span>] <span class="ot">=</span> <span class="fu">rbind</span>(<span class="fu">c</span>( <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
+<span id="cb4-19"><a href="#cb4-19" tabindex="-1"></a>                <span class="fu">c</span>( <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
+<span id="cb4-20"><a href="#cb4-20" tabindex="-1"></a>                <span class="fu">c</span>( <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
+<span id="cb4-21"><a href="#cb4-21" tabindex="-1"></a>                <span class="fu">c</span>( <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">0</span>),</span>
+<span id="cb4-22"><a href="#cb4-22" tabindex="-1"></a>                <span class="fu">c</span>( <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>))</span>
+<span id="cb4-23"><a href="#cb4-23" tabindex="-1"></a></span>
+<span id="cb4-24"><a href="#cb4-24" tabindex="-1"></a> Xi[,,<span class="dv">4</span>] <span class="ot">=</span> <span class="fu">rbind</span>(<span class="fu">c</span>( <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
+<span id="cb4-25"><a href="#cb4-25" tabindex="-1"></a>                <span class="fu">c</span>( <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
+<span id="cb4-26"><a href="#cb4-26" tabindex="-1"></a>                <span class="fu">c</span>( <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
+<span id="cb4-27"><a href="#cb4-27" tabindex="-1"></a>                <span class="fu">c</span>( <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">0</span>),</span>
+<span id="cb4-28"><a href="#cb4-28" tabindex="-1"></a>                <span class="fu">c</span>( <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>))</span>
+<span id="cb4-29"><a href="#cb4-29" tabindex="-1"></a></span>
+<span id="cb4-30"><a href="#cb4-30" tabindex="-1"></a> Xi[,,<span class="dv">5</span>] <span class="ot">=</span> <span class="fu">rbind</span>(<span class="fu">c</span>( <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
+<span id="cb4-31"><a href="#cb4-31" tabindex="-1"></a>                <span class="fu">c</span>( <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
+<span id="cb4-32"><a href="#cb4-32" tabindex="-1"></a>                <span class="fu">c</span>( <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
+<span id="cb4-33"><a href="#cb4-33" tabindex="-1"></a>                <span class="fu">c</span>( <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>),</span>
+<span id="cb4-34"><a href="#cb4-34" tabindex="-1"></a>                <span class="fu">c</span>( <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>))</span>
+<span id="cb4-35"><a href="#cb4-35" tabindex="-1"></a></span>
+<span id="cb4-36"><a href="#cb4-36" tabindex="-1"></a> Xi[,,<span class="dv">6</span>] <span class="ot">=</span> <span class="fu">rbind</span>(<span class="fu">c</span>( <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
+<span id="cb4-37"><a href="#cb4-37" tabindex="-1"></a>                <span class="fu">c</span>( <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
+<span id="cb4-38"><a href="#cb4-38" tabindex="-1"></a>                <span class="fu">c</span>( <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
+<span id="cb4-39"><a href="#cb4-39" tabindex="-1"></a>                <span class="fu">c</span>( <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>),</span>
+<span id="cb4-40"><a href="#cb4-40" tabindex="-1"></a>                <span class="fu">c</span>( <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>))</span>
+<span id="cb4-41"><a href="#cb4-41" tabindex="-1"></a></span>
+<span id="cb4-42"><a href="#cb4-42" tabindex="-1"></a> Xi[,,<span class="dv">7</span>] <span class="ot">=</span> <span class="fu">rbind</span>(<span class="fu">c</span>( <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
+<span id="cb4-43"><a href="#cb4-43" tabindex="-1"></a>                <span class="fu">c</span>( <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
+<span id="cb4-44"><a href="#cb4-44" tabindex="-1"></a>                <span class="fu">c</span>( <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
+<span id="cb4-45"><a href="#cb4-45" tabindex="-1"></a>                <span class="fu">c</span>( <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">1</span>),</span>
+<span id="cb4-46"><a href="#cb4-46" tabindex="-1"></a>                <span class="fu">c</span>( <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>))</span>
+<span id="cb4-47"><a href="#cb4-47" tabindex="-1"></a></span>
+<span id="cb4-48"><a href="#cb4-48" tabindex="-1"></a> Xi[,,<span class="dv">8</span>] <span class="ot">=</span> <span class="fu">rbind</span>(<span class="fu">c</span>( <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
+<span id="cb4-49"><a href="#cb4-49" tabindex="-1"></a>                <span class="fu">c</span>( <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
+<span id="cb4-50"><a href="#cb4-50" tabindex="-1"></a>                <span class="fu">c</span>( <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
+<span id="cb4-51"><a href="#cb4-51" tabindex="-1"></a>                <span class="fu">c</span>( <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">1</span>),</span>
+<span id="cb4-52"><a href="#cb4-52" tabindex="-1"></a>                <span class="fu">c</span>( <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>))</span>
+<span id="cb4-53"><a href="#cb4-53" tabindex="-1"></a> alloc <span class="ot">=</span> <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">8</span>,m) <span class="co">#approximate allocation</span></span>
+<span id="cb4-54"><a href="#cb4-54" tabindex="-1"></a> <span class="fu">F_func_MLM</span>(<span class="at">w=</span>alloc, <span class="at">beta=</span>beta, <span class="at">X=</span>Xi, <span class="at">link=</span><span class="st">&#39;cumulative&#39;</span>)</span>
+<span id="cb4-55"><a href="#cb4-55" tabindex="-1"></a><span class="co">#&gt;              [,1]       [,2]        [,3]        [,4]       [,5]        [,6]</span></span>
+<span id="cb4-56"><a href="#cb4-56" tabindex="-1"></a><span class="co">#&gt;  [1,]  0.44505694  1.3791556  0.43609135 -0.37247296 -1.2125205 -0.36379349</span></span>
+<span id="cb4-57"><a href="#cb4-57" tabindex="-1"></a><span class="co">#&gt;  [2,]  1.37915564  4.7841093  1.35694145 -1.21252053 -4.3143634 -1.19085831</span></span>
+<span id="cb4-58"><a href="#cb4-58" tabindex="-1"></a><span class="co">#&gt;  [3,]  0.43609135  1.3569415  0.43609135 -0.36379349 -1.1908583 -0.36379349</span></span>
+<span id="cb4-59"><a href="#cb4-59" tabindex="-1"></a><span class="co">#&gt;  [4,] -0.37247296 -1.2125205 -0.36379349  0.51192600  1.5517741  0.48018678</span></span>
+<span id="cb4-60"><a href="#cb4-60" tabindex="-1"></a><span class="co">#&gt;  [5,] -1.21252053 -4.3143634 -1.19085831  1.55177413  5.3119391  1.48241981</span></span>
+<span id="cb4-61"><a href="#cb4-61" tabindex="-1"></a><span class="co">#&gt;  [6,] -0.36379349 -1.1908583 -0.36379349  0.48018678  1.4824198  0.48018678</span></span>
+<span id="cb4-62"><a href="#cb4-62" tabindex="-1"></a><span class="co">#&gt;  [7,]  0.00000000  0.0000000  0.00000000  0.00000000  0.0000000  0.00000000</span></span>
+<span id="cb4-63"><a href="#cb4-63" tabindex="-1"></a><span class="co">#&gt;  [8,]  0.00000000  0.0000000  0.00000000  0.00000000  0.0000000  0.00000000</span></span>
+<span id="cb4-64"><a href="#cb4-64" tabindex="-1"></a><span class="co">#&gt;  [9,]  0.00000000  0.0000000  0.00000000  0.00000000  0.0000000  0.00000000</span></span>
+<span id="cb4-65"><a href="#cb4-65" tabindex="-1"></a><span class="co">#&gt; [10,] -0.09154268 -0.2202762 -0.07471168 -0.10435894 -0.2539939 -0.06194131</span></span>
+<span id="cb4-66"><a href="#cb4-66" tabindex="-1"></a><span class="co">#&gt; [11,] -0.22027625 -0.6432399 -0.18445802 -0.25399393 -0.7484274 -0.15305771</span></span>
+<span id="cb4-67"><a href="#cb4-67" tabindex="-1"></a><span class="co">#&gt; [12,] -0.07471168 -0.1844580 -0.07471168 -0.06194131 -0.1530577 -0.06194131</span></span>
+<span id="cb4-68"><a href="#cb4-68" tabindex="-1"></a><span class="co">#&gt;              [,7]       [,8]        [,9]       [,10]      [,11]       [,12]</span></span>
+<span id="cb4-69"><a href="#cb4-69" tabindex="-1"></a><span class="co">#&gt;  [1,]  0.00000000  0.0000000  0.00000000  0.00000000  0.0000000  0.00000000</span></span>
+<span id="cb4-70"><a href="#cb4-70" tabindex="-1"></a><span class="co">#&gt;  [2,]  0.00000000  0.0000000  0.00000000  0.00000000  0.0000000  0.00000000</span></span>
+<span id="cb4-71"><a href="#cb4-71" tabindex="-1"></a><span class="co">#&gt;  [3,]  0.00000000  0.0000000  0.00000000  0.00000000  0.0000000  0.00000000</span></span>
+<span id="cb4-72"><a href="#cb4-72" tabindex="-1"></a><span class="co">#&gt;  [4,] -0.09154268 -0.2202762 -0.07471168  0.00000000  0.0000000  0.00000000</span></span>
+<span id="cb4-73"><a href="#cb4-73" tabindex="-1"></a><span class="co">#&gt;  [5,] -0.22027625 -0.6432399 -0.18445802  0.00000000  0.0000000  0.00000000</span></span>
+<span id="cb4-74"><a href="#cb4-74" tabindex="-1"></a><span class="co">#&gt;  [6,] -0.07471168 -0.1844580 -0.07471168  0.00000000  0.0000000  0.00000000</span></span>
+<span id="cb4-75"><a href="#cb4-75" tabindex="-1"></a><span class="co">#&gt;  [7,]  0.29320484  0.7197889  0.16205254 -0.10435894 -0.2539939 -0.06194131</span></span>
+<span id="cb4-76"><a href="#cb4-76" tabindex="-1"></a><span class="co">#&gt;  [8,]  0.71978889  2.1331260  0.41294396 -0.25399393 -0.7484274 -0.15305771</span></span>
+<span id="cb4-77"><a href="#cb4-77" tabindex="-1"></a><span class="co">#&gt;  [9,]  0.16205254  0.4129440  0.16205254 -0.06194131 -0.1530577 -0.06194131</span></span>
+<span id="cb4-78"><a href="#cb4-78" tabindex="-1"></a><span class="co">#&gt; [10,]  0.00000000  0.0000000  0.00000000  0.17861575  0.4528762  0.06925715</span></span>
+<span id="cb4-79"><a href="#cb4-79" tabindex="-1"></a><span class="co">#&gt; [11,]  0.00000000  0.0000000  0.00000000  0.45287619  1.3718019  0.17395849</span></span>
+<span id="cb4-80"><a href="#cb4-80" tabindex="-1"></a><span class="co">#&gt; [12,]  0.00000000  0.0000000  0.00000000  0.06925715  0.1739585  0.06925715</span></span></code></pre></div>
+</div>
+</div>
+<div id="data-trial_data-constrained-sampling-with-glm" class="section level2">
+<h2>Data: trial_data &amp; Constrained sampling with GLM</h2>
+<p><em>trial_data</em> is a simulated dataset that contains <span class="math inline">\(N=500\)</span> volunteers gender, age, and final
+efficacy information. The details as below: gender is coded as <span class="math inline">\(0\)</span> for female and <span class="math inline">\(1\)</span> for male. Age group is coded as both
+<span class="math inline">\(age\_1 = 0\)</span> and <span class="math inline">\(age\_2 = 0\)</span> for ages <span class="math inline">\(18\sim25\)</span>, <span class="math inline">\(age\_1 = 1\)</span> for ages <span class="math inline">\(26\sim64\)</span>, and <span class="math inline">\(age\_2 = 1\)</span> for ages <span class="math inline">\(65\)</span> and above. The number of design points
+<span class="math inline">\(m=6\)</span>, that is, the number of
+combinations of gender and age groups <span class="math inline">\((x_{gender\_i}, x_{age\_1i}, x_{age\_2i})\)</span>
+corresponds to <span class="math inline">\((0,0,0)\)</span>, <span class="math inline">\((0,1,0)\)</span>, <span class="math inline">\((0,0,1)\)</span>, <span class="math inline">\((1,0,0)\)</span>, <span class="math inline">\((1,1,0)\)</span>, <span class="math inline">\((1,0,1)\)</span>. We have the number of patients
+in each category as $(N_1, N_2, , N_6) = (50, 40, 10, $ <span class="math inline">\(200, 150, 50)\)</span>. Suppose that a sample of
+<span class="math inline">\(n=200\)</span> participants is required due
+to budget limit.Our goal is to find the constrained D-optimal allocation
+<span class="math inline">\((w_1, w_2, \dots, w_6)\)</span> with
+feasible allocation <span class="math inline">\(S = \{(w_1, \ldots,
+w_m)^T \in S_0 \mid n w_i \leq N_i, i=1, \ldots, m\}\)</span>.</p>
+<p>We can use constrained lift-one algorithm
+<em>liftone_constrained_GLM</em> to find the locally D-optimal
+approximate sampling allocations.</p>
+<p>We consider the logistic regression model for <span class="math inline">\(j=1,\dots,m\)</span>, <span class="math inline">\(i=1,\dots,n_j\)</span> with <span class="math inline">\(\boldsymbol \beta=(\beta_{1}, \beta_{21},
+\beta_{22}= (0,3,3,3)\)</span>:</p>
+<p><span class="math display">\[\begin{equation}\label{eq:trial_logistic_model}
+{\rm logit} \{P(Y_{ij}=1 \mid x_{gender\_i}, x_{age\_1i}, x_{age\_2i})\}
+= \beta_0 + \beta_1 x_{gender\_i} + \beta_{21} x_{age\_1i} + \beta_{22}
+x_{age\_2i}
+\end{equation}\]</span></p>
+<p>We use the following R codes to define the beta coefficients, sample
+size, and design matrix:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>beta <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>) <span class="co">#coefficients </span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>X<span class="ot">=</span><span class="fu">matrix</span>(<span class="at">data=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>), <span class="at">ncol=</span><span class="dv">4</span>, <span class="at">byrow=</span><span class="cn">TRUE</span>) <span class="co">#design matrix X</span></span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>nsample<span class="ot">=</span><span class="dv">200</span> <span class="co">#sample size</span></span></code></pre></div>
+<p>To run the <em>liftone_constrained_GLM</em> function, we also need to
+the <span class="math inline">\(\mathbf W\)</span> matrix from the
+calculation of Fisher information matrix, we can use the
+<em>W_func_GLM</em> function in the package:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>W_matrix<span class="ot">=</span><span class="fu">W_func_GLM</span>(<span class="at">X=</span>X, <span class="at">b=</span>beta, <span class="at">link=</span><span class="st">&quot;logit&quot;</span>) <span class="co">#W matrix</span></span></code></pre></div>
+<p>Lastly, we also need to define the constraints (number of patients
+from different gender and age group) and boundaries for constrained
+sampling (please see the reference for details of lower bound <span class="math inline">\(r_{i1}\)</span> and upper bound <span class="math inline">\(r_{i2}\)</span>):</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>rc <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">40</span>, <span class="dv">10</span>, <span class="dv">200</span>, <span class="dv">150</span>, <span class="dv">50</span>)<span class="sc">/</span>nsample</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>m <span class="ot">=</span> <span class="dv">6</span></span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>g.con <span class="ot">=</span> <span class="fu">matrix</span>(<span class="dv">0</span>,<span class="at">nrow=</span>(<span class="dv">2</span><span class="sc">*</span>m<span class="sc">+</span><span class="dv">1</span>), <span class="at">ncol=</span>m)</span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>g.con[<span class="dv">1</span>,] <span class="ot">=</span> <span class="fu">rep</span>(<span class="dv">1</span>, m)</span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>g.con[<span class="dv">2</span><span class="sc">:</span>(m<span class="sc">+</span><span class="dv">1</span>),] <span class="ot">=</span> <span class="fu">diag</span>(m)</span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a>g.con[(m<span class="sc">+</span><span class="dv">2</span>)<span class="sc">:</span>(<span class="dv">2</span><span class="sc">*</span>m<span class="sc">+</span><span class="dv">1</span>), ] <span class="ot">=</span> <span class="fu">diag</span>(m)</span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a>g.dir <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;==&quot;</span>, <span class="fu">rep</span>(<span class="st">&quot;&lt;=&quot;</span>, m), <span class="fu">rep</span>(<span class="st">&quot;&gt;=&quot;</span>, m))</span>
+<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a>g.rhs <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">1</span>, rc, <span class="fu">rep</span>(<span class="dv">0</span>, m))</span>
+<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a>lower.bound<span class="ot">=</span><span class="cf">function</span>(i, w){</span>
+<span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a>  nsample <span class="ot">=</span> <span class="dv">200</span></span>
+<span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a>  rc <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">40</span>, <span class="dv">10</span>, <span class="dv">200</span>, <span class="dv">150</span>, <span class="dv">50</span>)<span class="sc">/</span>nsample</span>
+<span id="cb7-13"><a href="#cb7-13" tabindex="-1"></a>  m<span class="ot">=</span><span class="fu">length</span>(w) <span class="co">#num of categories</span></span>
+<span id="cb7-14"><a href="#cb7-14" tabindex="-1"></a>  temp <span class="ot">=</span> <span class="fu">rep</span>(<span class="dv">0</span>,m)</span>
+<span id="cb7-15"><a href="#cb7-15" tabindex="-1"></a>  temp[w<span class="sc">&gt;</span><span class="dv">0</span>]<span class="ot">=</span><span class="dv">1</span><span class="sc">-</span><span class="fu">pmin</span>(<span class="dv">1</span>,rc[w<span class="sc">&gt;</span><span class="dv">0</span>])<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>w[i])<span class="sc">/</span>w[w<span class="sc">&gt;</span><span class="dv">0</span>];</span>
+<span id="cb7-16"><a href="#cb7-16" tabindex="-1"></a>  temp[i]<span class="ot">=</span><span class="dv">0</span>;</span>
+<span id="cb7-17"><a href="#cb7-17" tabindex="-1"></a>  <span class="fu">max</span>(<span class="dv">0</span>,temp);</span>
+<span id="cb7-18"><a href="#cb7-18" tabindex="-1"></a>}</span>
+<span id="cb7-19"><a href="#cb7-19" tabindex="-1"></a></span>
+<span id="cb7-20"><a href="#cb7-20" tabindex="-1"></a>upper.bound<span class="ot">=</span><span class="cf">function</span>(i, w){</span>
+<span id="cb7-21"><a href="#cb7-21" tabindex="-1"></a>  nsample <span class="ot">=</span> <span class="dv">200</span></span>
+<span id="cb7-22"><a href="#cb7-22" tabindex="-1"></a>  rc <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">40</span>, <span class="dv">10</span>, <span class="dv">200</span>, <span class="dv">150</span>, <span class="dv">50</span>)<span class="sc">/</span>nsample</span>
+<span id="cb7-23"><a href="#cb7-23" tabindex="-1"></a>  m<span class="ot">=</span><span class="fu">length</span>(w) <span class="co">#num of categories</span></span>
+<span id="cb7-24"><a href="#cb7-24" tabindex="-1"></a>  rc[i];</span>
+<span id="cb7-25"><a href="#cb7-25" tabindex="-1"></a>  <span class="fu">min</span>(<span class="dv">1</span>,rc[i])</span>
+<span id="cb7-26"><a href="#cb7-26" tabindex="-1"></a>}</span></code></pre></div>
+<p>Now, we can run the constrained lift-one algorithm:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>approximate_design <span class="ot">=</span> <span class="fu">liftone_constrained_GLM</span>(<span class="at">X=</span>X, <span class="at">W=</span>W_matrix, <span class="at">g.con=</span>g.con, <span class="at">g.dir=</span>g.dir, </span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>                                               <span class="at">g.rhs=</span>g.rhs, <span class="at">lower.bound=</span>lower.bound, </span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>                                               <span class="at">upper.bound=</span>upper.bound, <span class="at">reltol=</span><span class="fl">1e-10</span>, </span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>                                               <span class="at">maxit=</span><span class="dv">100</span>, <span class="at">random=</span><span class="cn">TRUE</span>, <span class="at">nram=</span><span class="dv">4</span>, <span class="at">w00=</span><span class="cn">NULL</span>, </span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a>                                               <span class="at">epsilon=</span><span class="fl">1e-8</span>)</span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a><span class="fu">print</span>(approximate_design)</span>
+<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a><span class="co">#&gt; $w</span></span>
+<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a><span class="co">#&gt; [1] 0.25 0.20 0.05 0.50 0.00 0.00</span></span>
+<span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a><span class="co">#&gt; $w0</span></span>
+<span id="cb8-12"><a href="#cb8-12" tabindex="-1"></a><span class="co">#&gt; [1] 0.25 0.20 0.05 0.50 0.00 0.00</span></span>
+<span id="cb8-13"><a href="#cb8-13" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb8-14"><a href="#cb8-14" tabindex="-1"></a><span class="co">#&gt; $maximum</span></span>
+<span id="cb8-15"><a href="#cb8-15" tabindex="-1"></a><span class="co">#&gt; [1] 2.881326e-08</span></span>
+<span id="cb8-16"><a href="#cb8-16" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb8-17"><a href="#cb8-17" tabindex="-1"></a><span class="co">#&gt; $convergence</span></span>
+<span id="cb8-18"><a href="#cb8-18" tabindex="-1"></a><span class="co">#&gt; [1] TRUE</span></span>
+<span id="cb8-19"><a href="#cb8-19" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb8-20"><a href="#cb8-20" tabindex="-1"></a><span class="co">#&gt; $itmax</span></span>
+<span id="cb8-21"><a href="#cb8-21" tabindex="-1"></a><span class="co">#&gt; [1] 1</span></span>
+<span id="cb8-22"><a href="#cb8-22" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb8-23"><a href="#cb8-23" tabindex="-1"></a><span class="co">#&gt; $deriv.ans</span></span>
+<span id="cb8-24"><a href="#cb8-24" tabindex="-1"></a><span class="co">#&gt; [1]  0.000000e+00  3.601657e-08  4.852759e-07 -1.152530e-07 -1.031041e-07</span></span>
+<span id="cb8-25"><a href="#cb8-25" tabindex="-1"></a><span class="co">#&gt; [6] -7.950737e-08</span></span>
+<span id="cb8-26"><a href="#cb8-26" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb8-27"><a href="#cb8-27" tabindex="-1"></a><span class="co">#&gt; $gmax</span></span>
+<span id="cb8-28"><a href="#cb8-28" tabindex="-1"></a><span class="co">#&gt; [1] 0</span></span>
+<span id="cb8-29"><a href="#cb8-29" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb8-30"><a href="#cb8-30" tabindex="-1"></a><span class="co">#&gt; $reason</span></span>
+<span id="cb8-31"><a href="#cb8-31" tabindex="-1"></a><span class="co">#&gt; [1] &quot;gmax &lt;= 0&quot;</span></span></code></pre></div>
+<p>To find the exact allocation (integer value of allocation), we can
+use the <em>approxtoexact_constrained_func</em>:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>exact_design <span class="ot">=</span> <span class="fu">approxtoexact_constrained_func</span>(<span class="at">n=</span><span class="dv">200</span>, <span class="at">w=</span>approximate_design<span class="sc">$</span>w, <span class="at">m=</span><span class="dv">6</span>, </span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>                                                           <span class="at">beta=</span>beta, <span class="at">link=</span><span class="st">&#39;logit&#39;</span>, <span class="at">X=</span>X, </span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>                                                           <span class="at">Fdet_func=</span>Fdet_func_GLM, </span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a>                                                          <span class="at">iset_func=</span>iset_func_trial) </span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a><span class="fu">print</span>(exact_design)</span>
+<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a><span class="co">#&gt; $allocation</span></span>
+<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a><span class="co">#&gt; [1]  50  40  10 100   0   0</span></span>
+<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a><span class="co">#&gt; $allocation.real</span></span>
+<span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a><span class="co">#&gt; [1] 0.25 0.20 0.05 0.50 0.00 0.00</span></span>
+<span id="cb9-12"><a href="#cb9-12" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb9-13"><a href="#cb9-13" tabindex="-1"></a><span class="co">#&gt; $det.maximum</span></span>
+<span id="cb9-14"><a href="#cb9-14" tabindex="-1"></a><span class="co">#&gt; [1] 46.10121</span></span></code></pre></div>
+<p><strong>Note:</strong></p>
+<pre><code>If we cannot obtain an approximated value of beta coefficients, we can also try to find the EW D-optimal allocations instead. For EW D-optimal allocation, we can come up with some prior distributions of beta coefficients, and replace the coefficients value with expectation of those prior distributions in the R codes. (Please see reference for more details). </code></pre>
+<p>If there is no knowledge of beta coefficients, we can use constrained
+uniform design:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>w00 <span class="ot">=</span> <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">200</span>, <span class="dv">6</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>unif_design <span class="ot">=</span> <span class="fu">approxtoexact_constrained_func</span>(<span class="at">n=</span><span class="dv">200</span>, <span class="at">w=</span>w00, <span class="at">m=</span><span class="dv">6</span>, <span class="at">beta=</span><span class="cn">NULL</span>, </span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a>  <span class="at">link=</span><span class="cn">NULL</span>, <span class="at">X=</span><span class="cn">NULL</span>, <span class="at">Fdet_func=</span>Fdet_func_unif, <span class="at">iset_func=</span>iset_func_trial)</span>
+<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a><span class="fu">print</span>(unif_design)</span>
+<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a><span class="co">#&gt; $allocation</span></span>
+<span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a><span class="co">#&gt; [1] 38 38 10 38 38 38</span></span>
+<span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb11-9"><a href="#cb11-9" tabindex="-1"></a><span class="co">#&gt; $allocation.real</span></span>
+<span id="cb11-10"><a href="#cb11-10" tabindex="-1"></a><span class="co">#&gt; [1] 0.005 0.005 0.005 0.005 0.005 0.005</span></span>
+<span id="cb11-11"><a href="#cb11-11" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb11-12"><a href="#cb11-12" tabindex="-1"></a><span class="co">#&gt; $det.maximum</span></span>
+<span id="cb11-13"><a href="#cb11-13" tabindex="-1"></a><span class="co">#&gt; [1] 792351680</span></span></code></pre></div>
+</div>
+<div id="data-trauma_data-constrained-sampling-with-mlm" class="section level2">
+<h2>Data: trauma_data &amp; Constrained sampling with MLM</h2>
+<p><em>trauma_data</em> consists of <span class="math inline">\(N=802\)</span> trauma patients. After the
+treatment, there are five outcomes, Death (<span class="math inline">\(1\)</span>), Vegetative state (<span class="math inline">\(2\)</span>), Major disability (<span class="math inline">\(3\)</span>), Minor disability (<span class="math inline">\(4\)</span>) and Good recovery (<span class="math inline">\(5\)</span>). We consider two covariates, the
+symptoms of the trauma (<span class="math inline">\(x_{i1} = 0\)</span>
+for mild or <span class="math inline">\(1\)</span> for moderate
+/severe), there are <span class="math inline">\(392\)</span> mild
+symptoms patients, and <span class="math inline">\(410\)</span>
+moderate/severe symptoms patients. The other covariate is the treatment
+dose levels (<span class="math inline">\(x_{i2} = 1\)</span> (Placebo),
+<span class="math inline">\(2\)</span> (Low dose), <span class="math inline">\(3\)</span> (Medium dose), and <span class="math inline">\(4\)</span> (High dose). In total, we have <span class="math inline">\(m=8\)</span> design points from the combination of
+levels from the two covariates. In this study, we plan to enroll <span class="math inline">\(n=600\)</span> patients and the collection of
+feasible allocation is <span class="math inline">\(S=\{(w_1, \ldots,
+w_8)^\top \in S_0\mid n(w_1+w_2+w_3+w_4) \leq 392, n(w_5+w_6+w_7+w_8)
+\leq 410\}\)</span>. The model can be written as:<span class="math display">\[\log(\frac{\pi_{i1}}{\pi_{i2}+\dots+\pi_{i5}}) =
+\beta_{11}+\beta_{12}x_{i1}+\beta_{13}x_{i2}\]</span> <span class="math display">\[\log(\frac{\pi_{i1}+\pi_{i2}}{\pi_{i3}+\pi_{i4}+\pi_{i5}})
+= \beta_{21}+\beta_{22}x_{i1}+\beta_{23}x_{i2}\]</span> <span class="math display">\[\log(\frac{\pi_{i1}+\pi_{i2}+\pi_{i3}}{\pi_{i4}+\pi_{i5}})
+= \beta_{31}+\beta_{32}x_{i1}+\beta_{33}x_{i2}\]</span> <span class="math display">\[\log(\frac{\pi_{i1}+\dots+\pi_{i4}}{\pi_{i5}}) =
+\beta_{41}+\beta_{42}x_{i1}+\beta_{43}x_{i2}\]</span></p>
+<p>In this example, we assume the parameter to be <span class="math inline">\(\boldsymbol\beta = (\hat\beta_{11},
+\hat\beta_{21}, \hat\beta_{31}, \hat\beta_{41}, \hat\beta_{12},
+\hat\beta_{22}, \hat\beta_{32}, \hat\beta_{42}, \hat\beta_{13},
+\hat\beta_{23}, \hat\beta_{33}, \hat\beta_{43})^\top = (-4.047, -2.225,
+-0.302, 1.386, 4.214, 3.519,\\ 2.420, 1.284, -0.131, -0.376, -0.237,
+-0.120)^\top\)</span>. In total, we have <span class="math inline">\(m=8\)</span> design points from the combination of
+levels from the two covariates. In this study, we plan to enroll <span class="math inline">\(n=600\)</span> patients and the collection of
+feasible allocation is <span class="math inline">\(S=\{(w_1, \ldots,
+w_8)^\top \in S_0\mid n(w_1+w_2+w_3+w_4) \leq 392, n(w_5+w_6+w_7+w_8)
+\leq 410\}\)</span>.</p>
+<p>For this example, we can reuse the set-up of design matrix and beta
+coefficients from the MLM Fisher information matrix:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a>J<span class="ot">=</span><span class="dv">5</span>; p<span class="ot">=</span><span class="dv">12</span>; m<span class="ot">=</span><span class="dv">8</span>; </span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>beta <span class="ot">=</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">4.047</span>, <span class="sc">-</span><span class="fl">0.131</span>, <span class="fl">4.214</span>, <span class="sc">-</span><span class="fl">2.225</span>, <span class="sc">-</span><span class="fl">0.376</span>, <span class="fl">3.519</span>, <span class="sc">-</span><span class="fl">0.302</span>,</span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a>    <span class="sc">-</span><span class="fl">0.237</span>,  <span class="fl">2.420</span>, <span class="fl">1.386</span>,  <span class="sc">-</span><span class="fl">0.120</span>,  <span class="fl">1.284</span>)</span>
+<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a>Xi<span class="ot">=</span><span class="fu">rep</span>(<span class="dv">0</span>,J<span class="sc">*</span>p<span class="sc">*</span>m)   </span>
+<span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a><span class="fu">dim</span>(Xi)<span class="ot">=</span><span class="fu">c</span>(J,p,m)</span>
+<span id="cb12-6"><a href="#cb12-6" tabindex="-1"></a>Xi[,,<span class="dv">1</span>] <span class="ot">=</span> <span class="fu">rbind</span>(<span class="fu">c</span>( <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
+<span id="cb12-7"><a href="#cb12-7" tabindex="-1"></a>                <span class="fu">c</span>( <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
+<span id="cb12-8"><a href="#cb12-8" tabindex="-1"></a>                <span class="fu">c</span>( <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
+<span id="cb12-9"><a href="#cb12-9" tabindex="-1"></a>                <span class="fu">c</span>( <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>),</span>
+<span id="cb12-10"><a href="#cb12-10" tabindex="-1"></a>                <span class="fu">c</span>( <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>))</span>
+<span id="cb12-11"><a href="#cb12-11" tabindex="-1"></a></span>
+<span id="cb12-12"><a href="#cb12-12" tabindex="-1"></a>Xi[,,<span class="dv">2</span>] <span class="ot">=</span> <span class="fu">rbind</span>(<span class="fu">c</span>( <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
+<span id="cb12-13"><a href="#cb12-13" tabindex="-1"></a>                <span class="fu">c</span>( <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
+<span id="cb12-14"><a href="#cb12-14" tabindex="-1"></a>                <span class="fu">c</span>( <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
+<span id="cb12-15"><a href="#cb12-15" tabindex="-1"></a>                <span class="fu">c</span>( <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">0</span>),</span>
+<span id="cb12-16"><a href="#cb12-16" tabindex="-1"></a>                <span class="fu">c</span>( <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>))</span>
+<span id="cb12-17"><a href="#cb12-17" tabindex="-1"></a></span>
+<span id="cb12-18"><a href="#cb12-18" tabindex="-1"></a>Xi[,,<span class="dv">3</span>] <span class="ot">=</span> <span class="fu">rbind</span>(<span class="fu">c</span>( <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
+<span id="cb12-19"><a href="#cb12-19" tabindex="-1"></a>                <span class="fu">c</span>( <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
+<span id="cb12-20"><a href="#cb12-20" tabindex="-1"></a>                <span class="fu">c</span>( <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
+<span id="cb12-21"><a href="#cb12-21" tabindex="-1"></a>                <span class="fu">c</span>( <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">0</span>),</span>
+<span id="cb12-22"><a href="#cb12-22" tabindex="-1"></a>                <span class="fu">c</span>( <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>))</span>
+<span id="cb12-23"><a href="#cb12-23" tabindex="-1"></a></span>
+<span id="cb12-24"><a href="#cb12-24" tabindex="-1"></a> Xi[,,<span class="dv">4</span>] <span class="ot">=</span> <span class="fu">rbind</span>(<span class="fu">c</span>( <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
+<span id="cb12-25"><a href="#cb12-25" tabindex="-1"></a>                <span class="fu">c</span>( <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
+<span id="cb12-26"><a href="#cb12-26" tabindex="-1"></a>                <span class="fu">c</span>( <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
+<span id="cb12-27"><a href="#cb12-27" tabindex="-1"></a>                <span class="fu">c</span>( <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">0</span>),</span>
+<span id="cb12-28"><a href="#cb12-28" tabindex="-1"></a>                <span class="fu">c</span>( <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>))</span>
+<span id="cb12-29"><a href="#cb12-29" tabindex="-1"></a></span>
+<span id="cb12-30"><a href="#cb12-30" tabindex="-1"></a> Xi[,,<span class="dv">5</span>] <span class="ot">=</span> <span class="fu">rbind</span>(<span class="fu">c</span>( <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
+<span id="cb12-31"><a href="#cb12-31" tabindex="-1"></a>                <span class="fu">c</span>( <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
+<span id="cb12-32"><a href="#cb12-32" tabindex="-1"></a>                <span class="fu">c</span>( <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
+<span id="cb12-33"><a href="#cb12-33" tabindex="-1"></a>                <span class="fu">c</span>( <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>),</span>
+<span id="cb12-34"><a href="#cb12-34" tabindex="-1"></a>                <span class="fu">c</span>( <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>))</span>
+<span id="cb12-35"><a href="#cb12-35" tabindex="-1"></a></span>
+<span id="cb12-36"><a href="#cb12-36" tabindex="-1"></a> Xi[,,<span class="dv">6</span>] <span class="ot">=</span> <span class="fu">rbind</span>(<span class="fu">c</span>( <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
+<span id="cb12-37"><a href="#cb12-37" tabindex="-1"></a>                <span class="fu">c</span>( <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
+<span id="cb12-38"><a href="#cb12-38" tabindex="-1"></a>                <span class="fu">c</span>( <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
+<span id="cb12-39"><a href="#cb12-39" tabindex="-1"></a>                <span class="fu">c</span>( <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>),</span>
+<span id="cb12-40"><a href="#cb12-40" tabindex="-1"></a>                <span class="fu">c</span>( <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>))</span>
+<span id="cb12-41"><a href="#cb12-41" tabindex="-1"></a></span>
+<span id="cb12-42"><a href="#cb12-42" tabindex="-1"></a> Xi[,,<span class="dv">7</span>] <span class="ot">=</span> <span class="fu">rbind</span>(<span class="fu">c</span>( <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
+<span id="cb12-43"><a href="#cb12-43" tabindex="-1"></a>                <span class="fu">c</span>( <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
+<span id="cb12-44"><a href="#cb12-44" tabindex="-1"></a>                <span class="fu">c</span>( <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
+<span id="cb12-45"><a href="#cb12-45" tabindex="-1"></a>                <span class="fu">c</span>( <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">1</span>),</span>
+<span id="cb12-46"><a href="#cb12-46" tabindex="-1"></a>                <span class="fu">c</span>( <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>))</span>
+<span id="cb12-47"><a href="#cb12-47" tabindex="-1"></a></span>
+<span id="cb12-48"><a href="#cb12-48" tabindex="-1"></a> Xi[,,<span class="dv">8</span>] <span class="ot">=</span> <span class="fu">rbind</span>(<span class="fu">c</span>( <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
+<span id="cb12-49"><a href="#cb12-49" tabindex="-1"></a>                <span class="fu">c</span>( <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
+<span id="cb12-50"><a href="#cb12-50" tabindex="-1"></a>                <span class="fu">c</span>( <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
+<span id="cb12-51"><a href="#cb12-51" tabindex="-1"></a>                <span class="fu">c</span>( <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">1</span>),</span>
+<span id="cb12-52"><a href="#cb12-52" tabindex="-1"></a>                <span class="fu">c</span>( <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>))</span></code></pre></div>
+<p>Similarly to the GLM example, we define the sample size, constraints,
+and boundaries using the following R codes:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a>n<span class="ot">=</span><span class="dv">600</span> <span class="co">#sample size</span></span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a>constraint <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">392</span>, <span class="dv">410</span>)  <span class="co">#mild:severe</span></span>
+<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a>lower.bound <span class="ot">&lt;-</span> <span class="cf">function</span>(i, w0){</span>
+<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a>  n <span class="ot">=</span> <span class="dv">600</span></span>
+<span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a>  constraint <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">392</span>,<span class="dv">410</span>)</span>
+<span id="cb13-7"><a href="#cb13-7" tabindex="-1"></a>  <span class="cf">if</span>(i <span class="sc">&lt;=</span> <span class="dv">4</span>){</span>
+<span id="cb13-8"><a href="#cb13-8" tabindex="-1"></a>    a.lower <span class="ot">&lt;-</span> (<span class="fu">sum</span>(w0[<span class="dv">5</span><span class="sc">:</span><span class="dv">8</span>])<span class="sc">-</span>(constraint[<span class="dv">2</span>]<span class="sc">/</span>n)<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>w0[i]))<span class="sc">/</span>(<span class="fu">sum</span>(w0[<span class="dv">5</span><span class="sc">:</span><span class="dv">8</span>]))</span>
+<span id="cb13-9"><a href="#cb13-9" tabindex="-1"></a>  }</span>
+<span id="cb13-10"><a href="#cb13-10" tabindex="-1"></a>  <span class="cf">else</span>{</span>
+<span id="cb13-11"><a href="#cb13-11" tabindex="-1"></a>    a.lower <span class="ot">&lt;-</span> (<span class="fu">sum</span>(w0[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>])<span class="sc">-</span>(constraint[<span class="dv">1</span>]<span class="sc">/</span>n)<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>w0[i]))<span class="sc">/</span>(<span class="fu">sum</span>(w0[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]))</span>
+<span id="cb13-12"><a href="#cb13-12" tabindex="-1"></a>  }</span>
+<span id="cb13-13"><a href="#cb13-13" tabindex="-1"></a>  a.lower</span>
+<span id="cb13-14"><a href="#cb13-14" tabindex="-1"></a>}</span>
+<span id="cb13-15"><a href="#cb13-15" tabindex="-1"></a></span>
+<span id="cb13-16"><a href="#cb13-16" tabindex="-1"></a>upper.bound <span class="ot">&lt;-</span> <span class="cf">function</span>(i, w0){</span>
+<span id="cb13-17"><a href="#cb13-17" tabindex="-1"></a>  n <span class="ot">=</span> <span class="dv">600</span></span>
+<span id="cb13-18"><a href="#cb13-18" tabindex="-1"></a>  constraint <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">392</span>,<span class="dv">410</span>)</span>
+<span id="cb13-19"><a href="#cb13-19" tabindex="-1"></a>  <span class="cf">if</span>(i <span class="sc">&lt;=</span> <span class="dv">4</span>){</span>
+<span id="cb13-20"><a href="#cb13-20" tabindex="-1"></a>    b.upper <span class="ot">&lt;-</span> ((constraint[<span class="dv">1</span>]<span class="sc">/</span>n)<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>w0[i]) <span class="sc">-</span> (<span class="fu">sum</span>(w0[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>])<span class="sc">-</span>w0[i]))<span class="sc">/</span>(<span class="dv">1</span><span class="sc">-</span><span class="fu">sum</span>(w0[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]))</span>
+<span id="cb13-21"><a href="#cb13-21" tabindex="-1"></a>  }</span>
+<span id="cb13-22"><a href="#cb13-22" tabindex="-1"></a>  <span class="cf">else</span>{</span>
+<span id="cb13-23"><a href="#cb13-23" tabindex="-1"></a>    b.upper <span class="ot">&lt;-</span> ((constraint[<span class="dv">2</span>]<span class="sc">/</span>n)<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>w0[i]) <span class="sc">-</span> (<span class="fu">sum</span>(w0[<span class="dv">5</span><span class="sc">:</span><span class="dv">8</span>])<span class="sc">-</span>w0[i]))<span class="sc">/</span>(<span class="dv">1</span><span class="sc">-</span><span class="fu">sum</span>(w0[<span class="dv">5</span><span class="sc">:</span><span class="dv">8</span>]))</span>
+<span id="cb13-24"><a href="#cb13-24" tabindex="-1"></a>  }</span>
+<span id="cb13-25"><a href="#cb13-25" tabindex="-1"></a>  b.upper</span>
+<span id="cb13-26"><a href="#cb13-26" tabindex="-1"></a>}</span>
+<span id="cb13-27"><a href="#cb13-27" tabindex="-1"></a></span>
+<span id="cb13-28"><a href="#cb13-28" tabindex="-1"></a>g.con <span class="ot">=</span> <span class="fu">matrix</span>(<span class="dv">0</span>,<span class="at">nrow=</span><span class="fu">length</span>(constraint)<span class="sc">+</span><span class="dv">1</span><span class="sc">+</span>m, <span class="at">ncol=</span>m)</span>
+<span id="cb13-29"><a href="#cb13-29" tabindex="-1"></a>g.con[<span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>,] <span class="ot">=</span> <span class="fu">matrix</span>(<span class="at">data=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>), <span class="at">ncol =</span> m, <span class="at">byrow=</span><span class="cn">TRUE</span>)</span>
+<span id="cb13-30"><a href="#cb13-30" tabindex="-1"></a>g.con[<span class="dv">1</span>,] <span class="ot">=</span> <span class="fu">rep</span>(<span class="dv">1</span>, m)</span>
+<span id="cb13-31"><a href="#cb13-31" tabindex="-1"></a>g.con[<span class="dv">4</span><span class="sc">:</span>(<span class="fu">length</span>(constraint)<span class="sc">+</span><span class="dv">1</span><span class="sc">+</span>m), ] <span class="ot">=</span> <span class="fu">diag</span>(<span class="dv">1</span>, <span class="at">nrow=</span>m)</span>
+<span id="cb13-32"><a href="#cb13-32" tabindex="-1"></a>g.dir <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;==&quot;</span>, <span class="st">&quot;&lt;=&quot;</span>,<span class="st">&quot;&lt;=&quot;</span>, <span class="fu">rep</span>(<span class="st">&quot;&gt;=&quot;</span>,m))</span>
+<span id="cb13-33"><a href="#cb13-33" tabindex="-1"></a>g.rhs <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="fu">ifelse</span>((constraint<span class="sc">/</span>nsample<span class="sc">&lt;</span><span class="dv">1</span>),constraint<span class="sc">/</span>nsample,<span class="dv">1</span>), <span class="fu">rep</span>(<span class="dv">0</span>, m))</span></code></pre></div>
+<p>Then, we can use the constrained lift-one algorithm to find the
+locally D-optimal approximate sampling with
+<em>liftone_constrained_MLM</em> function in the package:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a>approx_design <span class="ot">=</span> <span class="fu">liftone_constrained_MLM</span>(<span class="at">m=</span>m, <span class="at">p=</span>p, <span class="at">Xi=</span>Xi, <span class="at">J=</span>J, <span class="at">beta=</span>beta, </span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a>                                       <span class="at">lower.bound=</span>lower.bound, <span class="at">upper.bound=</span>upper.bound, </span>
+<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a>                                        <span class="at">g.con=</span>g.con, <span class="at">g.dir=</span>g.dir, <span class="at">g.rhs=</span>g.rhs, <span class="at">w00=</span><span class="cn">NULL</span>, </span>
+<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a>                                        <span class="at">link=</span><span class="st">&#39;cumulative&#39;</span>, <span class="at">Fi.func =</span> Fi_func_MLM, </span>
+<span id="cb14-5"><a href="#cb14-5" tabindex="-1"></a>                                        <span class="at">reltol=</span><span class="fl">1e-5</span>, <span class="at">maxit=</span><span class="dv">500</span>, <span class="at">delta =</span> <span class="fl">1e-6</span>, </span>
+<span id="cb14-6"><a href="#cb14-6" tabindex="-1"></a>                                        <span class="at">epsilon=</span><span class="fl">1e-8</span>, <span class="at">random=</span><span class="cn">TRUE</span>, <span class="at">nram=</span><span class="dv">5</span>)</span>
+<span id="cb14-7"><a href="#cb14-7" tabindex="-1"></a></span>
+<span id="cb14-8"><a href="#cb14-8" tabindex="-1"></a><span class="fu">print</span>(approx_design)</span>
+<span id="cb14-9"><a href="#cb14-9" tabindex="-1"></a><span class="co">#&gt; $w</span></span>
+<span id="cb14-10"><a href="#cb14-10" tabindex="-1"></a><span class="co">#&gt; [1] 0.2593557 0.0000000 0.0000000 0.1565042 0.2891564 0.0000000 0.0000000</span></span>
+<span id="cb14-11"><a href="#cb14-11" tabindex="-1"></a><span class="co">#&gt; [8] 0.2949837</span></span>
+<span id="cb14-12"><a href="#cb14-12" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb14-13"><a href="#cb14-13" tabindex="-1"></a><span class="co">#&gt; $w0</span></span>
+<span id="cb14-14"><a href="#cb14-14" tabindex="-1"></a><span class="co">#&gt; [1] 0 0 0 0 1 0 0 0</span></span>
+<span id="cb14-15"><a href="#cb14-15" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb14-16"><a href="#cb14-16" tabindex="-1"></a><span class="co">#&gt; $Maximum</span></span>
+<span id="cb14-17"><a href="#cb14-17" tabindex="-1"></a><span class="co">#&gt; [1] 1.793034e-10</span></span>
+<span id="cb14-18"><a href="#cb14-18" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb14-19"><a href="#cb14-19" tabindex="-1"></a><span class="co">#&gt; $iteration</span></span>
+<span id="cb14-20"><a href="#cb14-20" tabindex="-1"></a><span class="co">#&gt; [1] 37</span></span>
+<span id="cb14-21"><a href="#cb14-21" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb14-22"><a href="#cb14-22" tabindex="-1"></a><span class="co">#&gt; $convergence</span></span>
+<span id="cb14-23"><a href="#cb14-23" tabindex="-1"></a><span class="co">#&gt; [1] TRUE</span></span>
+<span id="cb14-24"><a href="#cb14-24" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb14-25"><a href="#cb14-25" tabindex="-1"></a><span class="co">#&gt; $deriv.ans</span></span>
+<span id="cb14-26"><a href="#cb14-26" tabindex="-1"></a><span class="co">#&gt; [1] -2.689971e-10 -6.784587e-11 -6.784587e-11 -9.687113e-10 -8.294036e-18</span></span>
+<span id="cb14-27"><a href="#cb14-27" tabindex="-1"></a><span class="co">#&gt; [6] -6.784587e-11 -6.784587e-11  5.052184e-11</span></span>
+<span id="cb14-28"><a href="#cb14-28" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb14-29"><a href="#cb14-29" tabindex="-1"></a><span class="co">#&gt; $gmax</span></span>
+<span id="cb14-30"><a href="#cb14-30" tabindex="-1"></a><span class="co">#&gt; [1] NA</span></span>
+<span id="cb14-31"><a href="#cb14-31" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb14-32"><a href="#cb14-32" tabindex="-1"></a><span class="co">#&gt; $reason</span></span>
+<span id="cb14-33"><a href="#cb14-33" tabindex="-1"></a><span class="co">#&gt; [1] &quot;all derivative &lt;=0&quot;</span></span></code></pre></div>
+<p>To get the exact allocation, we can again apply the
+<em>approxtoexact_constrained_func</em> in the package:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a>exact_design <span class="ot">=</span> <span class="fu">approxtoexact_constrained_func</span>(<span class="at">n=</span><span class="dv">600</span>, <span class="at">w=</span>approx_design<span class="sc">$</span>w, <span class="at">m=</span><span class="dv">8</span>, </span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a> <span class="at">beta=</span>beta, <span class="at">link=</span><span class="st">&#39;cumulative&#39;</span>, <span class="at">X=</span>Xi, <span class="at">Fdet_func=</span>Fdet_func_MLM, </span>
+<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a> <span class="at">iset_func=</span>iset_func_trauma)</span>
+<span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a><span class="fu">print</span>(exact_design)</span>
+<span id="cb15-6"><a href="#cb15-6" tabindex="-1"></a><span class="co">#&gt; $allocation</span></span>
+<span id="cb15-7"><a href="#cb15-7" tabindex="-1"></a><span class="co">#&gt; [1] 156   0   0  94 173   0   0 177</span></span>
+<span id="cb15-8"><a href="#cb15-8" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb15-9"><a href="#cb15-9" tabindex="-1"></a><span class="co">#&gt; $allocation.real</span></span>
+<span id="cb15-10"><a href="#cb15-10" tabindex="-1"></a><span class="co">#&gt; [1] 0.2593557 0.0000000 0.0000000 0.1565042 0.2891564 0.0000000 0.0000000</span></span>
+<span id="cb15-11"><a href="#cb15-11" tabindex="-1"></a><span class="co">#&gt; [8] 0.2949837</span></span>
+<span id="cb15-12"><a href="#cb15-12" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb15-13"><a href="#cb15-13" tabindex="-1"></a><span class="co">#&gt; $det.maximum</span></span>
+<span id="cb15-14"><a href="#cb15-14" tabindex="-1"></a><span class="co">#&gt; [1] 3.902964e+23</span></span></code></pre></div>
+<p>If there is no coefficients information, we can find the constrained
+uniform sampling with the folloiwng codes:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a>iset_func_trauma <span class="ot">&lt;-</span> <span class="cf">function</span>(allocation){</span>
+<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a>  iset <span class="ot">=</span> <span class="fu">rep</span>(<span class="dv">1</span>,<span class="dv">8</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a>  <span class="cf">if</span>(<span class="fu">sum</span>(allocation[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>])<span class="sc">&gt;=</span><span class="dv">392</span>){iset[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]<span class="ot">=</span><span class="dv">0</span>}</span>
+<span id="cb16-4"><a href="#cb16-4" tabindex="-1"></a>  <span class="cf">if</span>(<span class="fu">sum</span>(allocation[<span class="dv">5</span><span class="sc">:</span><span class="dv">8</span>])<span class="sc">&gt;=</span><span class="dv">410</span>){iset[<span class="dv">5</span><span class="sc">:</span><span class="dv">8</span>]<span class="ot">=</span><span class="dv">0</span>}</span>
+<span id="cb16-5"><a href="#cb16-5" tabindex="-1"></a>  <span class="fu">return</span>(iset)</span>
+<span id="cb16-6"><a href="#cb16-6" tabindex="-1"></a> }</span>
+<span id="cb16-7"><a href="#cb16-7" tabindex="-1"></a></span>
+<span id="cb16-8"><a href="#cb16-8" tabindex="-1"></a>unif_design <span class="ot">=</span> <span class="fu">approxtoexact_constrained_func</span>(<span class="at">n=</span><span class="dv">600</span>, <span class="at">w=</span><span class="fu">rep</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">600</span>,<span class="dv">8</span>), <span class="at">m=</span><span class="dv">8</span>, <span class="at">beta=</span><span class="cn">NULL</span>, </span>
+<span id="cb16-9"><a href="#cb16-9" tabindex="-1"></a> <span class="at">link=</span><span class="cn">NULL</span>, <span class="at">X=</span><span class="cn">NULL</span>, <span class="at">Fdet_func=</span>Fdet_func_unif, <span class="at">iset_func=</span>iset_func_trauma)</span>
+<span id="cb16-10"><a href="#cb16-10" tabindex="-1"></a></span>
+<span id="cb16-11"><a href="#cb16-11" tabindex="-1"></a>unif_design</span>
+<span id="cb16-12"><a href="#cb16-12" tabindex="-1"></a><span class="co">#&gt; $allocation</span></span>
+<span id="cb16-13"><a href="#cb16-13" tabindex="-1"></a><span class="co">#&gt; [1] 75 75 75 75 75 75 75 75</span></span>
+<span id="cb16-14"><a href="#cb16-14" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb16-15"><a href="#cb16-15" tabindex="-1"></a><span class="co">#&gt; $allocation.real</span></span>
+<span id="cb16-16"><a href="#cb16-16" tabindex="-1"></a><span class="co">#&gt; [1] 0.001666667 0.001666667 0.001666667 0.001666667 0.001666667 0.001666667</span></span>
+<span id="cb16-17"><a href="#cb16-17" tabindex="-1"></a><span class="co">#&gt; [7] 0.001666667 0.001666667</span></span>
+<span id="cb16-18"><a href="#cb16-18" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb16-19"><a href="#cb16-19" tabindex="-1"></a><span class="co">#&gt; $det.maximum</span></span>
+<span id="cb16-20"><a href="#cb16-20" tabindex="-1"></a><span class="co">#&gt; [1] 1.001129e+15</span></span></code></pre></div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
