@@ -172,6 +172,6 @@ set.seed(123)
 liftone_constrained_MLM(m=m, p=p, Xi=Xi, J=J, beta=thetavec, lower.bound=lower.bound,
 upper.bound=upper.bound, g.con=g.con,g.dir=g.dir, g.rhs=g.rhs, w00=NULL,
 link='cumulative', Fi.func = Fi_func_MLM, reltol=1e-5, maxit=500,
-delta = 1e-6, epsilon=1e-8, random=TRUE, nram=5)
+delta = 1e-6, epsilon=1e-8, random=TRUE, nram=1)
 
 }

@@ -187,7 +187,7 @@ Xi[,,3] = rbind(c( 1, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
                 c( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
 
 ## -----------------------------------------------------------------------------
-n=600 #sample size
+nsample=600 #sample size
 constraint = c(392, 410)  #mild:severe
 
 lower.bound <- function(i, w0){
@@ -223,12 +223,13 @@ g.rhs = c(1, ifelse((constraint/nsample<1),constraint/nsample,1), rep(0, m))
 
 
 ## -----------------------------------------------------------------------------
+set.seed(123)
 approx_design = liftone_constrained_MLM(m=m, p=p, Xi=Xi, J=J, beta=beta, 
                                        lower.bound=lower.bound, upper.bound=upper.bound, 
                                         g.con=g.con, g.dir=g.dir, g.rhs=g.rhs, w00=NULL, 
                                         link='cumulative', Fi.func = Fi_func_MLM, 
                                         reltol=1e-5, maxit=500, delta = 1e-6, 
-                                        epsilon=1e-8, random=TRUE, nram=5)
+                                        epsilon=1e-8, random=TRUE, nram=1)
 
 print(approx_design)
 

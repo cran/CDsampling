@@ -1,4 +1,4 @@
-516bd218907119687b2aff5787c0c747 *DESCRIPTION
+983f912f1fbe5b05c4cb62719c5b5ed1 *DESCRIPTION
 193f48496e2b6bab5ce5c8f5aec9b23d *LICENSE
 5df6916f439aeccb96a8c61f8ee1b167 *NAMESPACE
 079a198319aaee0361b6cce67781c304 *R/F_func_GLM.R
@@ -16,15 +16,15 @@ d037fa74ec3095fdd3365feac423f805 *R/iset_func_trial.R
 ed8606ce70d5083bfd42d16d44c60dd0 *R/liftone_GLM.R
 4101ef270a2714cfeaefe507dda20be3 *R/liftone_MLM.R
 720216c71aafbaed0b6a34dcf0b8c4fc *R/liftone_constrained_GLM.R
-9b1f49ddffafe2c8fe42763339bd25c6 *R/liftone_constrained_MLM.R
+6896f8cce54899c6604ec15f6e7b599b *R/liftone_constrained_MLM.R
 fa7dce608ee01275a306d43fb4fb7099 *R/trauma_data.R
 7912a6d50a695d968c96fbde67449224 *R/trial_data.R
 d44df584ea0fb3557d2aca3ee7ce2622 *build/vignette.rds
 25e6d10fd14ae7efe5790eeadc8e7a2a *data/trauma_data.rda
 f844e6e1074cc85a90b48c17b9a1a7c6 *data/trial_data.rda
-f00550884dc1ab156a9500fdb55eccf4 *inst/doc/Intro_to_CDsampling.R
-5ee2a600badeca383b89c67c312a095f *inst/doc/Intro_to_CDsampling.Rmd
-acc1458e7924a9ab2fa79886aa269794 *inst/doc/Intro_to_CDsampling.html
+f028306577f8daa2017ac4bf9845fb14 *inst/doc/Intro_to_CDsampling.R
+898509bbd8a428df9e0ac9b0a51c16ce *inst/doc/Intro_to_CDsampling.Rmd
+510ae686886a309dc292ff8bfeff0c4f *inst/doc/Intro_to_CDsampling.html
 b5e47ac0847236f507b0acf4cf03d373 *man/F_func_GLM.Rd
 19a8c17e672f5721269b0e6c647377d6 *man/F_func_MLM.Rd
 87325e18b304efd61555057d39a1c4e4 *man/Fdet_func_GLM.Rd
@@ -40,7 +40,7 @@ e780dcf0590f0f15645f5a9482f79348 *man/iset_func_trial.Rd
 55e97e2e8f5df2023ab79d0e7a0252e2 *man/liftone_GLM.Rd
 8d676e9300993a80788a1e97e5299b40 *man/liftone_MLM.Rd
 2f836cc6ee96f4276bb6634a31776f15 *man/liftone_constrained_GLM.Rd
-eab0d6db23b84c49a9196efc91a6b85b *man/liftone_constrained_MLM.Rd
+ef13f80f24875ca3ef5abdf3d7c9eef4 *man/liftone_constrained_MLM.Rd
 1d04bbc662572447ad7ccd133da0c725 *man/trauma_data.Rd
 5c9b44404ae6117ddc9b7cf512b02ae7 *man/trial_data.Rd
-5ee2a600badeca383b89c67c312a095f *vignettes/Intro_to_CDsampling.Rmd
+898509bbd8a428df9e0ac9b0a51c16ce *vignettes/Intro_to_CDsampling.Rmd
