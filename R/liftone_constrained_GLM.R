@@ -105,7 +105,7 @@ liftone_constrained_GLM <- function(X, W, g.con, g.dir, g.rhs, lower.bound, uppe
   # if(sum(w00)<1) w00 = w00 + (rc-w00)*((1-sum(w00))/sum(rc-w00));
   maximum = ftemp(w00);
   maxvec = rexp(m);     # initial values
-  convergence = F;
+  convergence=FALSE;
   p = w00;
   ind = 0;
 
@@ -145,7 +145,7 @@ liftone_constrained_GLM <- function(X, W, g.con, g.dir, g.rhs, lower.bound, uppe
       }
       ind = ind+1;
     }
-    p.ans=p; maximum.ans=maximum; p0.ans=w00; if((max(maxvec)/min(maxvec))-1 <= reltol) convergence=T;itmax=ind; # updated on 4/19/2022
+    p.ans=p; maximum.ans=maximum; p0.ans=w00; if((max(maxvec)/min(maxvec))-1 <= reltol) convergence=TRUE;itmax=ind; # updated on 4/19/2022
 
     #calculate the derivatives, updated on 4/19/2022
     derivative = rep(NA, m);
@@ -224,7 +224,7 @@ liftone_constrained_GLM <- function(X, W, g.con, g.dir, g.rhs, lower.bound, uppe
         if((ftemp(po) < ftemp(p.ans)) & (alpha_star==1)){warning("f(wo) < f(w*) and alpha*=1")} #updated 4/24/2022 check if f(po) < f(p.ans) and alpha*=1 report it
         #set new starting point and repeat lift-one #updated on 4/02/2022
         p = (1-alpha_star)*p.ans + alpha_star * po
-        convergence = F;
+        convergence=FALSE;
         maximum = ftemp(p)
       }
     }
@@ -280,7 +280,7 @@ liftone_constrained_GLM <- function(X, W, g.con, g.dir, g.rhs, lower.bound, uppe
         }
         ind = ind+1;
       }
-      p.ans=p; maximum.ans=maximum; p0.ans=w00; if((max(maxvec)/min(maxvec))-1 <= reltol) convergence=T;itmax=ind; # updated on 5/21/2022
+      p.ans=p; maximum.ans=maximum; p0.ans=w00; if((max(maxvec)/min(maxvec))-1 <= reltol) convergence=TRUE;itmax=ind; # updated on 5/21/2022
 
       #calculate the derivatives, updated on 4/19/2022
       derivative = rep(NA, m);
@@ -359,7 +359,7 @@ liftone_constrained_GLM <- function(X, W, g.con, g.dir, g.rhs, lower.bound, uppe
           if((ftemp(po) < ftemp(p.ans)) & (alpha_star==1)){warning("f(wo)<f(w*) and alpha*=1")} #updated 4/24/2022 check if f(po) < f(p.ans) and alpha*=1 report it
           #set new starting point and repeat lift-one #updated on 4/02/2022
           p = (1-alpha_star)*p.ans + alpha_star * po
-          convergence = F;
+          convergence=FALSE;
           maximum = ftemp(p)
         }
       }
@@ -371,17 +371,19 @@ liftone_constrained_GLM <- function(X, W, g.con, g.dir, g.rhs, lower.bound, uppe
       deriv.report = deriv.ans
       po.report = po
       gmax.report = gmax
-      convergence=F;
-      if((max(maxvec)/min(maxvec))-1 <= reltol) convergence=T;
+      convergence=FALSE;
+      if((max(maxvec)/min(maxvec))-1 <= reltol) convergence=TRUE;
       p0.report=p0.ans;
       itmax=ind;
       reason.report = reason.ans
     }
   }
 
-  if((max(maxvec)/min(maxvec))-1 <= reltol) convergence=T;itmax=ind;
-
-  list(w=p.report, w0=p0.report, maximum=maximum.report, convergence=convergence, itmax=itmax, deriv.ans=deriv.report, gmax=gmax.report, reason=reason.report);
+  if((max(maxvec)/min(maxvec))-1 <= reltol) convergence=TRUE;itmax=ind;
+  #define S3 class
+  output <- list(w=p.report, w0=p0.report, maximum=maximum.report, convergence=convergence, itmax=itmax, deriv.ans=deriv.report, gmax=gmax.report, reason=reason.report);
+  class(output)<-"list_output"
+  return(output)
 }
 
 

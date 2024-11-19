@@ -117,7 +117,7 @@ thetavec = c(-4.047, -0.131, 4.214, -2.225, -0.376, 3.519,
 -0.302, -0.237,  2.420, 1.386,  -0.120,  1.284)
 
 liftone_MLM(m=m, p=p, Xi=Xi, J=J, beta=thetavec, link = "cumulative",
-Fi.func=Fi_func_MLM, reltol=1e-5, maxit=500, w00=NULL, random=TRUE, nram=3)
+Fi.func=Fi_func_MLM, reltol=1e-5, maxit=5000, w00=NULL, random=TRUE, nram=3)
 
 
 }

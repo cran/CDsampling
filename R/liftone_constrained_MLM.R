@@ -230,7 +230,7 @@ liftone_constrained_MLM <- function(m, p, Xi, J, beta, lower.bound, upper.bound,
   } #if no initial design w00, then generate a random initial design w00
   maximum = fdet(w00);
   maxvec = rexp(m);
-  convergence = F;
+  convergence=FALSE;
   p0 = w00;
   ind = 0;
   iter = 0;
@@ -368,7 +368,7 @@ liftone_constrained_MLM <- function(m, p, Xi, J, beta, lower.bound, upper.bound,
         #set new starting point and repeat lift-one #updated on 4/02/2022
         p0 = (1-alpha_star)*p0.ans + alpha_star * po
         maximum = fdet(p0);
-        convergence = F;
+        convergence=FALSE;
       }
 
     }
@@ -544,7 +544,7 @@ liftone_constrained_MLM <- function(m, p, Xi, J, beta, lower.bound, upper.bound,
             #set new starting point and repeat lift-one #updated on 4/02/2022
             p0 = (1-alpha_star)*p0.ans + alpha_star * po
             maximum = fdet(p0);
-            convergence = F;
+            convergence=FALSE;
           }
 
         }
@@ -553,8 +553,8 @@ liftone_constrained_MLM <- function(m, p, Xi, J, beta, lower.bound, upper.bound,
       if(maximum.ans > maximum.report) {
         maximum.report=maximum.ans;
         p0.report=p0.ans;
-        convergence=F;
-        if((max(maxvec)/min(maxvec))-1 <= reltol) convergence=T;
+        convergence=FALSE;
+        if((max(maxvec)/min(maxvec))-1 <= reltol) convergence=TRUE;
         w00.original=w00.ans;
         derivative.report = derivative
         po.report = po
@@ -569,9 +569,13 @@ liftone_constrained_MLM <- function(m, p, Xi, J, beta, lower.bound, upper.bound,
   #cat(iter,"th, p0=", p0, "; maximum=",maximum, "\n") #updated 5/09/2022
   #maximum.adj=maximum.report*n^p;
   #fdet.adj=Fdet*n^p;
-  if((max(maxvec)/min(maxvec))-1 <= reltol) convergence=T;
+  if((max(maxvec)/min(maxvec))-1 <= reltol) convergence=TRUE;
   itmax=ind;
   #effi=(Fdet/maximum.report)^(1/p)
-  list(w=p0.report, w0=w00.original, Maximum=maximum.report, iteration=ind, convergence=convergence, deriv.ans = derivative.report, gmax=gmax.report, reason = reason.report); # updated on 4/02/2022
+
+  #define S3 class
+  output<-list(w=p0.report, w0=w00.original, Maximum=maximum.report, itmax=ind, convergence=convergence, deriv.ans = derivative.report, gmax=gmax.report, reason = reason.report); # updated on 4/02/2022
+  class(output) <- "list_output"
+  return(output)
 }
 

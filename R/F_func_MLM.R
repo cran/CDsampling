@@ -82,5 +82,8 @@ F_func_MLM <- function(w, beta, X, link){
   }
 
   Fisher_matrix=apply(nFi,c(1,2),sum)        # F = sum_i n_i*F_i
+
+  #assign S3 class
+  class(Fisher_matrix)<-"matrix_output"
   return(Fisher_matrix)
 }

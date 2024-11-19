@@ -16,7 +16,7 @@ F_func_GLM(w, beta, X, link = "logit")
 \item{link}{link function, default"logit", choose from "logit", "cloglog", "loglog", "probit", and "identity"(for regular linear regression)}
 }
 \value{
-Fisher information matrix given X and model parameter beta
+object of class "matrix_output", Fisher information matrix given X and model parameter beta
 }
 \description{
 Fisher information matrix of generalized linear model (GLM)
@@ -25,8 +25,6 @@ Fisher information matrix of generalized linear model (GLM)
 w = c(1/3,1/3, 1/3)
 beta = c(0.5, 0.5, 0.5)
 X = matrix(data=c(1,-1,-1,1,-1,1,1,1,-1), byrow=TRUE, nrow=3)
-Fdet_func_GLM(w=w, beta=beta, X=X, link='logit')
-
-
+F_func_GLM(w=w, beta=beta, X=X, link='logit')
 
 }

@@ -63,6 +63,10 @@ approxtoexact_constrained_func <- function(n, w, m, beta=NULL, link=NULL, X=NULL
     k=k-1;
     if(is.null(iset_func)){iset=rep(1,m)}else{iset = iset_func(allocation)}; #check new allocation for I set
   };
-  list(allocation=allocation, allocation.real=w, det.maximum=det.maximum);
+
+  #define S3 class
+  output<-list(allocation=allocation, allocation.real=w, det.maximum=det.maximum);
+  class(output)<-"list_output"
+  return(output)
 }
 

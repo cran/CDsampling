@@ -7,7 +7,6 @@
 #' @return F_x is the Fisher information matrix at design point x_i (with model matrix X_x);
 #' @return U_x is a middle step matrix for calculation of F_x, details see Corollary 3.1 in Bu, X., Majumdar, D., & Yang, J. (2020). D-optimal designs for multinomial logistic models
 #' @export
-#'
 #' @examples
 #' X_x_temp = rbind(c( 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
 #'                 c( 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0),
@@ -83,9 +82,14 @@ Fi_func_MLM = function(X_x, beta, link){
     }
   }# end of double for loop
 
-  #symmetric U so upper triangle = lower triangle
-  U[lower.tri(U)] = U[upper.tri(U)]
+  #symmetric U codes, lower triangle = transpose lower triangle (update 11/17/2024)
+  ind_temp=lower.tri(U)
+  U[ind_temp]=t(U)[ind_temp]
 
   F_x = t(X_x) %*% U %*% X_x
-  list(F_x = F_x, U_x = U)
+
+  #define S3 class
+  output <-list(F_x = F_x, U_x = U)
+  class(output)<-"matrix_list"
+  return(output)
 } #end of Fi.func

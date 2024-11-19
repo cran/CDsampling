@@ -7,7 +7,6 @@
 #'
 #' @return the diagonal element nu of GLM Fisher information matrix, can be used as w in liftone_constrained_GLM
 #' @export
-#'
 #' @examples
 #' beta = c(0, 3, 3, 3) #main effect model beta_0, beta_1, beta_21, beta_22
 #' #gives the 6 categories (0,0,0), (0,1,0),(0,0,1),(1,0,0),(1,1,0),(1,0,1)

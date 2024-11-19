@@ -8,10 +8,10 @@
 #'
 #' @examples
 #'
-#' constrained_uniform(Ni=c(50, 40, 10, 200, 150, 50), nsample=200)
+#' bounded_uniform(Ni=c(50, 40, 10, 200, 150, 50), nsample=200)
 #'
 
-constrained_uniform = function(Ni, nsample){
+bounded_uniform = function(Ni, nsample){
   N = sum(Ni) #population size
   nsample.temp = nsample #sample size
   m = m.temp = length(Ni) #num of categories
@@ -35,5 +35,9 @@ constrained_uniform = function(Ni, nsample){
     id = sample(seq(1,m), diff)
     n[id]=n[id]+1;
   };
-  return(n)
+  #define S3 class
+  output <- list(allocation=n)
+  class(output)<-"list_output"
+  return(output)
+
 }

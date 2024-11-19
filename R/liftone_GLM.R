@@ -44,7 +44,7 @@ liftone_GLM <- function(X, W, reltol=1e-5, maxit=500, random=TRUE, nram=3, w00=N
   if(is.null(w00)) w00=rep(1/m,m);
   maximum = ftemp(w00);
   maxvec = rexp(m);
-  convergence = F;
+  convergence=FALSE;
   p = w00;
   ind = 0;
   while((ind < maxit) && ((max(maxvec,na.rm=T)/min(maxvec,na.rm=T))-1 > reltol)) {
@@ -70,7 +70,7 @@ liftone_GLM <- function(X, W, reltol=1e-5, maxit=500, random=TRUE, nram=3, w00=N
     }
     ind = ind+1;
   }
-  p.ans=p; maximum.ans=maximum; if((max(maxvec,na.rm=T)/min(maxvec,na.rm=T))-1 <= reltol) convergence=T;itmax=ind;
+  p.ans=p; maximum.ans=maximum; if((max(maxvec,na.rm=T)/min(maxvec,na.rm=T))-1 <= reltol) convergence=TRUE;itmax=ind;
   if(random) for(j in 1:nram) {
     p0=rexp(m);p0=p0/sum(p0);
     p=p0;
@@ -103,11 +103,15 @@ liftone_GLM <- function(X, W, reltol=1e-5, maxit=500, random=TRUE, nram=3, w00=N
     if(maximum > maximum.ans) {
       maximum.ans=maximum;
       p.ans=p;
-      convergence=F;
-      if((max(maxvec,na.rm=T)/min(maxvec,na.rm=T))-1 <= reltol) convergence=T;
+      convergence=FALSE;
+      if((max(maxvec,na.rm=T)/min(maxvec,na.rm=T))-1 <= reltol) convergence=TRUE;
       w00=p0;
       itmax=ind;
     }
   }
-  list(w=p.ans, w0=w00, Maximum=maximum.ans, itmax=itmax, convergence=convergence);  # convergence=T indicates success
+  #define S3 class
+  if((max(maxvec,na.rm=T)/min(maxvec,na.rm=T))-1 <= reltol) convergence=TRUE;
+  output <- list(w=p.ans, w0=w00, Maximum=maximum.ans, itmax=itmax, convergence=convergence);  # convergence=T indicates success
+  class(output)<-"list_output"
+  return(output)
 }

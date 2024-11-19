@@ -24,5 +24,8 @@ approxtoexact_func <- function(n, w) {
     otemp=order(-stemp)[1:k];
     ans[otemp]=ans[otemp]+1;
   };
-  ans;
+  #define S3 class
+  output=list(allocation=ans);
+  class(output)="list_output"
+  return(output)
 }

@@ -14,7 +14,7 @@ set.seed(123)
 beta = c(0.5, 0.5, 0.5)
 X = matrix(data=c(1,-1,-1,1,-1,1,1,1,-1), byrow=TRUE, nrow=3) 
 w = c(1/3,1/3,1/3) #approximate allocation
-F_func_GLM(w=w, beta=beta, X=X, link='logit')
+CDsampling::F_func_GLM(w=w, beta=beta, X=X, link='logit')
 
 ## -----------------------------------------------------------------------------
 J=5; p=12; m=8; 
@@ -70,7 +70,7 @@ Xi[,,3] = rbind(c( 1, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
                 c( 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 4, 1),
                 c( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
  alloc = rep(1/8,m) #approximate allocation
- F_func_MLM(w=alloc, beta=beta, X=Xi, link='cumulative')
+ CDsampling::F_func_MLM(w=alloc, beta=beta, X=Xi, link='cumulative')
 
 ## -----------------------------------------------------------------------------
 beta = c(0, 3, 3, 3) #coefficients 
@@ -78,7 +78,7 @@ X=matrix(data=c(1,0,0,0,1,0,1,0,1,0,0,1,1,1,0,0,1,1,1,0,1,1,0,1), ncol=4, byrow=
 nsample=200 #sample size
 
 ## -----------------------------------------------------------------------------
-W_matrix=W_func_GLM(X=X, b=beta, link="logit") #W matrix
+W_matrix=CDsampling::W_func_GLM(X=X, b=beta, link="logit") #W matrix
 
 ## -----------------------------------------------------------------------------
 rc = c(50, 40, 10, 200, 150, 50)/nsample
@@ -109,7 +109,7 @@ upper.bound=function(i, w){
 }
 
 ## -----------------------------------------------------------------------------
-approximate_design = liftone_constrained_GLM(X=X, W=W_matrix, g.con=g.con, g.dir=g.dir, 
+approximate_design = CDsampling::liftone_constrained_GLM(X=X, W=W_matrix, g.con=g.con, g.dir=g.dir, 
                                                g.rhs=g.rhs, lower.bound=lower.bound, 
                                                upper.bound=upper.bound, reltol=1e-10, 
                                                maxit=100, random=TRUE, nram=4, w00=NULL, 
@@ -118,7 +118,7 @@ approximate_design = liftone_constrained_GLM(X=X, W=W_matrix, g.con=g.con, g.dir
 print(approximate_design)
 
 ## -----------------------------------------------------------------------------
-exact_design = approxtoexact_constrained_func(n=200, w=approximate_design$w, m=6, 
+exact_design = CDsampling::approxtoexact_constrained_func(n=200, w=approximate_design$w, m=6, 
                                                            beta=beta, link='logit', X=X, 
                                                            Fdet_func=Fdet_func_GLM, 
                                                           iset_func=iset_func_trial) 
@@ -127,7 +127,7 @@ print(exact_design)
 
 ## -----------------------------------------------------------------------------
 w00 = rep(1/200, 6)
-unif_design = approxtoexact_constrained_func(n=200, w=w00, m=6, beta=NULL, 
+unif_design = CDsampling::approxtoexact_constrained_func(n=200, w=w00, m=6, beta=NULL, 
   link=NULL, X=NULL, Fdet_func=Fdet_func_unif, iset_func=iset_func_trial)
 
 print(unif_design)
@@ -224,7 +224,7 @@ g.rhs = c(1, ifelse((constraint/nsample<1),constraint/nsample,1), rep(0, m))
 
 ## -----------------------------------------------------------------------------
 set.seed(123)
-approx_design = liftone_constrained_MLM(m=m, p=p, Xi=Xi, J=J, beta=beta, 
+approx_design = CDsampling::liftone_constrained_MLM(m=m, p=p, Xi=Xi, J=J, beta=beta, 
                                        lower.bound=lower.bound, upper.bound=upper.bound, 
                                         g.con=g.con, g.dir=g.dir, g.rhs=g.rhs, w00=NULL, 
                                         link='cumulative', Fi.func = Fi_func_MLM, 
@@ -234,7 +234,7 @@ approx_design = liftone_constrained_MLM(m=m, p=p, Xi=Xi, J=J, beta=beta,
 print(approx_design)
 
 ## -----------------------------------------------------------------------------
-exact_design = approxtoexact_constrained_func(n=600, w=approx_design$w, m=8, 
+exact_design = CDsampling::approxtoexact_constrained_func(n=600, w=approx_design$w, m=8, 
  beta=beta, link='cumulative', X=Xi, Fdet_func=Fdet_func_MLM, 
  iset_func=iset_func_trauma)
 
@@ -248,7 +248,7 @@ iset_func_trauma <- function(allocation){
   return(iset)
  }
 
-unif_design = approxtoexact_constrained_func(n=600, w=rep(1/600,8), m=8, beta=NULL, 
+unif_design = CDsampling::approxtoexact_constrained_func(n=600, w=rep(1/600,8), m=8, beta=NULL, 
  link=NULL, X=NULL, Fdet_func=Fdet_func_unif, iset_func=iset_func_trauma)
 
 unif_design

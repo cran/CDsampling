@@ -80,7 +80,7 @@
 #' -0.302, -0.237,  2.420, 1.386,  -0.120,  1.284)
 #'
 #' liftone_MLM(m=m, p=p, Xi=Xi, J=J, beta=thetavec, link = "cumulative",
-#' Fi.func=Fi_func_MLM, reltol=1e-5, maxit=500, w00=NULL, random=TRUE, nram=3)
+#' Fi.func=Fi_func_MLM, reltol=1e-5, maxit=5000, w00=NULL, random=TRUE, nram=3)
 #'
 #'
 
@@ -115,7 +115,7 @@ liftone_MLM <- function(m, p, Xi, J, beta, link = "continuation", Fi.func=Fi_fun
   if(is.null(w00)) w00=w00;        # default initial point is uniform design
   maximum = fdet(w00);
   maxvec = rexp(m);
-  convergence = F;
+  convergence=FALSE;
   p0 = w00;
   ind = 0;
 
@@ -153,7 +153,7 @@ liftone_MLM <- function(m, p, Xi, J, beta, link = "continuation", Fi.func=Fi_fun
   maximum.ans=maximum;
   #maximum.adj=maximum*n^p;
   #fdet.adj=Fdet*n^p;
-  if((max(maxvec)/min(maxvec))-1 <= reltol) convergence=T;
+  if((max(maxvec)/min(maxvec))-1 <= reltol) convergence=TRUE;
   itmax=ind;
   effi=(Fdet/maximum.ans)^(1/p)
   #random initial weights
@@ -187,7 +187,7 @@ liftone_MLM <- function(m, p, Xi, J, beta, link = "continuation", Fi.func=Fi_fun
       if(is.null(w00)) w00=w00;        # default initial point is uniform design
       maximum = fdet(w00);
       maxvec = rexp(m);
-      convergence = F;
+      convergence=FALSE;
       p0 = w00;
       ind = 0;
 
@@ -226,7 +226,7 @@ liftone_MLM <- function(m, p, Xi, J, beta, link = "continuation", Fi.func=Fi_fun
         maximum.ans=maximum;
         #maximum.adj=maximum*n^p;
         #fdet.adj=Fdet*n^p;
-        if((max(maxvec)/min(maxvec))-1 <= reltol) convergence=T;
+        if((max(maxvec)/min(maxvec))-1 <= reltol) convergence=TRUE;
         itmax=ind;
         #effi=(Fdet/maximum.ans)^(1/p)
       }
@@ -235,5 +235,9 @@ liftone_MLM <- function(m, p, Xi, J, beta, link = "continuation", Fi.func=Fi_fun
 
   }#end of if(random)
 
-  list(w=p0.ans, w0=w00.ans, Maximum=maximum.ans, convergence=convergence, itmax=itmax);
+  #assign S3 class
+  if((max(maxvec)/min(maxvec))-1 <= reltol) convergence=TRUE;
+  output<-list(w=p0.ans, w0=w00.ans, Maximum=maximum.ans, convergence=convergence, itmax=itmax);
+  class(output)<-"list_output"
+  return(output)
 }
