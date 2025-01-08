@@ -10,14 +10,14 @@
 print.matrix_list <- function(x, ...) {
   cat("\nF_x:\n")
   cat("Dimensions:", dim(x$F_x)[1], "x", dim(x$F_x)[2], "\n")
-  separator1 <- paste(rep("-", ncol(x$F_x) * 5), collapse = "")
+  separator1 <- paste(rep("-", ncol(x$F_x) * 10), collapse = "")
   cat(separator1, "\n")
   print(format(x$F_x, justify = "right"), quote = FALSE)
   cat(separator1, "\n")
 
   cat("\nU_x:\n")
   cat("Dimensions:", dim(x$U_x)[1], "x", dim(x$U_x)[2], "\n")
-  separator2 <- paste(rep("-", ncol(x$U_x) * 5), collapse = "")
+  separator2 <- paste(rep("-", ncol(x$U_x) * 10), collapse = "")
   cat(separator2, "\n")
   print(format(x$U_x, justify = "right"), quote = FALSE)
   cat(separator2, "\n")

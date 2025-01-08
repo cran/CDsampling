@@ -133,6 +133,7 @@ liftone_constrained_GLM <- function(X, W, g.con, g.dir, g.rhs, lower.bound, uppe
         #update 03/02/2024 define new boundary
         z1 = max(0, lower.bound(io[i], p))
         z2 = min(1, upper.bound(io[i], p))
+
         if(a > b*d) {
           z0=(a-b*d)/((a-b)*d);
           if(z0<z1) x=z1 else {if(z0>z2) x=z2 else x=z0;};

@@ -12,7 +12,7 @@ print.matrix_output <- function(x, ...) {
   cat("Matrix:\n")
 
   # Add a separator for readability
-  separator <- paste(rep("-", ncol(x) * 5), collapse = "")
+  separator <- paste(rep("-", ncol(x) * 10), collapse = "")
   cat(separator, "\n")
 
   # Format the matrix with aligned columns

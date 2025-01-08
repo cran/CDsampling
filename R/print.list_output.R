@@ -14,15 +14,14 @@ print.list_output <- function(x, ...) {
     stop("The object is not a list.")
   }
 
-  cat("List Object:\n")
-  cat("Number of elements:", length(x), "\n")
+  cat("Optimal Sampling Results:\n")
+  cat(rep("=", 80), "\n", sep = "")
 
   for (i in seq_along(x)) {
     element <- x[[i]]
     element_name <- names(x)[i]
 
-    cat("\nElement", i, if (!is.null(element_name)) paste0(" ('", element_name, "')"), ":\n")
-    cat(rep("-", 60), "\n", sep = "")
+    cat(element_name, ":\n")
 
     if (is.matrix(element)) {
       # Pretty print for matrices
@@ -30,9 +29,30 @@ print.list_output <- function(x, ...) {
     } else if (is.data.frame(element)) {
       # Pretty print for data frames
       print(element, row.names = FALSE)
-    } else if (is.atomic(element)) {
-      # Print atomic vectors (e.g., numeric, character)
+    } else if (is.numeric(element)) {
+      # Format numeric values dynamically
+      formatted <- sapply(element, function(value) {
+        if (value == round(value, digits = 0) && grepl("\\.0$", format(value, nsmall = 1))) {
+          # If the value is an integer with a ".0", keep it as is
+          format(value, nsmall = 1)
+        } else if (value == round(value)) {
+          # If the value is a true integer, print it as an integer
+          as.character(value)
+        } else if (abs(value) < 1e-3 || abs(value) >= 1e+3) {
+          # For very small or large values, use scientific notation with 4 decimal places
+          formatC(value, format = "e", digits = 4)
+        } else {
+          # For other values, show up to 4 decimal places, removing unnecessary trailing zeros
+          sub("\\.?0+$", "", formatC(value, format = "f", digits = 4))
+        }
+      })
+      cat(paste(formatted, collapse = ", "), "\n")
+    } else if (is.logical(element)) {
+      # Print logical vectors
       cat(paste(element, collapse = ", "), "\n")
+    } else if (is.character(element)) {
+      # Print character vectors
+      cat(paste0('"', element, '"', collapse = ", "), "\n")
     } else if (is.list(element)) {
       # Indicate nested lists
       cat("Nested list with", length(element), "elements\n")
@@ -41,7 +61,7 @@ print.list_output <- function(x, ...) {
       cat("Unsupported element type:", class(element), "\n")
     }
 
-    cat(rep("-", 60), "\n", sep = "")
+    cat(rep("-", 80), "\n", sep = "")
   }
 
   invisible(x)

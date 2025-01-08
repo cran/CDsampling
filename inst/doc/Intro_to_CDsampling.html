@@ -341,8 +341,10 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(CDsampling)</span></code></pre></div>
+<p>/private/var/folders/vf/_6q3gfkd14v15hhpcwlkrnc00000gn/T/Rtmp5JWqXM/Rbuildff8711dc11fc/CDsampling/vignettes/Intro_to_CDsampling.R</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span></code></pre></div>
-<p>In the context of paid research studies and clinical trials, budget
+<p>/private/var/folders/vf/_6q3gfkd14v15hhpcwlkrnc00000gn/T/Rtmp5JWqXM/Rbuildff8711dc11fc/CDsampling/vignettes/Intro_to_CDsampling.R
+In the context of paid research studies and clinical trials, budget
 considerations and patient sampling from available populations are
 subject to inherent constraints. <strong>CDsampling</strong> integrates
 optimal design theories within the framework of constrained
@@ -382,12 +384,13 @@ use <em>F_func_GLM</em> in the package.</p>
 <span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>CDsampling<span class="sc">::</span><span class="fu">F_func_GLM</span>(<span class="at">w=</span>w, <span class="at">beta=</span>beta, <span class="at">X=</span>X, <span class="at">link=</span><span class="st">&#39;logit&#39;</span>)</span>
 <span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="co">#&gt; Dimensions: 3 x 3 </span></span>
 <span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a><span class="co">#&gt; Matrix:</span></span>
-<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a><span class="co">#&gt; --------------- </span></span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a><span class="co">#&gt; ------------------------------ </span></span>
 <span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a><span class="co">#&gt;      [,1]        [,2]        [,3]       </span></span>
 <span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a><span class="co">#&gt; [1,]  0.23500371 -0.07833457 -0.07833457</span></span>
 <span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a><span class="co">#&gt; [2,] -0.07833457  0.23500371 -0.07833457</span></span>
 <span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a><span class="co">#&gt; [3,] -0.07833457 -0.07833457  0.23500371</span></span>
-<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a><span class="co">#&gt; ---------------</span></span></code></pre></div>
+<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a><span class="co">#&gt; ------------------------------</span></span></code></pre></div>
+<p>/private/var/folders/vf/_6q3gfkd14v15hhpcwlkrnc00000gn/T/Rtmp5JWqXM/Rbuildff8711dc11fc/CDsampling/vignettes/Intro_to_CDsampling.R</p>
 </div>
 <div id="example-of-mlm-fisher-information-matrix" class="section level4">
 <h4>Example of MLM Fisher information matrix</h4>
@@ -465,7 +468,7 @@ approximate allocation for the eight design points is <span class="math inline">
 <span id="cb4-54"><a href="#cb4-54" tabindex="-1"></a> CDsampling<span class="sc">::</span><span class="fu">F_func_MLM</span>(<span class="at">w=</span>alloc, <span class="at">beta=</span>beta, <span class="at">X=</span>Xi, <span class="at">link=</span><span class="st">&#39;cumulative&#39;</span>)</span>
 <span id="cb4-55"><a href="#cb4-55" tabindex="-1"></a><span class="co">#&gt; Dimensions: 12 x 12 </span></span>
 <span id="cb4-56"><a href="#cb4-56" tabindex="-1"></a><span class="co">#&gt; Matrix:</span></span>
-<span id="cb4-57"><a href="#cb4-57" tabindex="-1"></a><span class="co">#&gt; ------------------------------------------------------------ </span></span>
+<span id="cb4-57"><a href="#cb4-57" tabindex="-1"></a><span class="co">#&gt; ------------------------------------------------------------------------------------------------------------------------ </span></span>
 <span id="cb4-58"><a href="#cb4-58" tabindex="-1"></a><span class="co">#&gt;       [,1]        [,2]        [,3]        [,4]        [,5]        [,6]       </span></span>
 <span id="cb4-59"><a href="#cb4-59" tabindex="-1"></a><span class="co">#&gt;  [1,]  0.44505694  1.37915564  0.43609135 -0.37247296 -1.21252053 -0.36379349</span></span>
 <span id="cb4-60"><a href="#cb4-60" tabindex="-1"></a><span class="co">#&gt;  [2,]  1.37915564  4.78410934  1.35694145 -1.21252053 -4.31436344 -1.19085831</span></span>
@@ -492,7 +495,8 @@ approximate allocation for the eight design points is <span class="math inline">
 <span id="cb4-81"><a href="#cb4-81" tabindex="-1"></a><span class="co">#&gt; [10,] -0.10435894 -0.25399393 -0.06194131  0.17861575  0.45287619  0.06925715</span></span>
 <span id="cb4-82"><a href="#cb4-82" tabindex="-1"></a><span class="co">#&gt; [11,] -0.25399393 -0.74842743 -0.15305771  0.45287619  1.37180187  0.17395849</span></span>
 <span id="cb4-83"><a href="#cb4-83" tabindex="-1"></a><span class="co">#&gt; [12,] -0.06194131 -0.15305771 -0.06194131  0.06925715  0.17395849  0.06925715</span></span>
-<span id="cb4-84"><a href="#cb4-84" tabindex="-1"></a><span class="co">#&gt; ------------------------------------------------------------</span></span></code></pre></div>
+<span id="cb4-84"><a href="#cb4-84" tabindex="-1"></a><span class="co">#&gt; ------------------------------------------------------------------------------------------------------------------------</span></span></code></pre></div>
+<p>/private/var/folders/vf/_6q3gfkd14v15hhpcwlkrnc00000gn/T/Rtmp5JWqXM/Rbuildff8711dc11fc/CDsampling/vignettes/Intro_to_CDsampling.R</p>
 </div>
 </div>
 <div id="data-trial_data-constrained-sampling-with-glm" class="section level2">
@@ -524,11 +528,13 @@ size, and design matrix:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>beta <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>) <span class="co">#coefficients </span></span>
 <span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>X<span class="ot">=</span><span class="fu">matrix</span>(<span class="at">data=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>), <span class="at">ncol=</span><span class="dv">4</span>, <span class="at">byrow=</span><span class="cn">TRUE</span>) <span class="co">#design matrix X</span></span>
 <span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>nsample<span class="ot">=</span><span class="dv">200</span> <span class="co">#sample size</span></span></code></pre></div>
+<p>/private/var/folders/vf/_6q3gfkd14v15hhpcwlkrnc00000gn/T/Rtmp5JWqXM/Rbuildff8711dc11fc/CDsampling/vignettes/Intro_to_CDsampling.R</p>
 <p>To run the <em>liftone_constrained_GLM</em> function, we also need to
 the <span class="math inline">\(\mathbf W\)</span> matrix from the
 calculation of Fisher information matrix, we can use the
 <em>W_func_GLM</em> function in the package:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>W_matrix<span class="ot">=</span>CDsampling<span class="sc">::</span><span class="fu">W_func_GLM</span>(<span class="at">X=</span>X, <span class="at">b=</span>beta, <span class="at">link=</span><span class="st">&quot;logit&quot;</span>) <span class="co">#W matrix</span></span></code></pre></div>
+<p>/private/var/folders/vf/_6q3gfkd14v15hhpcwlkrnc00000gn/T/Rtmp5JWqXM/Rbuildff8711dc11fc/CDsampling/vignettes/Intro_to_CDsampling.R</p>
 <p>Lastly, we also need to define the constraints (number of patients
 from different gender and age group) and boundaries for constrained
 sampling (please see the reference for details of lower bound <span class="math inline">\(r_{i1}\)</span> and upper bound <span class="math inline">\(r_{i2}\)</span>):</p>
@@ -558,56 +564,43 @@ sampling (please see the reference for details of lower bound <span class="math 
 <span id="cb7-24"><a href="#cb7-24" tabindex="-1"></a>  rc[i];</span>
 <span id="cb7-25"><a href="#cb7-25" tabindex="-1"></a>  <span class="fu">min</span>(<span class="dv">1</span>,rc[i])</span>
 <span id="cb7-26"><a href="#cb7-26" tabindex="-1"></a>}</span></code></pre></div>
+<p>/private/var/folders/vf/_6q3gfkd14v15hhpcwlkrnc00000gn/T/Rtmp5JWqXM/Rbuildff8711dc11fc/CDsampling/vignettes/Intro_to_CDsampling.R</p>
 <p>Now, we can run the constrained lift-one algorithm:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>approximate_design <span class="ot">=</span> CDsampling<span class="sc">::</span><span class="fu">liftone_constrained_GLM</span>(<span class="at">X=</span>X, <span class="at">W=</span>W_matrix, <span class="at">g.con=</span>g.con, <span class="at">g.dir=</span>g.dir, </span>
-<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>                                               <span class="at">g.rhs=</span>g.rhs, <span class="at">lower.bound=</span>lower.bound, </span>
-<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>                                               <span class="at">upper.bound=</span>upper.bound, <span class="at">reltol=</span><span class="fl">1e-10</span>, </span>
-<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>                                               <span class="at">maxit=</span><span class="dv">100</span>, <span class="at">random=</span><span class="cn">TRUE</span>, <span class="at">nram=</span><span class="dv">4</span>, <span class="at">w00=</span><span class="cn">NULL</span>, </span>
-<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a>                                               <span class="at">epsilon=</span><span class="fl">1e-8</span>)</span>
-<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a></span>
-<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a><span class="fu">print</span>(approximate_design)</span>
-<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a><span class="co">#&gt; List Object:</span></span>
-<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a><span class="co">#&gt; Number of elements: 8 </span></span>
-<span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a><span class="co">#&gt; Element 1  (&#39;w&#39;) :</span></span>
-<span id="cb8-12"><a href="#cb8-12" tabindex="-1"></a><span class="co">#&gt; ------------------------------------------------------------</span></span>
-<span id="cb8-13"><a href="#cb8-13" tabindex="-1"></a><span class="co">#&gt; 0.25, 0.2, 0.05, 0.5, 0, 0 </span></span>
-<span id="cb8-14"><a href="#cb8-14" tabindex="-1"></a><span class="co">#&gt; ------------------------------------------------------------</span></span>
-<span id="cb8-15"><a href="#cb8-15" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb8-16"><a href="#cb8-16" tabindex="-1"></a><span class="co">#&gt; Element 2  (&#39;w0&#39;) :</span></span>
-<span id="cb8-17"><a href="#cb8-17" tabindex="-1"></a><span class="co">#&gt; ------------------------------------------------------------</span></span>
-<span id="cb8-18"><a href="#cb8-18" tabindex="-1"></a><span class="co">#&gt; 0.25, 0.2, 0.05, 0.5, 0, 0 </span></span>
-<span id="cb8-19"><a href="#cb8-19" tabindex="-1"></a><span class="co">#&gt; ------------------------------------------------------------</span></span>
-<span id="cb8-20"><a href="#cb8-20" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb8-21"><a href="#cb8-21" tabindex="-1"></a><span class="co">#&gt; Element 3  (&#39;maximum&#39;) :</span></span>
-<span id="cb8-22"><a href="#cb8-22" tabindex="-1"></a><span class="co">#&gt; ------------------------------------------------------------</span></span>
-<span id="cb8-23"><a href="#cb8-23" tabindex="-1"></a><span class="co">#&gt; 2.88132582961799e-08 </span></span>
-<span id="cb8-24"><a href="#cb8-24" tabindex="-1"></a><span class="co">#&gt; ------------------------------------------------------------</span></span>
-<span id="cb8-25"><a href="#cb8-25" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb8-26"><a href="#cb8-26" tabindex="-1"></a><span class="co">#&gt; Element 4  (&#39;convergence&#39;) :</span></span>
-<span id="cb8-27"><a href="#cb8-27" tabindex="-1"></a><span class="co">#&gt; ------------------------------------------------------------</span></span>
-<span id="cb8-28"><a href="#cb8-28" tabindex="-1"></a><span class="co">#&gt; TRUE </span></span>
-<span id="cb8-29"><a href="#cb8-29" tabindex="-1"></a><span class="co">#&gt; ------------------------------------------------------------</span></span>
-<span id="cb8-30"><a href="#cb8-30" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb8-31"><a href="#cb8-31" tabindex="-1"></a><span class="co">#&gt; Element 5  (&#39;itmax&#39;) :</span></span>
-<span id="cb8-32"><a href="#cb8-32" tabindex="-1"></a><span class="co">#&gt; ------------------------------------------------------------</span></span>
-<span id="cb8-33"><a href="#cb8-33" tabindex="-1"></a><span class="co">#&gt; 1 </span></span>
-<span id="cb8-34"><a href="#cb8-34" tabindex="-1"></a><span class="co">#&gt; ------------------------------------------------------------</span></span>
-<span id="cb8-35"><a href="#cb8-35" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb8-36"><a href="#cb8-36" tabindex="-1"></a><span class="co">#&gt; Element 6  (&#39;deriv.ans&#39;) :</span></span>
-<span id="cb8-37"><a href="#cb8-37" tabindex="-1"></a><span class="co">#&gt; ------------------------------------------------------------</span></span>
-<span id="cb8-38"><a href="#cb8-38" tabindex="-1"></a><span class="co">#&gt; 0, 3.60165728702249e-08, 4.8527592919882e-07, -1.1525303318472e-07, -1.03104123805002e-07, -7.95073695102426e-08 </span></span>
-<span id="cb8-39"><a href="#cb8-39" tabindex="-1"></a><span class="co">#&gt; ------------------------------------------------------------</span></span>
-<span id="cb8-40"><a href="#cb8-40" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb8-41"><a href="#cb8-41" tabindex="-1"></a><span class="co">#&gt; Element 7  (&#39;gmax&#39;) :</span></span>
-<span id="cb8-42"><a href="#cb8-42" tabindex="-1"></a><span class="co">#&gt; ------------------------------------------------------------</span></span>
-<span id="cb8-43"><a href="#cb8-43" tabindex="-1"></a><span class="co">#&gt; 0 </span></span>
-<span id="cb8-44"><a href="#cb8-44" tabindex="-1"></a><span class="co">#&gt; ------------------------------------------------------------</span></span>
-<span id="cb8-45"><a href="#cb8-45" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb8-46"><a href="#cb8-46" tabindex="-1"></a><span class="co">#&gt; Element 8  (&#39;reason&#39;) :</span></span>
-<span id="cb8-47"><a href="#cb8-47" tabindex="-1"></a><span class="co">#&gt; ------------------------------------------------------------</span></span>
-<span id="cb8-48"><a href="#cb8-48" tabindex="-1"></a><span class="co">#&gt; gmax &lt;= 0 </span></span>
-<span id="cb8-49"><a href="#cb8-49" tabindex="-1"></a><span class="co">#&gt; ------------------------------------------------------------</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">092</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>approximate_design <span class="ot">=</span> CDsampling<span class="sc">::</span><span class="fu">liftone_constrained_GLM</span>(<span class="at">X=</span>X, <span class="at">W=</span>W_matrix, <span class="at">g.con=</span>g.con, <span class="at">g.dir=</span>g.dir, </span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>                                               <span class="at">g.rhs=</span>g.rhs, <span class="at">lower.bound=</span>lower.bound, </span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>                                               <span class="at">upper.bound=</span>upper.bound, <span class="at">reltol=</span><span class="fl">1e-10</span>, </span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a>                                               <span class="at">maxit=</span><span class="dv">100</span>, <span class="at">random=</span><span class="cn">TRUE</span>, <span class="at">nram=</span><span class="dv">4</span>, <span class="at">w00=</span><span class="cn">NULL</span>, </span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a>                                               <span class="at">epsilon=</span><span class="fl">1e-8</span>)</span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a><span class="fu">print</span>(approximate_design)</span>
+<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a><span class="co">#&gt; Optimal Sampling Results:</span></span>
+<span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a><span class="co">#&gt; ================================================================================</span></span>
+<span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a><span class="co">#&gt; w :</span></span>
+<span id="cb8-12"><a href="#cb8-12" tabindex="-1"></a><span class="co">#&gt; 0.25, 0.2, 0.05, 0.5, 0.0, 0.0 </span></span>
+<span id="cb8-13"><a href="#cb8-13" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span>
+<span id="cb8-14"><a href="#cb8-14" tabindex="-1"></a><span class="co">#&gt; w0 :</span></span>
+<span id="cb8-15"><a href="#cb8-15" tabindex="-1"></a><span class="co">#&gt; 0.25, 0.0, 0.05, 0.7, 0.0, 0.0 </span></span>
+<span id="cb8-16"><a href="#cb8-16" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span>
+<span id="cb8-17"><a href="#cb8-17" tabindex="-1"></a><span class="co">#&gt; maximum :</span></span>
+<span id="cb8-18"><a href="#cb8-18" tabindex="-1"></a><span class="co">#&gt; 2.8813e-08 </span></span>
+<span id="cb8-19"><a href="#cb8-19" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span>
+<span id="cb8-20"><a href="#cb8-20" tabindex="-1"></a><span class="co">#&gt; convergence :</span></span>
+<span id="cb8-21"><a href="#cb8-21" tabindex="-1"></a><span class="co">#&gt; TRUE </span></span>
+<span id="cb8-22"><a href="#cb8-22" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span>
+<span id="cb8-23"><a href="#cb8-23" tabindex="-1"></a><span class="co">#&gt; itmax :</span></span>
+<span id="cb8-24"><a href="#cb8-24" tabindex="-1"></a><span class="co">#&gt; 9.0 </span></span>
+<span id="cb8-25"><a href="#cb8-25" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span>
+<span id="cb8-26"><a href="#cb8-26" tabindex="-1"></a><span class="co">#&gt; deriv.ans :</span></span>
+<span id="cb8-27"><a href="#cb8-27" tabindex="-1"></a><span class="co">#&gt; 0.0, 3.6017e-08, 4.8528e-07, -1.1525e-07, -1.0310e-07, -7.9507e-08 </span></span>
+<span id="cb8-28"><a href="#cb8-28" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span>
+<span id="cb8-29"><a href="#cb8-29" tabindex="-1"></a><span class="co">#&gt; gmax :</span></span>
+<span id="cb8-30"><a href="#cb8-30" tabindex="-1"></a><span class="co">#&gt; 0.0 </span></span>
+<span id="cb8-31"><a href="#cb8-31" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span>
+<span id="cb8-32"><a href="#cb8-32" tabindex="-1"></a><span class="co">#&gt; reason :</span></span>
+<span id="cb8-33"><a href="#cb8-33" tabindex="-1"></a><span class="co">#&gt; &quot;gmax &lt;= 0&quot; </span></span>
+<span id="cb8-34"><a href="#cb8-34" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre></div>
+<p>/private/var/folders/vf/_6q3gfkd14v15hhpcwlkrnc00000gn/T/Rtmp5JWqXM/Rbuildff8711dc11fc/CDsampling/vignettes/Intro_to_CDsampling.R</p>
 <p>To find the exact allocation (integer value of allocation), we can
 use the <em>approxtoexact_constrained_func</em>:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>exact_design <span class="ot">=</span> CDsampling<span class="sc">::</span><span class="fu">approxtoexact_constrained_func</span>(<span class="at">n=</span><span class="dv">200</span>, <span class="at">w=</span>approximate_design<span class="sc">$</span>w, <span class="at">m=</span><span class="dv">6</span>, </span>
@@ -616,23 +609,18 @@ use the <em>approxtoexact_constrained_func</em>:</p>
 <span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a>                                                          <span class="at">iset_func=</span>iset_func_trial) </span>
 <span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a></span>
 <span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a><span class="fu">print</span>(exact_design)</span>
-<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a><span class="co">#&gt; List Object:</span></span>
-<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a><span class="co">#&gt; Number of elements: 3 </span></span>
-<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a><span class="co">#&gt; Element 1  (&#39;allocation&#39;) :</span></span>
-<span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a><span class="co">#&gt; ------------------------------------------------------------</span></span>
-<span id="cb9-12"><a href="#cb9-12" tabindex="-1"></a><span class="co">#&gt; 50, 40, 10, 100, 0, 0 </span></span>
-<span id="cb9-13"><a href="#cb9-13" tabindex="-1"></a><span class="co">#&gt; ------------------------------------------------------------</span></span>
-<span id="cb9-14"><a href="#cb9-14" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb9-15"><a href="#cb9-15" tabindex="-1"></a><span class="co">#&gt; Element 2  (&#39;allocation.real&#39;) :</span></span>
-<span id="cb9-16"><a href="#cb9-16" tabindex="-1"></a><span class="co">#&gt; ------------------------------------------------------------</span></span>
-<span id="cb9-17"><a href="#cb9-17" tabindex="-1"></a><span class="co">#&gt; 0.25, 0.2, 0.05, 0.5, 0, 0 </span></span>
-<span id="cb9-18"><a href="#cb9-18" tabindex="-1"></a><span class="co">#&gt; ------------------------------------------------------------</span></span>
-<span id="cb9-19"><a href="#cb9-19" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb9-20"><a href="#cb9-20" tabindex="-1"></a><span class="co">#&gt; Element 3  (&#39;det.maximum&#39;) :</span></span>
-<span id="cb9-21"><a href="#cb9-21" tabindex="-1"></a><span class="co">#&gt; ------------------------------------------------------------</span></span>
-<span id="cb9-22"><a href="#cb9-22" tabindex="-1"></a><span class="co">#&gt; 46.1012132738879 </span></span>
-<span id="cb9-23"><a href="#cb9-23" tabindex="-1"></a><span class="co">#&gt; ------------------------------------------------------------</span></span></code></pre></div>
+<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a><span class="co">#&gt; Optimal Sampling Results:</span></span>
+<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a><span class="co">#&gt; ================================================================================</span></span>
+<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a><span class="co">#&gt; allocation :</span></span>
+<span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a><span class="co">#&gt; 50.0, 40.0, 10.0, 100.0, 0.0, 0.0 </span></span>
+<span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span>
+<span id="cb9-12"><a href="#cb9-12" tabindex="-1"></a><span class="co">#&gt; allocation.real :</span></span>
+<span id="cb9-13"><a href="#cb9-13" tabindex="-1"></a><span class="co">#&gt; 0.25, 0.2, 0.05, 0.5, 0.0, 0.0 </span></span>
+<span id="cb9-14"><a href="#cb9-14" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span>
+<span id="cb9-15"><a href="#cb9-15" tabindex="-1"></a><span class="co">#&gt; det.maximum :</span></span>
+<span id="cb9-16"><a href="#cb9-16" tabindex="-1"></a><span class="co">#&gt; 46.1012 </span></span>
+<span id="cb9-17"><a href="#cb9-17" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre></div>
+<p>/private/var/folders/vf/_6q3gfkd14v15hhpcwlkrnc00000gn/T/Rtmp5JWqXM/Rbuildff8711dc11fc/CDsampling/vignettes/Intro_to_CDsampling.R</p>
 <p><strong>Note:</strong></p>
 <pre><code>If we cannot obtain an approximated value of beta coefficients, we can also try to find the EW D-optimal allocations instead. For EW D-optimal allocation, we can come up with some prior distributions of beta coefficients, and replace the coefficients value with expectation of those prior distributions in the R codes. (Please see reference for more details). </code></pre>
 <p>If there is no knowledge of beta coefficients, we can use constrained
@@ -642,23 +630,18 @@ uniform design:</p>
 <span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a>  <span class="at">link=</span><span class="cn">NULL</span>, <span class="at">X=</span><span class="cn">NULL</span>, <span class="at">Fdet_func=</span>Fdet_func_unif, <span class="at">iset_func=</span>iset_func_trial)</span>
 <span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a></span>
 <span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a><span class="fu">print</span>(unif_design)</span>
-<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a><span class="co">#&gt; List Object:</span></span>
-<span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a><span class="co">#&gt; Number of elements: 3 </span></span>
-<span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb11-9"><a href="#cb11-9" tabindex="-1"></a><span class="co">#&gt; Element 1  (&#39;allocation&#39;) :</span></span>
-<span id="cb11-10"><a href="#cb11-10" tabindex="-1"></a><span class="co">#&gt; ------------------------------------------------------------</span></span>
-<span id="cb11-11"><a href="#cb11-11" tabindex="-1"></a><span class="co">#&gt; 38, 38, 10, 38, 38, 38 </span></span>
-<span id="cb11-12"><a href="#cb11-12" tabindex="-1"></a><span class="co">#&gt; ------------------------------------------------------------</span></span>
-<span id="cb11-13"><a href="#cb11-13" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb11-14"><a href="#cb11-14" tabindex="-1"></a><span class="co">#&gt; Element 2  (&#39;allocation.real&#39;) :</span></span>
-<span id="cb11-15"><a href="#cb11-15" tabindex="-1"></a><span class="co">#&gt; ------------------------------------------------------------</span></span>
-<span id="cb11-16"><a href="#cb11-16" tabindex="-1"></a><span class="co">#&gt; 0.005, 0.005, 0.005, 0.005, 0.005, 0.005 </span></span>
-<span id="cb11-17"><a href="#cb11-17" tabindex="-1"></a><span class="co">#&gt; ------------------------------------------------------------</span></span>
-<span id="cb11-18"><a href="#cb11-18" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb11-19"><a href="#cb11-19" tabindex="-1"></a><span class="co">#&gt; Element 3  (&#39;det.maximum&#39;) :</span></span>
-<span id="cb11-20"><a href="#cb11-20" tabindex="-1"></a><span class="co">#&gt; ------------------------------------------------------------</span></span>
-<span id="cb11-21"><a href="#cb11-21" tabindex="-1"></a><span class="co">#&gt; 792351680 </span></span>
-<span id="cb11-22"><a href="#cb11-22" tabindex="-1"></a><span class="co">#&gt; ------------------------------------------------------------</span></span></code></pre></div>
+<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a><span class="co">#&gt; Optimal Sampling Results:</span></span>
+<span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a><span class="co">#&gt; ================================================================================</span></span>
+<span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a><span class="co">#&gt; allocation :</span></span>
+<span id="cb11-9"><a href="#cb11-9" tabindex="-1"></a><span class="co">#&gt; 38.0, 38.0, 10.0, 38.0, 38.0, 38.0 </span></span>
+<span id="cb11-10"><a href="#cb11-10" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span>
+<span id="cb11-11"><a href="#cb11-11" tabindex="-1"></a><span class="co">#&gt; allocation.real :</span></span>
+<span id="cb11-12"><a href="#cb11-12" tabindex="-1"></a><span class="co">#&gt; 0.005, 0.005, 0.005, 0.005, 0.005, 0.005 </span></span>
+<span id="cb11-13"><a href="#cb11-13" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span>
+<span id="cb11-14"><a href="#cb11-14" tabindex="-1"></a><span class="co">#&gt; det.maximum :</span></span>
+<span id="cb11-15"><a href="#cb11-15" tabindex="-1"></a><span class="co">#&gt; 792351680.0 </span></span>
+<span id="cb11-16"><a href="#cb11-16" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre></div>
+<p>/private/var/folders/vf/_6q3gfkd14v15hhpcwlkrnc00000gn/T/Rtmp5JWqXM/Rbuildff8711dc11fc/CDsampling/vignettes/Intro_to_CDsampling.R</p>
 </div>
 <div id="data-trauma_data-constrained-sampling-with-mlm" class="section level2">
 <h2>Data: trauma_data &amp; Constrained sampling with MLM</h2>
@@ -743,6 +726,7 @@ coefficients from the MLM Fisher information matrix:</p>
 <span id="cb12-50"><a href="#cb12-50" tabindex="-1"></a>                <span class="fu">c</span>( <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
 <span id="cb12-51"><a href="#cb12-51" tabindex="-1"></a>                <span class="fu">c</span>( <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">1</span>),</span>
 <span id="cb12-52"><a href="#cb12-52" tabindex="-1"></a>                <span class="fu">c</span>( <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>))</span></code></pre></div>
+<p>/private/var/folders/vf/_6q3gfkd14v15hhpcwlkrnc00000gn/T/Rtmp5JWqXM/Rbuildff8711dc11fc/CDsampling/vignettes/Intro_to_CDsampling.R</p>
 <p>Similarly to the GLM example, we define the sample size, constraints,
 and boundaries using the following R codes:</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a>nsample<span class="ot">=</span><span class="dv">600</span> <span class="co">#sample size</span></span>
@@ -778,6 +762,7 @@ and boundaries using the following R codes:</p>
 <span id="cb13-31"><a href="#cb13-31" tabindex="-1"></a>g.con[<span class="dv">4</span><span class="sc">:</span>(<span class="fu">length</span>(constraint)<span class="sc">+</span><span class="dv">1</span><span class="sc">+</span>m), ] <span class="ot">=</span> <span class="fu">diag</span>(<span class="dv">1</span>, <span class="at">nrow=</span>m)</span>
 <span id="cb13-32"><a href="#cb13-32" tabindex="-1"></a>g.dir <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;==&quot;</span>, <span class="st">&quot;&lt;=&quot;</span>,<span class="st">&quot;&lt;=&quot;</span>, <span class="fu">rep</span>(<span class="st">&quot;&gt;=&quot;</span>,m))</span>
 <span id="cb13-33"><a href="#cb13-33" tabindex="-1"></a>g.rhs <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="fu">ifelse</span>((constraint<span class="sc">/</span>nsample<span class="sc">&lt;</span><span class="dv">1</span>),constraint<span class="sc">/</span>nsample,<span class="dv">1</span>), <span class="fu">rep</span>(<span class="dv">0</span>, m))</span></code></pre></div>
+<p>/private/var/folders/vf/_6q3gfkd14v15hhpcwlkrnc00000gn/T/Rtmp5JWqXM/Rbuildff8711dc11fc/CDsampling/vignettes/Intro_to_CDsampling.R</p>
 <p>Then, we can use the constrained lift-one algorithm to find the
 locally D-optimal approximate sampling with
 <em>liftone_constrained_MLM</em> function in the package:</p>
@@ -790,48 +775,33 @@ locally D-optimal approximate sampling with
 <span id="cb14-7"><a href="#cb14-7" tabindex="-1"></a>                                        <span class="at">epsilon=</span><span class="fl">1e-8</span>, <span class="at">random=</span><span class="cn">TRUE</span>, <span class="at">nram=</span><span class="dv">1</span>)</span>
 <span id="cb14-8"><a href="#cb14-8" tabindex="-1"></a></span>
 <span id="cb14-9"><a href="#cb14-9" tabindex="-1"></a><span class="fu">print</span>(approx_design)</span>
-<span id="cb14-10"><a href="#cb14-10" tabindex="-1"></a><span class="co">#&gt; List Object:</span></span>
-<span id="cb14-11"><a href="#cb14-11" tabindex="-1"></a><span class="co">#&gt; Number of elements: 8 </span></span>
-<span id="cb14-12"><a href="#cb14-12" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb14-13"><a href="#cb14-13" tabindex="-1"></a><span class="co">#&gt; Element 1  (&#39;w&#39;) :</span></span>
-<span id="cb14-14"><a href="#cb14-14" tabindex="-1"></a><span class="co">#&gt; ------------------------------------------------------------</span></span>
-<span id="cb14-15"><a href="#cb14-15" tabindex="-1"></a><span class="co">#&gt; 0.259405295724823, 0, 0, 0.166645430989412, 0.279575148967477, 0, 0, 0.294374124318289 </span></span>
-<span id="cb14-16"><a href="#cb14-16" tabindex="-1"></a><span class="co">#&gt; ------------------------------------------------------------</span></span>
-<span id="cb14-17"><a href="#cb14-17" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb14-18"><a href="#cb14-18" tabindex="-1"></a><span class="co">#&gt; Element 2  (&#39;w0&#39;) :</span></span>
-<span id="cb14-19"><a href="#cb14-19" tabindex="-1"></a><span class="co">#&gt; ------------------------------------------------------------</span></span>
-<span id="cb14-20"><a href="#cb14-20" tabindex="-1"></a><span class="co">#&gt; 0, 0, 0.316666666666667, 0, 0.683333333333333, 0, 0, 0 </span></span>
-<span id="cb14-21"><a href="#cb14-21" tabindex="-1"></a><span class="co">#&gt; ------------------------------------------------------------</span></span>
-<span id="cb14-22"><a href="#cb14-22" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb14-23"><a href="#cb14-23" tabindex="-1"></a><span class="co">#&gt; Element 3  (&#39;Maximum&#39;) :</span></span>
-<span id="cb14-24"><a href="#cb14-24" tabindex="-1"></a><span class="co">#&gt; ------------------------------------------------------------</span></span>
-<span id="cb14-25"><a href="#cb14-25" tabindex="-1"></a><span class="co">#&gt; 7.49584354391566e-11 </span></span>
-<span id="cb14-26"><a href="#cb14-26" tabindex="-1"></a><span class="co">#&gt; ------------------------------------------------------------</span></span>
-<span id="cb14-27"><a href="#cb14-27" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb14-28"><a href="#cb14-28" tabindex="-1"></a><span class="co">#&gt; Element 4  (&#39;itmax&#39;) :</span></span>
-<span id="cb14-29"><a href="#cb14-29" tabindex="-1"></a><span class="co">#&gt; ------------------------------------------------------------</span></span>
-<span id="cb14-30"><a href="#cb14-30" tabindex="-1"></a><span class="co">#&gt; 12 </span></span>
-<span id="cb14-31"><a href="#cb14-31" tabindex="-1"></a><span class="co">#&gt; ------------------------------------------------------------</span></span>
-<span id="cb14-32"><a href="#cb14-32" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb14-33"><a href="#cb14-33" tabindex="-1"></a><span class="co">#&gt; Element 5  (&#39;convergence&#39;) :</span></span>
-<span id="cb14-34"><a href="#cb14-34" tabindex="-1"></a><span class="co">#&gt; ------------------------------------------------------------</span></span>
-<span id="cb14-35"><a href="#cb14-35" tabindex="-1"></a><span class="co">#&gt; TRUE </span></span>
-<span id="cb14-36"><a href="#cb14-36" tabindex="-1"></a><span class="co">#&gt; ------------------------------------------------------------</span></span>
-<span id="cb14-37"><a href="#cb14-37" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb14-38"><a href="#cb14-38" tabindex="-1"></a><span class="co">#&gt; Element 6  (&#39;deriv.ans&#39;) :</span></span>
-<span id="cb14-39"><a href="#cb14-39" tabindex="-1"></a><span class="co">#&gt; ------------------------------------------------------------</span></span>
-<span id="cb14-40"><a href="#cb14-40" tabindex="-1"></a><span class="co">#&gt; -7.52895206748821e-11, -4.02251790169154e-11, -4.02251790169154e-11, -3.7979665291497e-10, 1.03397576569128e-25, -4.02251790169154e-11, -4.02251790169154e-11, 5.22556175485165e-11 </span></span>
-<span id="cb14-41"><a href="#cb14-41" tabindex="-1"></a><span class="co">#&gt; ------------------------------------------------------------</span></span>
-<span id="cb14-42"><a href="#cb14-42" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb14-43"><a href="#cb14-43" tabindex="-1"></a><span class="co">#&gt; Element 7  (&#39;gmax&#39;) :</span></span>
-<span id="cb14-44"><a href="#cb14-44" tabindex="-1"></a><span class="co">#&gt; ------------------------------------------------------------</span></span>
-<span id="cb14-45"><a href="#cb14-45" tabindex="-1"></a><span class="co">#&gt; NA </span></span>
-<span id="cb14-46"><a href="#cb14-46" tabindex="-1"></a><span class="co">#&gt; ------------------------------------------------------------</span></span>
-<span id="cb14-47"><a href="#cb14-47" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb14-48"><a href="#cb14-48" tabindex="-1"></a><span class="co">#&gt; Element 8  (&#39;reason&#39;) :</span></span>
-<span id="cb14-49"><a href="#cb14-49" tabindex="-1"></a><span class="co">#&gt; ------------------------------------------------------------</span></span>
-<span id="cb14-50"><a href="#cb14-50" tabindex="-1"></a><span class="co">#&gt; all derivative &lt;=0 </span></span>
-<span id="cb14-51"><a href="#cb14-51" tabindex="-1"></a><span class="co">#&gt; ------------------------------------------------------------</span></span></code></pre></div>
+<span id="cb14-10"><a href="#cb14-10" tabindex="-1"></a><span class="co">#&gt; Optimal Sampling Results:</span></span>
+<span id="cb14-11"><a href="#cb14-11" tabindex="-1"></a><span class="co">#&gt; ================================================================================</span></span>
+<span id="cb14-12"><a href="#cb14-12" tabindex="-1"></a><span class="co">#&gt; w :</span></span>
+<span id="cb14-13"><a href="#cb14-13" tabindex="-1"></a><span class="co">#&gt; 0.2594, 0.0, 0.0, 0.1666, 0.2796, 0.0, 0.0, 0.2944 </span></span>
+<span id="cb14-14"><a href="#cb14-14" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span>
+<span id="cb14-15"><a href="#cb14-15" tabindex="-1"></a><span class="co">#&gt; w0 :</span></span>
+<span id="cb14-16"><a href="#cb14-16" tabindex="-1"></a><span class="co">#&gt; 0.0, 0.0, 0.3167, 0.0, 0.6833, 0.0, 0.0, 0.0 </span></span>
+<span id="cb14-17"><a href="#cb14-17" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span>
+<span id="cb14-18"><a href="#cb14-18" tabindex="-1"></a><span class="co">#&gt; Maximum :</span></span>
+<span id="cb14-19"><a href="#cb14-19" tabindex="-1"></a><span class="co">#&gt; 7.4958e-11 </span></span>
+<span id="cb14-20"><a href="#cb14-20" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span>
+<span id="cb14-21"><a href="#cb14-21" tabindex="-1"></a><span class="co">#&gt; itmax :</span></span>
+<span id="cb14-22"><a href="#cb14-22" tabindex="-1"></a><span class="co">#&gt; 12.0 </span></span>
+<span id="cb14-23"><a href="#cb14-23" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span>
+<span id="cb14-24"><a href="#cb14-24" tabindex="-1"></a><span class="co">#&gt; convergence :</span></span>
+<span id="cb14-25"><a href="#cb14-25" tabindex="-1"></a><span class="co">#&gt; TRUE </span></span>
+<span id="cb14-26"><a href="#cb14-26" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span>
+<span id="cb14-27"><a href="#cb14-27" tabindex="-1"></a><span class="co">#&gt; deriv.ans :</span></span>
+<span id="cb14-28"><a href="#cb14-28" tabindex="-1"></a><span class="co">#&gt; -7.5290e-11, -4.0225e-11, -4.0225e-11, -3.7980e-10, 1.0340e-25, -4.0225e-11, -4.0225e-11, 5.2256e-11 </span></span>
+<span id="cb14-29"><a href="#cb14-29" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span>
+<span id="cb14-30"><a href="#cb14-30" tabindex="-1"></a><span class="co">#&gt; gmax :</span></span>
+<span id="cb14-31"><a href="#cb14-31" tabindex="-1"></a><span class="co">#&gt; NA </span></span>
+<span id="cb14-32"><a href="#cb14-32" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span>
+<span id="cb14-33"><a href="#cb14-33" tabindex="-1"></a><span class="co">#&gt; reason :</span></span>
+<span id="cb14-34"><a href="#cb14-34" tabindex="-1"></a><span class="co">#&gt; &quot;all derivative &lt;=0&quot; </span></span>
+<span id="cb14-35"><a href="#cb14-35" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre></div>
+<p>/private/var/folders/vf/_6q3gfkd14v15hhpcwlkrnc00000gn/T/Rtmp5JWqXM/Rbuildff8711dc11fc/CDsampling/vignettes/Intro_to_CDsampling.R</p>
 <p>To get the exact allocation, we can again apply the
 <em>approxtoexact_constrained_func</em> in the package:</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a>exact_design <span class="ot">=</span> CDsampling<span class="sc">::</span><span class="fu">approxtoexact_constrained_func</span>(<span class="at">n=</span><span class="dv">600</span>, <span class="at">w=</span>approx_design<span class="sc">$</span>w, <span class="at">m=</span><span class="dv">8</span>, </span>
@@ -839,23 +809,18 @@ locally D-optimal approximate sampling with
 <span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a> <span class="at">iset_func=</span>iset_func_trauma)</span>
 <span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a></span>
 <span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a><span class="fu">print</span>(exact_design)</span>
-<span id="cb15-6"><a href="#cb15-6" tabindex="-1"></a><span class="co">#&gt; List Object:</span></span>
-<span id="cb15-7"><a href="#cb15-7" tabindex="-1"></a><span class="co">#&gt; Number of elements: 3 </span></span>
-<span id="cb15-8"><a href="#cb15-8" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb15-9"><a href="#cb15-9" tabindex="-1"></a><span class="co">#&gt; Element 1  (&#39;allocation&#39;) :</span></span>
-<span id="cb15-10"><a href="#cb15-10" tabindex="-1"></a><span class="co">#&gt; ------------------------------------------------------------</span></span>
-<span id="cb15-11"><a href="#cb15-11" tabindex="-1"></a><span class="co">#&gt; 155, 0, 0, 100, 168, 0, 0, 177 </span></span>
-<span id="cb15-12"><a href="#cb15-12" tabindex="-1"></a><span class="co">#&gt; ------------------------------------------------------------</span></span>
-<span id="cb15-13"><a href="#cb15-13" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb15-14"><a href="#cb15-14" tabindex="-1"></a><span class="co">#&gt; Element 2  (&#39;allocation.real&#39;) :</span></span>
-<span id="cb15-15"><a href="#cb15-15" tabindex="-1"></a><span class="co">#&gt; ------------------------------------------------------------</span></span>
-<span id="cb15-16"><a href="#cb15-16" tabindex="-1"></a><span class="co">#&gt; 0.259405295724823, 0, 0, 0.166645430989412, 0.279575148967477, 0, 0, 0.294374124318289 </span></span>
-<span id="cb15-17"><a href="#cb15-17" tabindex="-1"></a><span class="co">#&gt; ------------------------------------------------------------</span></span>
-<span id="cb15-18"><a href="#cb15-18" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb15-19"><a href="#cb15-19" tabindex="-1"></a><span class="co">#&gt; Element 3  (&#39;det.maximum&#39;) :</span></span>
-<span id="cb15-20"><a href="#cb15-20" tabindex="-1"></a><span class="co">#&gt; ------------------------------------------------------------</span></span>
-<span id="cb15-21"><a href="#cb15-21" tabindex="-1"></a><span class="co">#&gt; 1.63163827059162e+23 </span></span>
-<span id="cb15-22"><a href="#cb15-22" tabindex="-1"></a><span class="co">#&gt; ------------------------------------------------------------</span></span></code></pre></div>
+<span id="cb15-6"><a href="#cb15-6" tabindex="-1"></a><span class="co">#&gt; Optimal Sampling Results:</span></span>
+<span id="cb15-7"><a href="#cb15-7" tabindex="-1"></a><span class="co">#&gt; ================================================================================</span></span>
+<span id="cb15-8"><a href="#cb15-8" tabindex="-1"></a><span class="co">#&gt; allocation :</span></span>
+<span id="cb15-9"><a href="#cb15-9" tabindex="-1"></a><span class="co">#&gt; 155.0, 0.0, 0.0, 100.0, 168.0, 0.0, 0.0, 177.0 </span></span>
+<span id="cb15-10"><a href="#cb15-10" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span>
+<span id="cb15-11"><a href="#cb15-11" tabindex="-1"></a><span class="co">#&gt; allocation.real :</span></span>
+<span id="cb15-12"><a href="#cb15-12" tabindex="-1"></a><span class="co">#&gt; 0.2594, 0.0, 0.0, 0.1666, 0.2796, 0.0, 0.0, 0.2944 </span></span>
+<span id="cb15-13"><a href="#cb15-13" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span>
+<span id="cb15-14"><a href="#cb15-14" tabindex="-1"></a><span class="co">#&gt; det.maximum :</span></span>
+<span id="cb15-15"><a href="#cb15-15" tabindex="-1"></a><span class="co">#&gt; 1.63163827059162e+23 </span></span>
+<span id="cb15-16"><a href="#cb15-16" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre></div>
+<p>/private/var/folders/vf/_6q3gfkd14v15hhpcwlkrnc00000gn/T/Rtmp5JWqXM/Rbuildff8711dc11fc/CDsampling/vignettes/Intro_to_CDsampling.R</p>
 <p>If there is no coefficients information, we can find the constrained
 uniform sampling with the folloiwng codes:</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a>iset_func_trauma <span class="ot">&lt;-</span> <span class="cf">function</span>(allocation){</span>
@@ -869,23 +834,18 @@ uniform sampling with the folloiwng codes:</p>
 <span id="cb16-9"><a href="#cb16-9" tabindex="-1"></a> <span class="at">link=</span><span class="cn">NULL</span>, <span class="at">X=</span><span class="cn">NULL</span>, <span class="at">Fdet_func=</span>Fdet_func_unif, <span class="at">iset_func=</span>iset_func_trauma)</span>
 <span id="cb16-10"><a href="#cb16-10" tabindex="-1"></a></span>
 <span id="cb16-11"><a href="#cb16-11" tabindex="-1"></a>unif_design</span>
-<span id="cb16-12"><a href="#cb16-12" tabindex="-1"></a><span class="co">#&gt; List Object:</span></span>
-<span id="cb16-13"><a href="#cb16-13" tabindex="-1"></a><span class="co">#&gt; Number of elements: 3 </span></span>
-<span id="cb16-14"><a href="#cb16-14" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb16-15"><a href="#cb16-15" tabindex="-1"></a><span class="co">#&gt; Element 1  (&#39;allocation&#39;) :</span></span>
-<span id="cb16-16"><a href="#cb16-16" tabindex="-1"></a><span class="co">#&gt; ------------------------------------------------------------</span></span>
-<span id="cb16-17"><a href="#cb16-17" tabindex="-1"></a><span class="co">#&gt; 75, 75, 75, 75, 75, 75, 75, 75 </span></span>
-<span id="cb16-18"><a href="#cb16-18" tabindex="-1"></a><span class="co">#&gt; ------------------------------------------------------------</span></span>
-<span id="cb16-19"><a href="#cb16-19" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb16-20"><a href="#cb16-20" tabindex="-1"></a><span class="co">#&gt; Element 2  (&#39;allocation.real&#39;) :</span></span>
-<span id="cb16-21"><a href="#cb16-21" tabindex="-1"></a><span class="co">#&gt; ------------------------------------------------------------</span></span>
-<span id="cb16-22"><a href="#cb16-22" tabindex="-1"></a><span class="co">#&gt; 0.00166666666666667, 0.00166666666666667, 0.00166666666666667, 0.00166666666666667, 0.00166666666666667, 0.00166666666666667, 0.00166666666666667, 0.00166666666666667 </span></span>
-<span id="cb16-23"><a href="#cb16-23" tabindex="-1"></a><span class="co">#&gt; ------------------------------------------------------------</span></span>
-<span id="cb16-24"><a href="#cb16-24" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb16-25"><a href="#cb16-25" tabindex="-1"></a><span class="co">#&gt; Element 3  (&#39;det.maximum&#39;) :</span></span>
-<span id="cb16-26"><a href="#cb16-26" tabindex="-1"></a><span class="co">#&gt; ------------------------------------------------------------</span></span>
-<span id="cb16-27"><a href="#cb16-27" tabindex="-1"></a><span class="co">#&gt; 1001129150390625 </span></span>
-<span id="cb16-28"><a href="#cb16-28" tabindex="-1"></a><span class="co">#&gt; ------------------------------------------------------------</span></span></code></pre></div>
+<span id="cb16-12"><a href="#cb16-12" tabindex="-1"></a><span class="co">#&gt; Optimal Sampling Results:</span></span>
+<span id="cb16-13"><a href="#cb16-13" tabindex="-1"></a><span class="co">#&gt; ================================================================================</span></span>
+<span id="cb16-14"><a href="#cb16-14" tabindex="-1"></a><span class="co">#&gt; allocation :</span></span>
+<span id="cb16-15"><a href="#cb16-15" tabindex="-1"></a><span class="co">#&gt; 75.0, 75.0, 75.0, 75.0, 75.0, 75.0, 75.0, 75.0 </span></span>
+<span id="cb16-16"><a href="#cb16-16" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span>
+<span id="cb16-17"><a href="#cb16-17" tabindex="-1"></a><span class="co">#&gt; allocation.real :</span></span>
+<span id="cb16-18"><a href="#cb16-18" tabindex="-1"></a><span class="co">#&gt; 0.0017, 0.0017, 0.0017, 0.0017, 0.0017, 0.0017, 0.0017, 0.0017 </span></span>
+<span id="cb16-19"><a href="#cb16-19" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span>
+<span id="cb16-20"><a href="#cb16-20" tabindex="-1"></a><span class="co">#&gt; det.maximum :</span></span>
+<span id="cb16-21"><a href="#cb16-21" tabindex="-1"></a><span class="co">#&gt; 1001129150390625 </span></span>
+<span id="cb16-22"><a href="#cb16-22" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre></div>
+<p>/private/var/folders/vf/_6q3gfkd14v15hhpcwlkrnc00000gn/T/Rtmp5JWqXM/Rbuildff8711dc11fc/CDsampling/vignettes/Intro_to_CDsampling.R</p>
 </div>
 
 
