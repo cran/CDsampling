@@ -176,7 +176,7 @@ upper.bound=function(i, w){
 Now, we can run the constrained lift-one algorithm: 
 
 ```{r}
-set.seed(092)
+set.seed(2025)
 approximate_design = CDsampling::liftone_constrained_GLM(X=X, W=W_matrix, g.con=g.con, g.dir=g.dir, 
                                                g.rhs=g.rhs, lower.bound=lower.bound, 
                                                upper.bound=upper.bound, reltol=1e-10, 

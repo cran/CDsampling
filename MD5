@@ -1,4 +1,4 @@
-b681760558296c9462a79a3ab022789a *DESCRIPTION
+42619b87f051b13593ad026854a08194 *DESCRIPTION
 193f48496e2b6bab5ce5c8f5aec9b23d *LICENSE
 ec9f9ed1175f1fde8b8f3dcc1b6dbe12 *NAMESPACE
 beca0d6e7fa20dd09912a4c2520f40c8 *R/F_func_GLM.R
@@ -25,9 +25,9 @@ fa7dce608ee01275a306d43fb4fb7099 *R/trauma_data.R
 d44df584ea0fb3557d2aca3ee7ce2622 *build/vignette.rds
 25e6d10fd14ae7efe5790eeadc8e7a2a *data/trauma_data.rda
 f844e6e1074cc85a90b48c17b9a1a7c6 *data/trial_data.rda
-eb258a2243bfae60ecfc13603c25b18c *inst/doc/Intro_to_CDsampling.R
-9ed7acb580142c9567fca156f06689c0 *inst/doc/Intro_to_CDsampling.Rmd
-1a0a08a8cff03ae3ee8bea20ca8bb0c1 *inst/doc/Intro_to_CDsampling.html
+baf7376eeb697177a30bc733a0472f91 *inst/doc/Intro_to_CDsampling.R
+e8b2d6af431aaa3a2d69fa01fbe877a1 *inst/doc/Intro_to_CDsampling.Rmd
+4b766cb95ae5b5d792c60b5ae253401d *inst/doc/Intro_to_CDsampling.html
 f06c05877585f6e0d0c0aadab382c474 *man/F_func_GLM.Rd
 19a8c17e672f5721269b0e6c647377d6 *man/F_func_MLM.Rd
 87325e18b304efd61555057d39a1c4e4 *man/Fdet_func_GLM.Rd
@@ -49,4 +49,4 @@ ca72e6753a1da857ef332daeee5d30a1 *man/print.matrix_list.Rd
 51c9287c52a030678c2451e0a00475a7 *man/print.matrix_output.Rd
 1d04bbc662572447ad7ccd133da0c725 *man/trauma_data.Rd
 5c9b44404ae6117ddc9b7cf512b02ae7 *man/trial_data.Rd
-9ed7acb580142c9567fca156f06689c0 *vignettes/Intro_to_CDsampling.Rmd
+e8b2d6af431aaa3a2d69fa01fbe877a1 *vignettes/Intro_to_CDsampling.Rmd
