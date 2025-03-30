@@ -12,6 +12,7 @@ liftone_constrained_GLM(
   g.rhs,
   lower.bound,
   upper.bound,
+  label = NULL,
   reltol = 1e-05,
   maxit = 500,
   random = TRUE,
@@ -34,6 +35,8 @@ liftone_constrained_GLM(
 \item{lower.bound}{A function to determine lower bound r_i1 in Step 3 of Constrained lift-one algorithm from Yifei, H., Liping, T., Yang, J. (2023) Constrained D-optimal design for paid research study}
 
 \item{upper.bound}{A function to determine upper bound r_i2 in Step 3 of Constrained lift-one algorithm from Yifei, H., Liping, T., Yang, J. (2023) Constrained D-optimal design for paid research study}
+
+\item{label}{A vector of text strings for subgroups' names, default value NULL}
 
 \item{reltol}{The relative convergence tolerance, default value 1e-5}
 

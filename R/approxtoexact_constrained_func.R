@@ -8,6 +8,7 @@
 #' @param link Link function of GLM or MLM, if used for GLM model (GLM_T is T), options are "identity", "logit", "probit", "cloglog", "loglog". If used for MLM (GLM_T is F), options are "continuation", "cumulative", "adjacent", and "baseline"
 #' @param Fdet_func determinant of Fisher information matrix function, Fdet_func can be self-defined, or use "Fdet_func_GLM", "Fdet_func_MLM" in the package, default is Fdet_func_GLM
 #' @param iset_func self-defined function for checking which index of sampling group fall within constraint if add 1 more subject (I set, see Algorithm 2 in Huang, Tong, Yang (2023)), two example functions are provided in the package, iset_func_trial and iset_func_trauma
+#' @param label A vector of text strings for subgroups' names, default value NULL
 #'
 #' @return allocation is the exact allocation or integer value of the number of subjects sampled from the group
 #' @return allocation.real is the proportion or the approximate allocation of the number of subjects sampled from the group
@@ -22,7 +23,7 @@
 #' m=6, beta=beta, link='logit', X=X.liftone, Fdet_func=Fdet_func_GLM, iset_func=iset_func_trial)
 #'
 
-approxtoexact_constrained_func <- function(n, w, m, beta=NULL, link=NULL, X=NULL, Fdet_func=Fdet_func_GLM, iset_func=NULL) {
+approxtoexact_constrained_func <- function(n, w, m, beta=NULL, link=NULL, X=NULL, Fdet_func=Fdet_func_GLM, iset_func=NULL, label=NULL) {
   # n > 0 is the targeted sample size, must be a positive integer
   # w=w[1:m] is a real-valued approximate allocation, w_i >=0, sum(w_i) = 1, w_i <= Ni/n
   # X is the design matrix for GLM it is m*d matrix, for MLM it is J*d*m matrix
@@ -65,7 +66,7 @@ approxtoexact_constrained_func <- function(n, w, m, beta=NULL, link=NULL, X=NULL
   };
 
   #define S3 class
-  output<-list(allocation=allocation, allocation.real=w, det.maximum=det.maximum);
+  output<-list(allocation=allocation, allocation.real=w, det.maximum=det.maximum, label=label);
   class(output)<-"list_output"
   return(output)
 }

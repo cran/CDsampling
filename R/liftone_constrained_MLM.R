@@ -15,6 +15,7 @@
 #' @param g.con A matrix of numeric constraint coefficients, one row per constraint, on column per variable (to be used in as const.mat lp() and mat in Rglpk_solve_LP())
 #' @param g.dir Vector of character strings giving the direction of the constraint: each value should be one of "<," "<=," "=," "==," ">," or ">=". (In each pair the two values are identical.) to be used as const.dir in lp() and dir in Rglpk_solve_LP()
 #' @param g.rhs Vector of numeric values for the right-hand sides of the constraints. to be used as const.rhs in lp() and rhs in Rglpk_solve_LP()
+#' @param label A vector of text strings for subgroups' names, default value NULL
 #' @param w00 Specified initial design proportion; default to be NULL, this will generate a random initial design
 #' @param link Link function of MLM, default to be "cumulative", options from "continuation", "cumulative", "adjacent", and "baseline"
 #' @param Fi.func A function for calculating Fisher information at a specific design point, default to be Fi_func_MLM function in the package
@@ -140,7 +141,7 @@
 
 
 
-liftone_constrained_MLM <- function(m, p, Xi, J, beta, lower.bound, upper.bound, g.con, g.dir, g.rhs, w00=NULL, link='cumulative', Fi.func = Fi_func_MLM, reltol=1e-5, maxit=500, delta = 1e-6, epsilon=1e-8, random=TRUE, nram=3) {
+liftone_constrained_MLM <- function(m, p, Xi, J, beta, lower.bound, upper.bound, g.con, g.dir, g.rhs, label=NULL, w00=NULL, link='cumulative', Fi.func = Fi_func_MLM, reltol=1e-5, maxit=500, delta = 1e-6, epsilon=1e-8, random=TRUE, nram=3) {
   # inputs: m -- number of design points
   #         p --number of parameters in the model
   #         Xi-- J*p*m 3D array of predictors for separate response category at all design points(input to determine ppo,npo,po)
@@ -574,7 +575,7 @@ liftone_constrained_MLM <- function(m, p, Xi, J, beta, lower.bound, upper.bound,
   #effi=(Fdet/maximum.report)^(1/p)
 
   #define S3 class
-  output<-list(w=p0.report, w0=w00.original, Maximum=maximum.report, itmax=ind, convergence=convergence, deriv.ans = derivative.report, gmax=gmax.report, reason = reason.report); # updated on 4/02/2022
+  output<-list(w=p0.report, w0=w00.original, Maximum=maximum.report, itmax=ind, convergence=convergence, deriv.ans = derivative.report, gmax=gmax.report, reason = reason.report, label=label); # updated on 3/27/2025
   class(output) <- "list_output"
   return(output)
 }

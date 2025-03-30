@@ -1,26 +1,47 @@
 ---
 title: "Introduction to CDsampling"
-output: rmarkdown::html_vignette
+author: "Y.H."
+output: 
+  rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Introduction to CDsampling}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include = FALSE}
+```{r, include=FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
 ```
 
+
+
+```{css, echo=FALSE}
+.note-box {
+  border: 1px solid #ccc;
+  background: white;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+}
+```
+
+# Table of Contents
+
+- [Computation of Fisher information matrix](#Computation_Fisher)
+  - [Example 1: GLM Fisher information matrix](#example1_GLM_Fisher)
+  - [Example 2: MLM Fisher information matrix](#example2_MLM_Fisher)
+- [Applications in paid research studies](#Applications)
+  - [Example 3: trial_data & constrained sampling with GLM](#example3_trial_data)
+  - [Example 4: trauma_data & constrained sampling with MLM](#example4_trauma_data)
+- [References](#References)
+
 ```{r setup}
 library(CDsampling)
 ```
 
-```{r}
-set.seed(123)
-```
 In the context of paid research studies and clinical trials, budget considerations and patient sampling from available populations are subject to inherent constraints. **CDsampling** integrates optimal design theories within the framework of constrained sampling. 
 
 * This package offers the possibility to find both D-optimal approximate and exact allocations for sampling with or without constraints. 
@@ -29,38 +50,57 @@ In the context of paid research studies and clinical trials, budget consideratio
 
 * It also provides tool for computation of Fisher information matrix of the generalized linear models (GLMs) including regular linear regression model and the multinomial logistic models (MLMs).
 
-* Two datasets are embedded in the package for application examples
+* Two datasets are embedded in the package for application examples.
 
-Reference: Constrained D-optimal Design for Paid Research Study (2024+), Statistica Sinica, to appear, DOI: 10.5705/ss.202022.0414, Yifei Huang, Liping Tong, and Jie Yang
+<a id="Computation_Fisher"></a>
 
-## Computation of Fisher information matrix
+# Computation of Fisher information matrix
 
-#### Example GLM Fisher information matrix
-Consider a research study with a simple logistic regression model $$\log(\frac{\mu_i}{1-\mu_i}) = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2}$$ where $\mu_i = E(Y_i\mid {\mathbf x}_i)$, ${\mathbf x}_i = (x_{i1}, x_{i2})^\top \in \{(-1, -1), (-1, +1), (+1, -1)\}$ and parameters $\boldsymbol \beta = (\beta_0, \beta_1, \beta_2) = (0.5, 0.5, 0.5)$. The approximate allocation to the three design points is $\mathbf w = (1/3,1/3,1/3)^\top$
+<a id="example1_GLM_Fisher"></a> 
 
-To calculate Fisher information matrix of the design with GLM, we can use *F_func_GLM* in the package. 
+## Example 1: GLM Fisher information matrix 
+Consider a research study with a simple logistic regression model $$\log(\frac{\mu_i}{1-\mu_i}) = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2}$$ where $\mu_i = E(Y_i\mid {\mathbf x}_i)$, ${\mathbf x}_i = (x_{i1}, x_{i2})^\top \in \{(-1, -1), (-1, +1), (+1, -1)\}$ and parameters $\boldsymbol \beta = (\beta_0, \beta_1, \beta_2) = (0.5, 0.5, 0.5)$. In this example, we have $m=3$ design points $(x_{i1}, x_{i2})^\top \in \{(-1, -1), (-1, +1), (+1, -1)\}$, the design matrix $\mathbf X$ (with the first column for the intercept): 
+$$\begin{bmatrix} 
+1 & -1 & -1 \\
+1 & -1 & 1 \\
+1 & 1 & -1\\
+\end{bmatrix}$$.
+
+To calculate Fisher information matrix of the design with GLM, we can use *F_func_GLM( )* in the package with input of approximate allocation $w$, coefficients $\boldsymbol \beta$, and design matrix $\mathbf X$. 
 
 ```{r}
-beta = c(0.5, 0.5, 0.5)
-X = matrix(data=c(1,-1,-1,1,-1,1,1,1,-1), byrow=TRUE, nrow=3) 
+beta = c(0.5, 0.5, 0.5) #coefficients
+X = matrix(data=c(1,-1,-1,1,-1,1,1,1,-1), byrow=TRUE, nrow=3) #design matrix
 w = c(1/3,1/3,1/3) #approximate allocation
 CDsampling::F_func_GLM(w=w, beta=beta, X=X, link='logit')
 ```
 
-#### Example of MLM Fisher information matrix
-Consider a research study with cumulative npo multinomial logit model with $J=5$ response levels with covariates $(x_{i1}, x_{i2})=\{(1,0),(2,0),(3,0), (4,0),(1,1),(2,1),(3,1),(4,1)\}$. The model can be written as:$$\log(\frac{\pi_{i1}}{\pi_{i2}+\dots+\pi_{i5}}) = \beta_{11}+\beta_{12}x_{i1}+\beta_{13}x_{i2}$$
+<a id="example2_MLM_Fisher"></a>
+
+## Example 2: MLM Fisher information matrix
+Consider a research study with cumulative non-proportional odds multinomial logit model with $J=5$ response levels and covariates $(x_{i1}, x_{i2})=\{(1,0),(2,0),(3,0), (4,0),(1,1),(2,1),(3,1),(4,1)\}$. The model can be written as:$$\log(\frac{\pi_{i1}}{\pi_{i2}+\dots+\pi_{i5}}) = \beta_{11}+\beta_{12}x_{i1}+\beta_{13}x_{i2}$$
     $$\log(\frac{\pi_{i1}+\pi_{i2}}{\pi_{i3}+\pi_{i4}+\pi_{i5}}) = \beta_{21}+\beta_{22}x_{i1}+\beta_{23}x_{i2}$$
     $$\log(\frac{\pi_{i1}+\pi_{i2}+\pi_{i3}}{\pi_{i4}+\pi_{i5}}) = \beta_{31}+\beta_{32}x_{i1}+\beta_{33}x_{i2}$$
     $$\log(\frac{\pi_{i1}+\dots+\pi_{i4}}{\pi_{i5}}) = \beta_{41}+\beta_{42}x_{i1}+\beta_{43}x_{i2}$$
-    where $i=1,\dots,8$, we assume the parameters $\boldsymbol \beta = (\beta_{11},  \beta_{12},  \beta_{13}, \beta_{21},  \beta_{22},  \beta_{23},  \beta_{31},  \beta_{32},  \beta_{33}, \beta_{41}, \beta_{42},  \beta_{43})^\top = (-4.047, -0.131, 4.214, -2.225, -0.376,$  $3.519, -0.302, -0.237,  2.420, 1.386,  -0.120, 1.284)^\top$. The approximate allocation for the eight design points is $\mathbf w = (1/8, 1/8, 1/8, 1/8, 1/8, 1/8, 1/8, 1/8)^\top$. 
+    where $i=1,\dots,8$. We have $m=8$ design points and $p=12$ parameters. We assume the parameters $\boldsymbol \beta = (\beta_{11},  \beta_{12},  \beta_{13}, \beta_{21},  \beta_{22},  \beta_{23},  \beta_{31},  \beta_{32},  \beta_{33}, \beta_{41}, \beta_{42},  \beta_{43})^\top = (-4.047, -0.131, 4.214, -2.225, -0.376,$  $3.519, -0.302, -0.237,  2.420, 1.386,  -0.120, 1.284)^\top$. The approximate allocation for the eight design points is $\mathbf w = (1/8, 1/8, 1/8, 1/8, 1/8, 1/8, 1/8, 1/8)^\top$. 
     
-To calculate the Fisher information matrix with MLM, we can use the *F_func_MLM* in the package.
+To calculate the Fisher information matrix with MLM, we can use the *F_func_MLM( )* with input of approximate allocation $w$, covariate coefficients $\boldsymbol \beta$, design matrix $\mathbf X$, and multinomial logit model (cumulative for this example). 
+
+The design matrix incorporates all $8$ design points of covariates $(x_{i1}, x_{i2})$ specified by the cumulative logit model's four equations. For example, when $x_{i1}=1$, $x_{i2}=0$, the design matrix takes the following format: 
+
+$$\begin{bmatrix} 
+1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+0 & 0 & 0 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 & 0 & 1 & 1 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 1 & 0 \\
+0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+\end{bmatrix}$$.
 
 ```{r}
-J=5; p=12; m=8; 
+J=5; p=12; m=8; #response levels; num of parameters; num of design points
 beta = c(-4.047, -0.131, 4.214, -2.225, -0.376, 3.519, -0.302,
-    -0.237,  2.420, 1.386,  -0.120,  1.284)
-Xi=rep(0,J*p*m)   
+    -0.237,  2.420, 1.386,  -0.120,  1.284) 
+Xi=rep(0,J*p*m) #design matrix   
 dim(Xi)=c(J,p,m)
 Xi[,,1] = rbind(c( 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
                 c( 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0),
@@ -113,30 +153,68 @@ Xi[,,3] = rbind(c( 1, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
  CDsampling::F_func_MLM(w=alloc, beta=beta, X=Xi, link='cumulative')
 ```
     
+<a id="Applications"></a>
+
+# Applications in paid research studies
+
+<a id="example3_trial_data"></a>
+
+## Example 3: trial_data & constrained sampling with GLM
+
+The *trial_data* is a simulated dataset containing information for $N=500$ volunteers with gender, age, and final efficacy information. The covariates considered in this example are: 
+
+1). **Gender:** 
+
+- $0$: for female 
+
+- $1$ for male
 
 
-## Data: trial_data & Constrained sampling with GLM
+2). **Age group:** 
 
-*trial_data* is a simulated dataset that contains $N=500$ volunteers gender, age, and final efficacy information. The details as below: gender is coded as $0$ for female and $1$ for male.  Age group is coded as both $age\_1 = 0$ and $age\_2 = 0$ for ages $18\sim25$, $age\_1 = 1$ for ages $26\sim64$, and $age\_2 = 1$ for ages $65$ and above. The number of design points $m=6$, that is, the number of combinations of gender and age groups $(x_{gender\_i}, x_{age\_1i}, x_{age\_2i})$ corresponds to $(0,0,0)$, $(0,1,0)$, $(0,0,1)$, $(1,0,0)$, $(1,1,0)$, $(1,0,1)$. We have the number of patients in each category  as $(N_1, N_2, \ldots, N_6) = (50, 40, 10, $ $200, 150, 50)$. Suppose that a sample of $n=200$ participants is required due to budget limit.Our goal is to find the constrained D-optimal allocation $(w_1, w_2, \dots, w_6)$ with feasible allocation $S = \{(w_1, \ldots, w_m)^T \in S_0 \mid n w_i \leq N_i, i=1, \ldots, m\}$. 
+- $age\_1 = 0$ and $age\_2 = 0$: ages $18\sim25$
 
-We can use constrained lift-one algorithm *liftone_constrained_GLM* to find the locally D-optimal approximate sampling allocations. 
+- $age\_1 = 1$ and $age\_2 = 0$: ages $26\sim64$
+
+- $age\_1 = 0$ and $age\_2 = 1$: ages $65$ and above. 
+
+There are $m=6$ design points, that is, the number of combinations of gender and age groups $(x_{gender\_i}, x_{age\_1i}, x_{age\_2i})$: 
+
+1). $(0,0,0)$: Female, 18-25 $N_1=50$)
+
+2). $(0,1,0)$: Female, 26-64 ($N_2=40$)  
+
+3). $(0,0,1)$: Female, 65+ ($N_3=10$)
+
+4). $(1,0,0)$: Male, 18-25 ($N_4=200$)
+
+5). $(1,1,0)$: Male, 26-64 ($N_5=150$) 
+
+6). $(1,0,1)$: Male, 65+ ($N_6=50$) 
 
 
-We consider the logistic regression model for $j=1,\dots,m$, $i=1,\dots,n_j$ with $\boldsymbol \beta=(\beta_{1}, \beta_{21}, \beta_{22}= (0,3,3,3)$: 
+Suppose that a sample of $n=200$ participants is required due to budget limit.Our goal is to find the constrained D-optimal allocation $(w_1, w_2, \dots, w_6)$ with feasible allocation $$S = \{(w_1, \ldots, w_m)^T \in S_0 \mid n w_i \leq N_i, i=1, \ldots, m\}.$$
+
+
+We use constrained lift-one algorithm *liftone_constrained_GLM( )* to find the locally D-optimal approximate sampling allocations with the input of design matrix $X$, $\mathbf W$ matrix which is the result returned from *W_func_GLM( )*, constraints setup (g.con, g.dir, and g.rhs), and boundaries in searching for lift-one weight (step 3 in the constrained lift-one algorithm, see reference). 
+
+
+We consider the logistic regression model for $j=1,\dots,m$, $i=1,\dots,n_j$ with $\boldsymbol \beta=(\beta_{1}, \beta_{21}, \beta_{22})= (0,3,3,3)$: 
 
 \begin{equation}\label{eq:trial_logistic_model}
 {\rm logit} \{P(Y_{ij}=1 \mid x_{gender\_i}, x_{age\_1i}, x_{age\_2i})\} = \beta_0 + \beta_1 x_{gender\_i} + \beta_{21} x_{age\_1i} + \beta_{22} x_{age\_2i} 
 \end{equation}
 
-We use the following R codes to define the beta coefficients, sample size, and design matrix: 
+Use the following R codes to define the coefficients, sample size, and design matrix: 
 
 ```{r}
 beta = c(0, 3, 3, 3) #coefficients 
-X=matrix(data=c(1,0,0,0,1,0,1,0,1,0,0,1,1,1,0,0,1,1,1,0,1,1,0,1), ncol=4, byrow=TRUE) #design matrix X
+#design matrix X
+X=matrix(data=c(1,0,0,0,1,0,1,0,1,0,0,1,1,1,0,0,1,1,1,0,1,1,0,1), ncol=4, byrow=TRUE) 
 nsample=200 #sample size
 ```
 
-To run the *liftone_constrained_GLM* function, we also need to the $\mathbf W$ matrix from the calculation of Fisher information matrix, we can use the *W_func_GLM* function in the package: 
+To run the *liftone_constrained_GLM( )* function, we also need to the $\mathbf W$ matrix from the calculation of Fisher information matrix, we can use the *W_func_GLM( )* function in the package: 
 
 ```{r}
 W_matrix=CDsampling::W_func_GLM(X=X, b=beta, link="logit") #W matrix
@@ -145,7 +223,7 @@ W_matrix=CDsampling::W_func_GLM(X=X, b=beta, link="logit") #W matrix
 Lastly, we also need to define the constraints (number of patients from different gender and age group) and boundaries for constrained sampling (please see the reference for details of lower bound $r_{i1}$ and upper bound $r_{i2}$): 
 
 ```{r}
-rc = c(50, 40, 10, 200, 150, 50)/nsample
+rc = c(50, 40, 10, 200, 150, 50)/nsample #constraints for each subgroup
 m = 6
 g.con = matrix(0,nrow=(2*m+1), ncol=m)
 g.con[1,] = rep(1, m)
@@ -173,36 +251,53 @@ upper.bound=function(i, w){
 }
 ```
 
-Now, we can run the constrained lift-one algorithm: 
+We can define an optional subgroups label for the constrained approximate allocations: 
+```{r}
+label = c("F, 18-25", "F, 26-64", "F, >=65", "M, 18-25", "M, 26-64", "M, >=65")
+```
+
+
+Now, we can run the constrained lift-one algorithm to find optimal approximate allocations for the defined subgroups: 
 
 ```{r}
 set.seed(2025)
 approximate_design = CDsampling::liftone_constrained_GLM(X=X, W=W_matrix, g.con=g.con, g.dir=g.dir, 
                                                g.rhs=g.rhs, lower.bound=lower.bound, 
-                                               upper.bound=upper.bound, reltol=1e-10, 
+                                               upper.bound=upper.bound, label=label, reltol=1e-10, 
                                                maxit=100, random=TRUE, nram=4, w00=NULL, 
                                                epsilon=1e-8)
 
 print(approximate_design)
 ```
 
-To find the exact allocation (integer value of allocation), we can use the *approxtoexact_constrained_func*: 
+The output contains several key components: 
+
+- $w$: the converged D-optimal approximate 
+
+- $w_0$: random initial weights used for the optimization  
+
+- *maximum*: the achieved maximum determinant of the Fisher information matrix
+
+- *reason*: criteria for lift-one loop termination with either "all derivative <=0", and "gmax <=0"  (see reference).
+
+To find the exact allocation (integer value of allocation), we can use the *approxtoexact_constrained_func( )* with input of sample size $n$, approximate allocation found by constrained lift-one algorithm, number of design point $m$, coefficients *beta*, link type of GLM ("logit" in this example), **Fdet_func=Fdet_func_GLM**, and design matrix $X$: 
 ```{r}
 exact_design = CDsampling::approxtoexact_constrained_func(n=200, w=approximate_design$w, m=6, 
                                                            beta=beta, link='logit', X=X, 
                                                            Fdet_func=Fdet_func_GLM, 
-                                                          iset_func=iset_func_trial) 
+                                                          iset_func=iset_func_trial, label=label) 
 
 print(exact_design)
 ```
 
+The *allocation* represents the final D-optimal exact allocation of the constrained sampling, while allocation.real is the approximate allocation found in the previous step. 
 
+<div class="note-box">
 **Note:**
-```{}
-If we cannot obtain an approximated value of beta coefficients, we can also try to find the EW D-optimal allocations instead. For EW D-optimal allocation, we can come up with some prior distributions of beta coefficients, and replace the coefficients value with expectation of those prior distributions in the R codes. (Please see reference for more details). 
-```
+When prior estimates of beta coefficients are unavailable, consider using **EW D-optimal allocations** as an alternative option. EW D-optimal method requires prior distributions of beta coefficients, which substitutes the coefficients value with expectation of prior distributions in the computaion. (Please see reference for details). 
+</div>
 
-If there is no knowledge of beta coefficients, we can use constrained uniform design: 
+If there is no knowledge of beta coefficients, we recommend using constrained uniform design with *approxtoexact_constrained_func( )*. We adjust **Fdet_func =Fdet_func_unif** and the approximate application $w$ to be $1$ subject in each subgroup. In this example, we have $n=200$ sample thus $w=(1/200, 1/200, 1/200, 1/200, 1/200, 1/200)$: 
 
 ```{r}
 w00 = rep(1/200, 6)
@@ -212,24 +307,65 @@ unif_design = CDsampling::approxtoexact_constrained_func(n=200, w=w00, m=6, beta
 print(unif_design)
 ```
 
+The *allocation* represents the constrained uniform exact allocation, while allocation.real is the initial allocation we provided. 
 
 
-## Data: trauma_data & Constrained sampling with MLM
+<a id="example4_trauma_data"></a>
+
+## Example 4: trauma_data & constrained sampling with MLM
  
-*trauma_data* consists of $N=802$ trauma patients. After the treatment, there are five outcomes,  Death ($1$),  Vegetative state ($2$), Major disability ($3$), Minor disability ($4$) and  Good recovery ($5$). We consider two covariates, the symptoms of the trauma ($x_{i1} = 0$ for mild or $1$ for moderate /severe), there are $392$ mild symptoms patients, and $410$ moderate/severe symptoms patients. The other covariate is the treatment dose levels ($x_{i2} = 1$ (Placebo), $2$ (Low dose), $3$ (Medium dose), and $4$ (High dose). In total, we have $m=8$ design points from the combination of levels from the two covariates. In this study, we plan to enroll $n=600$ patients and the collection of feasible allocation is  $S=\{(w_1, \ldots, w_8)^\top \in S_0\mid n(w_1+w_2+w_3+w_4) \leq 392, n(w_5+w_6+w_7+w_8) \leq 410\}$. The model can be written as:$$\log(\frac{\pi_{i1}}{\pi_{i2}+\dots+\pi_{i5}}) = \beta_{11}+\beta_{12}x_{i1}+\beta_{13}x_{i2}$$
+The *trauma_data* contains information on $N=802$ trauma patients with five ordered treatment outcomes: 
+
+1). Death ($1$) 
+
+2). Vegetative state ($2$)
+
+3). Major disability ($3$)
+
+4). Minor disability ($4$)
+
+5). Good recovery ($5$).
+
+
+We consider two key covariates:
+
+1). **Treatment dose levels**: 
+
+  - $x_{i1} = 1$: Placebo
+  
+  - $x_{i1} = 2$: Low dose 
+  
+  - $x_{i1} = 3$: Medium dose 
+  
+  - $x_{i1} = 4$: High dose. 
+  
+
+2). **Trauma symptoms**:  
+
+  - $x_{i2} = 0$: mild symptoms ($392$ mild symptoms patients)
+  
+  - $x_{i2} = 1$: moderate /severe symptoms ($410$ moderate/severe symptoms patients),
+
+
+This creates $m=8$ design points from the combination of all covariates levels. 
+  
+  In this study, we plan to enroll $n=600$ patients and the collection of all feasible approximate allocation is: $$S=\{(w_1, \ldots, w_8)^\top \in S_0\mid n(w_1+w_2+w_3+w_4) \leq 392, n(w_5+w_6+w_7+w_8) \leq 410\}.$$ 
+  
+  The cumulative non-proportional logit model is specified as:$$\log(\frac{\pi_{i1}}{\pi_{i2}+\dots+\pi_{i5}}) = \beta_{11}+\beta_{12}x_{i1}+\beta_{13}x_{i2}$$
     $$\log(\frac{\pi_{i1}+\pi_{i2}}{\pi_{i3}+\pi_{i4}+\pi_{i5}}) = \beta_{21}+\beta_{22}x_{i1}+\beta_{23}x_{i2}$$
     $$\log(\frac{\pi_{i1}+\pi_{i2}+\pi_{i3}}{\pi_{i4}+\pi_{i5}}) = \beta_{31}+\beta_{32}x_{i1}+\beta_{33}x_{i2}$$
     $$\log(\frac{\pi_{i1}+\dots+\pi_{i4}}{\pi_{i5}}) = \beta_{41}+\beta_{42}x_{i1}+\beta_{43}x_{i2}$$
 
-In this example, we assume the parameter to be $\boldsymbol\beta = (\hat\beta_{11}, \hat\beta_{21}, \hat\beta_{31}, \hat\beta_{41}, \hat\beta_{12}, \hat\beta_{22}, \hat\beta_{32}, \hat\beta_{42}, \hat\beta_{13}, \hat\beta_{23}, \hat\beta_{33}, \hat\beta_{43})^\top  = (-4.047, -2.225, -0.302, 1.386, 4.214, 3.519,\\ 2.420, 1.284, -0.131, -0.376, -0.237, -0.120)^\top$. In total, we have $m=8$ design points from the combination of levels from the two covariates. In this study, we plan to enroll $n=600$ patients and the collection of feasible allocation is  $S=\{(w_1, \ldots, w_8)^\top \in S_0\mid n(w_1+w_2+w_3+w_4) \leq 392, n(w_5+w_6+w_7+w_8) \leq 410\}$. 
+with the assumed parameter vector $\boldsymbol\beta = (\hat\beta_{11}, \hat\beta_{12}, \hat\beta_{13}, \hat\beta_{21}, \hat\beta_{22}, \hat\beta_{23}, \hat\beta_{31}, \hat\beta_{32}, \hat\beta_{33}, \hat\beta_{41}, \hat\beta_{42}, \hat\beta_{43})^\top  = (-4.047, -0.131, 4.214, -2.225, -0.376,\\ 3.519, -0.302, -0.237,  2.420, 1.386,  -0.120,  1.284)^\top$. 
 
-For this example, we can reuse the set-up of design matrix and beta coefficients from the MLM Fisher information matrix: 
+
+For this example, we can reuse the set-up of design matrix and beta coefficients from [Example 2: MLM Fisher information matrix](#example2_MLM_Fisher): 
 
 ```{r}
-J=5; p=12; m=8; 
+J=5; p=12; m=8; #response levels; num of parameters; num of design points
 beta = c(-4.047, -0.131, 4.214, -2.225, -0.376, 3.519, -0.302,
     -0.237,  2.420, 1.386,  -0.120,  1.284)
-Xi=rep(0,J*p*m)   
+Xi=rep(0,J*p*m) #design matrix
 dim(Xi)=c(J,p,m)
 Xi[,,1] = rbind(c( 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
                 c( 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0),
@@ -281,12 +417,13 @@ Xi[,,3] = rbind(c( 1, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
 ```
 
 
-Similarly to the GLM example, we define the sample size, constraints, and boundaries using the following R codes: 
+Similarly, we define the sample size, constraints, and boundaries using the following R codes: 
 
 ```{r}
 nsample=600 #sample size
 constraint = c(392, 410)  #mild:severe
 
+#boundaries r_i1 and r_i2 in constrained lift-one
 lower.bound <- function(i, w0){
   n = 600
   constraint = c(392,410)
@@ -311,6 +448,7 @@ upper.bound <- function(i, w0){
   b.upper
 }
 
+#constraints of the example
 g.con = matrix(0,nrow=length(constraint)+1+m, ncol=m)
 g.con[2:3,] = matrix(data=c(1,1,1,1,0,0,0,0,0,0,0,0,1,1,1,1), ncol = m, byrow=TRUE)
 g.con[1,] = rep(1, m)
@@ -321,13 +459,18 @@ g.rhs = c(1, ifelse((constraint/nsample<1),constraint/nsample,1), rep(0, m))
 ```
 
 
-Then, we can use the constrained lift-one algorithm to find the locally D-optimal approximate sampling with *liftone_constrained_MLM* function in the package: 
+Define an optional subgroups label for the constrained approximate allocations: 
+```{r}
+label = c("Placebo-Mild", "Low-Mild", "Medium-Mild", "High-Mild", "Placebo-Severe", "Low-Severe", "Medium-Severe", "High-Severe")
+```
+
+Then, we can use the constrained lift-one algorithm to find the locally D-optimal approximate sampling with *liftone_constrained_MLM( )* function in the package: 
 
 ```{r}
 set.seed(123)
 approx_design = CDsampling::liftone_constrained_MLM(m=m, p=p, Xi=Xi, J=J, beta=beta, 
                                        lower.bound=lower.bound, upper.bound=upper.bound, 
-                                        g.con=g.con, g.dir=g.dir, g.rhs=g.rhs, w00=NULL, 
+                                        g.con=g.con, g.dir=g.dir, g.rhs=g.rhs, label=label, w00=NULL, 
                                         link='cumulative', Fi.func = Fi_func_MLM, 
                                         reltol=1e-5, maxit=500, delta = 1e-6, 
                                         epsilon=1e-8, random=TRUE, nram=1)
@@ -335,18 +478,20 @@ approx_design = CDsampling::liftone_constrained_MLM(m=m, p=p, Xi=Xi, J=J, beta=b
 print(approx_design)
 ```
 
-To get the exact allocation, we can again apply the *approxtoexact_constrained_func* in the package: 
+Similar to [Example 3: trial_data & constrained sampling with GLM](#example3_trial_data), $w$ reports the D-optimal approximate allocation, while $w_0$ denotes the random initial weights used in the optimization procedure. *maximum* reports the determinant of Fisher information matrix, and *reason* is the termination criteria for the lift-one algorithm. 
+
+To convert the approximate allocation to exact allocation, we use the function *approxtoexact_constrained_func( )* in the package, with **Fdet_func=Fdet_func_MLM**: 
 
 ```{r}
 exact_design = CDsampling::approxtoexact_constrained_func(n=600, w=approx_design$w, m=8, 
- beta=beta, link='cumulative', X=Xi, Fdet_func=Fdet_func_MLM, 
+ beta=beta, link='cumulative', X=Xi, label=label, Fdet_func=Fdet_func_MLM, 
  iset_func=iset_func_trauma)
 
 print(exact_design)
 ```
 
 
-If there is no coefficients information, we can find the constrained uniform sampling with the folloiwng codes: 
+If there is no coefficients information, we can find the constrained uniform sampling with *approxtoexact_constrained_func( )* using **Fdet_func=Fdet_func_unif**: 
 
 ```{r}
 iset_func_trauma <- function(allocation){
@@ -357,9 +502,26 @@ iset_func_trauma <- function(allocation){
  }
 
 unif_design = CDsampling::approxtoexact_constrained_func(n=600, w=rep(1/600,8), m=8, beta=NULL, 
- link=NULL, X=NULL, Fdet_func=Fdet_func_unif, iset_func=iset_func_trauma)
+ link=NULL, X=NULL, label=label, Fdet_func=Fdet_func_unif, iset_func=iset_func_trauma)
 
 unif_design
 ```
+
+
+
+<div class="note-box">
+**Note:**  
+The reported determinant of the Fisher information matrix (`det.maximum`) is *model-specific* and depends on the choice of `Fdet_func`. For meaningful comparisons:   
+- Use `Fdet_func_GLM( )` for GLMs with the derived allocations  
+- Use `Fdet_func_MLM( )` for MLMs with the derived allocations 
+
+**Do not compare** values across functions.  
+</div>
+
+<a id="References"></a>
+
+# References
+- Huang Y., Tong L., Yang J. (2025). *Constrained D-optimal Design for Paid Research Study*, Statistica Sinica, DOI: 10.5705/ss.202022.0414.
+
 
 

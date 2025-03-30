@@ -10,6 +10,7 @@
 #' @param g.rhs Vector of numeric values for the right-hand sides of the constraints. to be used as const.rhs in lp() and rhs in Rglpk_solve_LP().
 #' @param lower.bound A function to determine lower bound r_i1 in Step 3 of Constrained lift-one algorithm from Yifei, H., Liping, T., Yang, J. (2023) Constrained D-optimal design for paid research study
 #' @param upper.bound A function to determine upper bound r_i2 in Step 3 of Constrained lift-one algorithm from Yifei, H., Liping, T., Yang, J. (2023) Constrained D-optimal design for paid research study
+#' @param label A vector of text strings for subgroups' names, default value NULL
 #' @param reltol The relative convergence tolerance, default value 1e-5
 #' @param maxit The maximum number of iterations, default value 500
 #' @param random TRUE or FALSE, if TRUE then the function will run with additional "nram" number of random initial points, default to be TRUE
@@ -77,7 +78,7 @@
 #'
 #'
 
-liftone_constrained_GLM <- function(X, W, g.con, g.dir, g.rhs, lower.bound, upper.bound, reltol=1e-5, maxit=500, random=TRUE, nram=3, w00=NULL, epsilon = 1e-12){
+liftone_constrained_GLM <- function(X, W, g.con, g.dir, g.rhs, lower.bound, upper.bound, label=NULL, reltol=1e-5, maxit=500, random=TRUE, nram=3, w00=NULL, epsilon=1e-12){
   # W=W[1,2,...,m] are strictly positive; diagonal of W matrix in Fisher information matrix
   # rc=rc[1,2,...,m] are strictly positive; each group's proportion (n_group / n_total)
   # if random=T, run 5 random initial points and pick up the best; default initial p1=p2=...=1/m
@@ -382,7 +383,7 @@ liftone_constrained_GLM <- function(X, W, g.con, g.dir, g.rhs, lower.bound, uppe
 
   if((max(maxvec)/min(maxvec))-1 <= reltol) convergence=TRUE;itmax=ind;
   #define S3 class
-  output <- list(w=p.report, w0=p0.report, maximum=maximum.report, convergence=convergence, itmax=itmax, deriv.ans=deriv.report, gmax=gmax.report, reason=reason.report);
+  output <- list(w=p.report, w0=p0.report, maximum=maximum.report, convergence=convergence, itmax=itmax, deriv.ans=deriv.report, gmax=gmax.report, reason=reason.report, label=label);
   class(output)<-"list_output"
   return(output)
 }

@@ -15,6 +15,7 @@ liftone_constrained_MLM(
   g.con,
   g.dir,
   g.rhs,
+  label = NULL,
   w00 = NULL,
   link = "cumulative",
   Fi.func = Fi_func_MLM,
@@ -46,6 +47,8 @@ liftone_constrained_MLM(
 \item{g.dir}{Vector of character strings giving the direction of the constraint: each value should be one of "<," "<=," "=," "==," ">," or ">=". (In each pair the two values are identical.) to be used as const.dir in lp() and dir in Rglpk_solve_LP()}
 
 \item{g.rhs}{Vector of numeric values for the right-hand sides of the constraints. to be used as const.rhs in lp() and rhs in Rglpk_solve_LP()}
+
+\item{label}{A vector of text strings for subgroups' names, default value NULL}
 
 \item{w00}{Specified initial design proportion; default to be NULL, this will generate a random initial design}
 

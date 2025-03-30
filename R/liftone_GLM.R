@@ -7,6 +7,7 @@
 #' @param random TRUE or FALSE, if TRUE then the function will run with additional "nram" number of random initial points, default to be TRUE
 #' @param nram When random == TRUE, the function will generate nram number of initial points, default is 3
 #' @param w00 Specified initial design proportion; default to be NULL, this will generate a random initial design
+#' @param label A vector of text strings for subgroups' names, default value NULL
 #'
 #' @return w is the approximate D-optimal design
 #' @return w0 is the initial design used to get optimal design w
@@ -26,7 +27,7 @@
 
 
 
-liftone_GLM <- function(X, W, reltol=1e-5, maxit=500, random=TRUE, nram=3, w00=NULL)  {   ## W=W[1,2,...,m] are strictly positive
+liftone_GLM <- function(X, W, reltol=1e-5, maxit=500, random=TRUE, nram=3, w00=NULL, label=NULL)  {   ## W=W[1,2,...,m] are strictly positive
   # if random=T, run 5 random initial points and pick up the best; default initial p1=p2=...=1/m
   # output: w=w--optimal design based on "det"
   #         Maximum--maximized value of "det"
@@ -111,7 +112,7 @@ liftone_GLM <- function(X, W, reltol=1e-5, maxit=500, random=TRUE, nram=3, w00=N
   }
   #define S3 class
   if((max(maxvec,na.rm=T)/min(maxvec,na.rm=T))-1 <= reltol) convergence=TRUE;
-  output <- list(w=p.ans, w0=w00, Maximum=maximum.ans, itmax=itmax, convergence=convergence);  # convergence=T indicates success
+  output <- list(w=p.ans, w0=w00, Maximum=maximum.ans, itmax=itmax, convergence=convergence, label=label);  # convergence=T indicates success
   class(output)<-"list_output"
   return(output)
 }

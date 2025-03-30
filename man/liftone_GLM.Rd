@@ -11,7 +11,8 @@ liftone_GLM(
   maxit = 500,
   random = TRUE,
   nram = 3,
-  w00 = NULL
+  w00 = NULL,
+  label = NULL
 )
 }
 \arguments{
@@ -28,6 +29,8 @@ liftone_GLM(
 \item{nram}{When random == TRUE, the function will generate nram number of initial points, default is 3}
 
 \item{w00}{Specified initial design proportion; default to be NULL, this will generate a random initial design}
+
+\item{label}{A vector of text strings for subgroups' names, default value NULL}
 }
 \value{
 w is the approximate D-optimal design

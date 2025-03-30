@@ -16,7 +16,8 @@ liftone_MLM(
   maxit = 500,
   w00 = NULL,
   random = TRUE,
-  nram = 3
+  nram = 3,
+  label = NULL
 )
 }
 \arguments{
@@ -43,6 +44,8 @@ liftone_MLM(
 \item{random}{TRUE or FALSE, if TRUE then the function will run with additional "nram" number of random initial points, default to be TRUE}
 
 \item{nram}{When random == TRUE, the function will generate nram number of initial points, default is 3}
+
+\item{label}{A vector of text strings for subgroups' names, default value NULL}
 }
 \value{
 w is the approximate D-optimal design

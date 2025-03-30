@@ -17,47 +17,59 @@ print.list_output <- function(x, ...) {
   cat("Optimal Sampling Results:\n")
   cat(rep("=", 80), "\n", sep = "")
 
-  for (i in seq_along(x)) {
-    element <- x[[i]]
-    element_name <- names(x)[i]
+  # Pre-process to find paired elements
+  processed_elements <- character(0)
 
+  for (i in seq_along(x)) {
+    element_name <- names(x)[i]
+    element <- x[[i]]
+
+    # Skip label element and already processed elements
+    if (element_name == "label" || element_name %in% processed_elements) next
+
+    # Check for w/w0 pair
+    if (grepl("^w", element_name)) {
+      counterpart_name <- ifelse(element_name == "w", "w0", "w")
+      if (counterpart_name %in% names(x)) {
+        # Print w and w0 as a table
+        cat("Optimal approximate allocation:\n")
+        print_weight_table(x[[element_name]], x[[counterpart_name]], x$label)
+        processed_elements <- c(processed_elements, element_name, counterpart_name)
+        cat(rep("-", 80), "\n", sep = "")
+        next
+      }
+    }
+
+    # Check for allocation pair
+    if (grepl("^allocation", element_name)) {
+      counterpart_name <- ifelse(element_name == "allocation", "allocation.real", "allocation")
+      if (counterpart_name %in% names(x)) {
+        # Print allocation pair as a table
+        cat("Optimal exact allocation:\n")
+        print_allocation_table(x[[element_name]], x[[counterpart_name]], x$label)
+        processed_elements <- c(processed_elements, element_name, counterpart_name)
+        cat(rep("-", 80), "\n", sep = "")
+        next
+      }
+    }
+
+    # Default printing for non-paired elements
     cat(element_name, ":\n")
 
     if (is.matrix(element)) {
-      # Pretty print for matrices
       print(format(element, justify = "right"), quote = FALSE)
     } else if (is.data.frame(element)) {
-      # Pretty print for data frames
       print(element, row.names = FALSE)
     } else if (is.numeric(element)) {
-      # Format numeric values dynamically
-      formatted <- sapply(element, function(value) {
-        if (value == round(value, digits = 0) && grepl("\\.0$", format(value, nsmall = 1))) {
-          # If the value is an integer with a ".0", keep it as is
-          format(value, nsmall = 1)
-        } else if (value == round(value)) {
-          # If the value is a true integer, print it as an integer
-          as.character(value)
-        } else if (abs(value) < 1e-3 || abs(value) >= 1e+3) {
-          # For very small or large values, use scientific notation with 4 decimal places
-          formatC(value, format = "e", digits = 4)
-        } else {
-          # For other values, show up to 4 decimal places, removing unnecessary trailing zeros
-          sub("\\.?0+$", "", formatC(value, format = "f", digits = 4))
-        }
-      })
+      formatted <- format_numeric(element)
       cat(paste(formatted, collapse = ", "), "\n")
     } else if (is.logical(element)) {
-      # Print logical vectors
       cat(paste(element, collapse = ", "), "\n")
     } else if (is.character(element)) {
-      # Print character vectors
       cat(paste0('"', element, '"', collapse = ", "), "\n")
     } else if (is.list(element)) {
-      # Indicate nested lists
       cat("Nested list with", length(element), "elements\n")
     } else {
-      # Fallback for unknown types
       cat("Unsupported element type:", class(element), "\n")
     }
 
@@ -65,4 +77,47 @@ print.list_output <- function(x, ...) {
   }
 
   invisible(x)
+}
+
+# Helper function to print weight tables
+print_weight_table <- function(w, w0, labels) {
+  if (is.null(labels)) labels <- seq_along(w)
+
+  # Create the table
+  tbl <- rbind(
+    w = format_numeric(w),
+    w0 = format_numeric(w0)
+  )
+
+  colnames(tbl) <- labels
+  print(tbl, quote = FALSE)
+}
+
+# Helper function to print allocation tables
+print_allocation_table <- function(allocation, allocation_real, labels) {
+  if (is.null(labels)) labels <- seq_along(allocation)
+
+  # Create the table
+  tbl <- rbind(
+    allocation = format_numeric(allocation),
+    allocation.real = format_numeric(allocation_real)
+  )
+
+  colnames(tbl) <- labels
+  print(tbl, quote = FALSE)
+}
+
+# Helper function to format numeric values consistently
+format_numeric <- function(x) {
+  sapply(x, function(value) {
+    if (value == round(value, digits = 0) && grepl("\\.0$", format(value, nsmall = 1))) {
+      format(value, nsmall = 1)
+    } else if (value == round(value)) {
+      as.character(value)
+    } else if (abs(value) < 1e-3 || abs(value) >= 1e+3) {
+      formatC(value, format = "e", digits = 4)
+    } else {
+      sub("\\.?0+$", "", formatC(value, format = "f", digits = 4))
+    }
+  })
 }

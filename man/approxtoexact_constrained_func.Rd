@@ -12,7 +12,8 @@ approxtoexact_constrained_func(
   link = NULL,
   X = NULL,
   Fdet_func = Fdet_func_GLM,
-  iset_func = NULL
+  iset_func = NULL,
+  label = NULL
 )
 }
 \arguments{
@@ -31,6 +32,8 @@ approxtoexact_constrained_func(
 \item{Fdet_func}{determinant of Fisher information matrix function, Fdet_func can be self-defined, or use "Fdet_func_GLM", "Fdet_func_MLM" in the package, default is Fdet_func_GLM}
 
 \item{iset_func}{self-defined function for checking which index of sampling group fall within constraint if add 1 more subject (I set, see Algorithm 2 in Huang, Tong, Yang (2023)), two example functions are provided in the package, iset_func_trial and iset_func_trauma}
+
+\item{label}{A vector of text strings for subgroups' names, default value NULL}
 }
 \value{
 allocation is the exact allocation or integer value of the number of subjects sampled from the group

@@ -13,6 +13,7 @@
 #' @param w00 Specified initial design proportion; default to be NULL, this will generate a random initial design
 #' @param random TRUE or FALSE, if TRUE then the function will run with additional "nram" number of random initial points, default to be TRUE
 #' @param nram When random == TRUE, the function will generate nram number of initial points, default is 3
+#' @param label A vector of text strings for subgroups' names, default value NULL
 #'
 #' @return w is the approximate D-optimal design
 #' @return w0 is the initial design used to get optimal design
@@ -87,7 +88,7 @@
 
 
 
-liftone_MLM <- function(m, p, Xi, J, beta, link = "continuation", Fi.func=Fi_func_MLM, reltol=1e-5, maxit=500, w00=NULL, random=TRUE, nram=3) {
+liftone_MLM <- function(m, p, Xi, J, beta, link = "continuation", Fi.func=Fi_func_MLM, reltol=1e-5, maxit=500, w00=NULL, random=TRUE, nram=3, label=NULL) {
   if(is.null(w00)){w00=rexp(m); w00=w00/sum(w00);}
   Fi <- rep(0, p*p*m);  dim(Fi)=c(p,p,m)
   nFi <- rep(0, p*p*m);  dim(nFi)=c(p,p,m)
@@ -237,7 +238,7 @@ liftone_MLM <- function(m, p, Xi, J, beta, link = "continuation", Fi.func=Fi_fun
 
   #assign S3 class
   if((max(maxvec)/min(maxvec))-1 <= reltol) convergence=TRUE;
-  output<-list(w=p0.ans, w0=w00.ans, Maximum=maximum.ans, convergence=convergence, itmax=itmax);
+  output<-list(w=p0.ans, w0=w00.ans, Maximum=maximum.ans, convergence=convergence, itmax=itmax, label=label);
   class(output)<-"list_output"
   return(output)
 }
