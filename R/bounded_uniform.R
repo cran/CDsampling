@@ -2,6 +2,7 @@
 #'
 #' @param Ni a vector with size m, upper bound for exact design of each category/stratification group, if unconstrained, use Inf vector, the function will return unbounded uniform allocation
 #' @param nsample a number, the sample size
+#' @param label A vector of text strings for subgroups' names, default value NULL
 #'
 #' @return n is the constrained/unconstrained uniform exact allocation
 #' @export
@@ -11,7 +12,7 @@
 #' bounded_uniform(Ni=c(50, 40, 10, 200, 150, 50), nsample=200)
 #'
 
-bounded_uniform = function(Ni, nsample){
+bounded_uniform = function(Ni, nsample, label=NULL){
   N = sum(Ni) #population size
   nsample.temp = nsample #sample size
   m = m.temp = length(Ni) #num of categories
@@ -36,7 +37,7 @@ bounded_uniform = function(Ni, nsample){
     n[id]=n[id]+1;
   };
   #define S3 class
-  output <- list(allocation=n)
+  output <- list(allocation=n, label=label)
   class(output)<-"list_output"
   return(output)
 

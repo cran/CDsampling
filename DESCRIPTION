@@ -1,7 +1,7 @@
 Package: CDsampling
 Type: Package
-Title: 'CDsampling': Constraint Sampling in Paid Research Studies
-Version: 0.1.5
+Title: Constrained Sampling in Paid Research Studies
+Version: 0.1.6
 Authors@R: c(person(given = "Yifei",
                       family = "Huang",
                       role = c("aut", "cre"),
@@ -24,9 +24,9 @@ Suggests: knitr, rmarkdown, testthat (>= 3.0.0)
 VignetteBuilder: knitr
 Config/testthat/edition: 3
 NeedsCompilation: no
-Packaged: 2025-03-30 17:17:17 UTC; yifeih
+Packaged: 2025-04-05 14:52:46 UTC; yifeih
 Author: Yifei Huang [aut, cre],
   Liping Tong [aut],
   Jie Yang [aut]
 Repository: CRAN
-Date/Publication: 2025-03-30 17:30:06 UTC
+Date/Publication: 2025-04-05 15:20:11 UTC

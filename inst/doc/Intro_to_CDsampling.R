@@ -137,7 +137,7 @@ print(unif_design)
 ## -----------------------------------------------------------------------------
 J=5; p=12; m=8; #response levels; num of parameters; num of design points
 beta = c(-4.047, -0.131, 4.214, -2.225, -0.376, 3.519, -0.302,
-    -0.237,  2.420, 1.386,  -0.120,  1.284)
+    -0.237,  2.420, 1.386,  -0.120,  1.284) #coefficients
 Xi=rep(0,J*p*m) #design matrix
 dim(Xi)=c(J,p,m)
 Xi[,,1] = rbind(c( 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
@@ -242,8 +242,8 @@ print(approx_design)
 
 ## -----------------------------------------------------------------------------
 exact_design = CDsampling::approxtoexact_constrained_func(n=600, w=approx_design$w, m=8, 
- beta=beta, link='cumulative', X=Xi, label=label, Fdet_func=Fdet_func_MLM, 
- iset_func=iset_func_trauma)
+ beta=beta, link='cumulative', X=Xi, Fdet_func=Fdet_func_MLM, 
+ iset_func=iset_func_trauma, label=label)
 
 print(exact_design)
 

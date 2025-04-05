@@ -1,4 +1,4 @@
-0d0b61ef5c58921234c2826acf96d7c2 *DESCRIPTION
+207797b26cc89f45f5162d17b746cc15 *DESCRIPTION
 193f48496e2b6bab5ce5c8f5aec9b23d *LICENSE
 ec9f9ed1175f1fde8b8f3dcc1b6dbe12 *NAMESPACE
 beca0d6e7fa20dd09912a4c2520f40c8 *R/F_func_GLM.R
@@ -10,14 +10,14 @@ a6dc111f6b494e6281537bd264a2e4ab *R/Fi_func_MLM.R
 892ce769d88c2dac5ee123539f213b11 *R/W_func_GLM.R
 17b4583458ff71b158faaa974ea309be *R/approxtoexact_constrained_func.R
 c99bc70f1be0c55ff2eff060216bf993 *R/approxtoexact_func.R
-49c7f6777962662f473133ee25dcd263 *R/bounded_uniform.R
+742b62a6be378b2acb2b34d2b78c7ef0 *R/bounded_uniform.R
 e90c08de8c83bc02395261807277ce40 *R/iset_func_trauma.R
 d037fa74ec3095fdd3365feac423f805 *R/iset_func_trial.R
 7d8bca7293a8568c466e379147bac470 *R/liftone_GLM.R
 0885f2eb727bcf6d456517d4fed757d0 *R/liftone_MLM.R
 e38def694c6d32b52b1de4fd1d08c7c5 *R/liftone_constrained_GLM.R
 9bbdd35e140099a018b2fbf852652096 *R/liftone_constrained_MLM.R
-0e320a938ca5f1bb39769662f79f2221 *R/print.list_output.R
+cabdbf1afdea38c7dca666261e948095 *R/print.list_output.R
 105effb2ea95161f956e998bbfda0f04 *R/print.matrix_list.R
 c45cebed51275e04892bb05c818bd79f *R/print.matrix_output.R
 fa7dce608ee01275a306d43fb4fb7099 *R/trauma_data.R
@@ -25,9 +25,9 @@ fa7dce608ee01275a306d43fb4fb7099 *R/trauma_data.R
 d44df584ea0fb3557d2aca3ee7ce2622 *build/vignette.rds
 25e6d10fd14ae7efe5790eeadc8e7a2a *data/trauma_data.rda
 f844e6e1074cc85a90b48c17b9a1a7c6 *data/trial_data.rda
-530bb5a52b64290cebc0b773311e27b5 *inst/doc/Intro_to_CDsampling.R
-9f1cb874f8a14bd658dd9fd4f099e6aa *inst/doc/Intro_to_CDsampling.Rmd
-56fca292903b850f7f4e6dc206a85440 *inst/doc/Intro_to_CDsampling.html
+6bde3319abcd5c3451737799e2c37782 *inst/doc/Intro_to_CDsampling.R
+6865c4f462a791634a21faf038e4ec68 *inst/doc/Intro_to_CDsampling.Rmd
+3f9d96fcbc87d26232fcca897dce6a40 *inst/doc/Intro_to_CDsampling.html
 f06c05877585f6e0d0c0aadab382c474 *man/F_func_GLM.Rd
 19a8c17e672f5721269b0e6c647377d6 *man/F_func_MLM.Rd
 87325e18b304efd61555057d39a1c4e4 *man/Fdet_func_GLM.Rd
@@ -37,7 +37,7 @@ f06c05877585f6e0d0c0aadab382c474 *man/F_func_GLM.Rd
 f912197e8c0752f876c03ae6ecb11be0 *man/W_func_GLM.Rd
 2f87780d4a2520a7004cd899c5bc9304 *man/approxtoexact_constrained_func.Rd
 f5776f18f007158bc62cf92c2b73b1b5 *man/approxtoexact_func.Rd
-f3f267211433191f8d665f18871660be *man/bounded_uniform.Rd
+ba89c02324e4f6eecb269979c088e19c *man/bounded_uniform.Rd
 c8a20aba46758600bcfa571492d9b37c *man/iset_func_trauma.Rd
 e780dcf0590f0f15645f5a9482f79348 *man/iset_func_trial.Rd
 4693d147445c3e9d696b3af2757d6eb8 *man/liftone_GLM.Rd
@@ -49,4 +49,4 @@ ca72e6753a1da857ef332daeee5d30a1 *man/print.matrix_list.Rd
 51c9287c52a030678c2451e0a00475a7 *man/print.matrix_output.Rd
 1d04bbc662572447ad7ccd133da0c725 *man/trauma_data.Rd
 5c9b44404ae6117ddc9b7cf512b02ae7 *man/trial_data.Rd
-9f1cb874f8a14bd658dd9fd4f099e6aa *vignettes/Intro_to_CDsampling.Rmd
+6865c4f462a791634a21faf038e4ec68 *vignettes/Intro_to_CDsampling.Rmd

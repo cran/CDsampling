@@ -40,14 +40,20 @@ print.list_output <- function(x, ...) {
       }
     }
 
-    # Check for allocation pair
+    # Check for allocation (with or without allocation.real)
     if (grepl("^allocation", element_name)) {
-      counterpart_name <- ifelse(element_name == "allocation", "allocation.real", "allocation")
-      if (counterpart_name %in% names(x)) {
-        # Print allocation pair as a table
-        cat("Optimal exact allocation:\n")
-        print_allocation_table(x[[element_name]], x[[counterpart_name]], x$label)
-        processed_elements <- c(processed_elements, element_name, counterpart_name)
+      if (element_name == "allocation") {
+        if ("allocation.real" %in% names(x)) {
+          # Print both allocation and allocation.real as table
+          cat("Optimal exact allocation:\n")
+          print_allocation_table(x$allocation, x$allocation.real, x$label)
+          processed_elements <- c(processed_elements, "allocation", "allocation.real")
+        } else {
+          # Print just allocation as single-row table
+          cat("Optimal exact allocation:\n")
+          print_single_allocation_table(x$allocation, x$label)
+          processed_elements <- c(processed_elements, "allocation")
+        }
         cat(rep("-", 80), "\n", sep = "")
         next
       }
@@ -106,6 +112,21 @@ print_allocation_table <- function(allocation, allocation_real, labels) {
   colnames(tbl) <- labels
   print(tbl, quote = FALSE)
 }
+
+
+# Helper function for single allocation row
+print_single_allocation_table <- function(allocation, labels) {
+  if (is.null(labels)) labels <- seq_along(allocation)
+
+  # Create single-row table
+  tbl <- rbind(
+    allocation = format_numeric(allocation)
+  )
+
+  colnames(tbl) <- labels
+  print(tbl, quote = FALSE)
+}
+
 
 # Helper function to format numeric values consistently
 format_numeric <- function(x) {

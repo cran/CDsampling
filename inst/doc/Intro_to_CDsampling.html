@@ -372,7 +372,7 @@ constrained sampling with MLM</a></li>
 <li><a href="#References">References</a></li>
 </ul>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(CDsampling)</span></code></pre></div>
-<p>/private/var/folders/vf/_6q3gfkd14v15hhpcwlkrnc00000gn/T/RtmpNvoIa5/Rbuild112ca9d6d91f/CDsampling/vignettes/Intro_to_CDsampling.R</p>
+<p>/private/var/folders/vf/_6q3gfkd14v15hhpcwlkrnc00000gn/T/RtmpGXCeEi/Rbuild99117cbf53a7/CDsampling/vignettes/Intro_to_CDsampling.R</p>
 <p>In the context of paid research studies and clinical trials, budget
 considerations and patient sampling from available populations are
 subject to inherent constraints. <strong>CDsampling</strong> integrates
@@ -425,7 +425,7 @@ allocation <span class="math inline">\(w\)</span>, coefficients <span class="mat
 <span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a><span class="co">#&gt; [2,] -0.07833457  0.23500371 -0.07833457</span></span>
 <span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a><span class="co">#&gt; [3,] -0.07833457 -0.07833457  0.23500371</span></span>
 <span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a><span class="co">#&gt; ------------------------------</span></span></code></pre></div>
-<p>/private/var/folders/vf/_6q3gfkd14v15hhpcwlkrnc00000gn/T/RtmpNvoIa5/Rbuild112ca9d6d91f/CDsampling/vignettes/Intro_to_CDsampling.R</p>
+<p>/private/var/folders/vf/_6q3gfkd14v15hhpcwlkrnc00000gn/T/RtmpGXCeEi/Rbuild99117cbf53a7/CDsampling/vignettes/Intro_to_CDsampling.R</p>
 <p><a id="example2_MLM_Fisher"></a></p>
 </div>
 <div id="example-2-mlm-fisher-information-matrix" class="section level2">
@@ -548,12 +548,19 @@ following format:</p>
 <span id="cb3-82"><a href="#cb3-82" tabindex="-1"></a><span class="co">#&gt; [11,] -0.25399393 -0.74842743 -0.15305771  0.45287619  1.37180187  0.17395849</span></span>
 <span id="cb3-83"><a href="#cb3-83" tabindex="-1"></a><span class="co">#&gt; [12,] -0.06194131 -0.15305771 -0.06194131  0.06925715  0.17395849  0.06925715</span></span>
 <span id="cb3-84"><a href="#cb3-84" tabindex="-1"></a><span class="co">#&gt; ------------------------------------------------------------------------------------------------------------------------</span></span></code></pre></div>
-<p>/private/var/folders/vf/_6q3gfkd14v15hhpcwlkrnc00000gn/T/RtmpNvoIa5/Rbuild112ca9d6d91f/CDsampling/vignettes/Intro_to_CDsampling.R</p>
+<p>/private/var/folders/vf/_6q3gfkd14v15hhpcwlkrnc00000gn/T/RtmpGXCeEi/Rbuild99117cbf53a7/CDsampling/vignettes/Intro_to_CDsampling.R</p>
 <p><a id="Applications"></a></p>
 </div>
 </div>
 <div id="applications-in-paid-research-studies" class="section level1">
 <h1>Applications in paid research studies</h1>
+<p><strong>CDsampling</strong> package addresses constrained sampling
+problems in paid research studies or clinical trials where the number of
+qualified volunteers exceeds the available budget. The CDsampling
+package implements the designer’s sampling strategy and utilizes the
+constrained lift-one algorithm to find the optimal sample sizes for
+different subgroups with the goal to achieve the most accurate model
+estimates.</p>
 <p><a id="example3_trial_data"></a></p>
 <div id="example-3-trial_data-constrained-sampling-with-glm" class="section level2">
 <h2>Example 3: trial_data &amp; constrained sampling with GLM</h2>
@@ -607,13 +614,13 @@ and design matrix:</p>
 <span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="co">#design matrix X</span></span>
 <span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>X<span class="ot">=</span><span class="fu">matrix</span>(<span class="at">data=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>), <span class="at">ncol=</span><span class="dv">4</span>, <span class="at">byrow=</span><span class="cn">TRUE</span>) </span>
 <span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>nsample<span class="ot">=</span><span class="dv">200</span> <span class="co">#sample size</span></span></code></pre></div>
-<p>/private/var/folders/vf/_6q3gfkd14v15hhpcwlkrnc00000gn/T/RtmpNvoIa5/Rbuild112ca9d6d91f/CDsampling/vignettes/Intro_to_CDsampling.R</p>
+<p>/private/var/folders/vf/_6q3gfkd14v15hhpcwlkrnc00000gn/T/RtmpGXCeEi/Rbuild99117cbf53a7/CDsampling/vignettes/Intro_to_CDsampling.R</p>
 <p>To run the <em>liftone_constrained_GLM( )</em> function, we also need
 to the <span class="math inline">\(\mathbf W\)</span> matrix from the
 calculation of Fisher information matrix, we can use the <em>W_func_GLM(
 )</em> function in the package:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>W_matrix<span class="ot">=</span>CDsampling<span class="sc">::</span><span class="fu">W_func_GLM</span>(<span class="at">X=</span>X, <span class="at">b=</span>beta, <span class="at">link=</span><span class="st">&quot;logit&quot;</span>) <span class="co">#W matrix</span></span></code></pre></div>
-<p>/private/var/folders/vf/_6q3gfkd14v15hhpcwlkrnc00000gn/T/RtmpNvoIa5/Rbuild112ca9d6d91f/CDsampling/vignettes/Intro_to_CDsampling.R</p>
+<p>/private/var/folders/vf/_6q3gfkd14v15hhpcwlkrnc00000gn/T/RtmpGXCeEi/Rbuild99117cbf53a7/CDsampling/vignettes/Intro_to_CDsampling.R</p>
 <p>Lastly, we also need to define the constraints (number of patients
 from different gender and age group) and boundaries for constrained
 sampling (please see the reference for details of lower bound <span class="math inline">\(r_{i1}\)</span> and upper bound <span class="math inline">\(r_{i2}\)</span>):</p>
@@ -643,11 +650,11 @@ sampling (please see the reference for details of lower bound <span class="math 
 <span id="cb6-24"><a href="#cb6-24" tabindex="-1"></a>  rc[i];</span>
 <span id="cb6-25"><a href="#cb6-25" tabindex="-1"></a>  <span class="fu">min</span>(<span class="dv">1</span>,rc[i])</span>
 <span id="cb6-26"><a href="#cb6-26" tabindex="-1"></a>}</span></code></pre></div>
-<p>/private/var/folders/vf/_6q3gfkd14v15hhpcwlkrnc00000gn/T/RtmpNvoIa5/Rbuild112ca9d6d91f/CDsampling/vignettes/Intro_to_CDsampling.R</p>
+<p>/private/var/folders/vf/_6q3gfkd14v15hhpcwlkrnc00000gn/T/RtmpGXCeEi/Rbuild99117cbf53a7/CDsampling/vignettes/Intro_to_CDsampling.R</p>
 <p>We can define an optional subgroups label for the constrained
 approximate allocations:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>label <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;F, 18-25&quot;</span>, <span class="st">&quot;F, 26-64&quot;</span>, <span class="st">&quot;F, &gt;=65&quot;</span>, <span class="st">&quot;M, 18-25&quot;</span>, <span class="st">&quot;M, 26-64&quot;</span>, <span class="st">&quot;M, &gt;=65&quot;</span>)</span></code></pre></div>
-<p>/private/var/folders/vf/_6q3gfkd14v15hhpcwlkrnc00000gn/T/RtmpNvoIa5/Rbuild112ca9d6d91f/CDsampling/vignettes/Intro_to_CDsampling.R</p>
+<p>/private/var/folders/vf/_6q3gfkd14v15hhpcwlkrnc00000gn/T/RtmpGXCeEi/Rbuild99117cbf53a7/CDsampling/vignettes/Intro_to_CDsampling.R</p>
 <p>Now, we can run the constrained lift-one algorithm to find optimal
 approximate allocations for the defined subgroups:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2025</span>)</span>
@@ -683,7 +690,7 @@ approximate allocations for the defined subgroups:</p>
 <span id="cb8-31"><a href="#cb8-31" tabindex="-1"></a><span class="co">#&gt; reason :</span></span>
 <span id="cb8-32"><a href="#cb8-32" tabindex="-1"></a><span class="co">#&gt; &quot;gmax &lt;= 0&quot; </span></span>
 <span id="cb8-33"><a href="#cb8-33" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre></div>
-<p>/private/var/folders/vf/_6q3gfkd14v15hhpcwlkrnc00000gn/T/RtmpNvoIa5/Rbuild112ca9d6d91f/CDsampling/vignettes/Intro_to_CDsampling.R</p>
+<p>/private/var/folders/vf/_6q3gfkd14v15hhpcwlkrnc00000gn/T/RtmpGXCeEi/Rbuild99117cbf53a7/CDsampling/vignettes/Intro_to_CDsampling.R</p>
 <p>The output contains several key components:</p>
 <ul>
 <li><p><span class="math inline">\(w\)</span>: the converged D-optimal
@@ -718,7 +725,7 @@ of GLM (“logit” in this example),
 <span id="cb9-14"><a href="#cb9-14" tabindex="-1"></a><span class="co">#&gt; det.maximum :</span></span>
 <span id="cb9-15"><a href="#cb9-15" tabindex="-1"></a><span class="co">#&gt; 46.1012 </span></span>
 <span id="cb9-16"><a href="#cb9-16" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre></div>
-<p>/private/var/folders/vf/_6q3gfkd14v15hhpcwlkrnc00000gn/T/RtmpNvoIa5/Rbuild112ca9d6d91f/CDsampling/vignettes/Intro_to_CDsampling.R</p>
+<p>/private/var/folders/vf/_6q3gfkd14v15hhpcwlkrnc00000gn/T/RtmpGXCeEi/Rbuild99117cbf53a7/CDsampling/vignettes/Intro_to_CDsampling.R</p>
 <p>The <em>allocation</em> represents the final D-optimal exact
 allocation of the constrained sampling, while allocation.real is the
 approximate allocation found in the previous step.</p>
@@ -753,7 +760,7 @@ example, we have <span class="math inline">\(n=200\)</span> sample thus
 <span id="cb10-13"><a href="#cb10-13" tabindex="-1"></a><span class="co">#&gt; det.maximum :</span></span>
 <span id="cb10-14"><a href="#cb10-14" tabindex="-1"></a><span class="co">#&gt; 792351680.0 </span></span>
 <span id="cb10-15"><a href="#cb10-15" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre></div>
-<p>/private/var/folders/vf/_6q3gfkd14v15hhpcwlkrnc00000gn/T/RtmpNvoIa5/Rbuild112ca9d6d91f/CDsampling/vignettes/Intro_to_CDsampling.R</p>
+<p>/private/var/folders/vf/_6q3gfkd14v15hhpcwlkrnc00000gn/T/RtmpGXCeEi/Rbuild99117cbf53a7/CDsampling/vignettes/Intro_to_CDsampling.R</p>
 <p>The <em>allocation</em> represents the constrained uniform exact
 allocation, while allocation.real is the initial allocation we
 provided.</p>
@@ -790,9 +797,14 @@ symptoms patients),</p></li>
 </ul>
 <p>This creates <span class="math inline">\(m=8\)</span> design points
 from the combination of all covariates levels.</p>
-<p>In this study, we plan to enroll <span class="math inline">\(n=600\)</span> patients and the collection of all
-feasible approximate allocation is: <span class="math display">\[S=\{(w_1, \ldots, w_8)^\top \in S_0\mid
-n(w_1+w_2+w_3+w_4) \leq 392, n(w_5+w_6+w_7+w_8) \leq 410\}.\]</span></p>
+<p>In this study, we plan to enroll <span class="math inline">\(n=600\)</span> patients and the constraint comes
+from the available patients in the two trauma symptoms subgroups (<span class="math inline">\(392\)</span> and <span class="math inline">\(410\)</span>). The collection of all feasible
+approximate allocation is: <span class="math display">\[S=\{(w_1,
+\ldots, w_8)^\top \in S_0\mid n(w_1+w_2+w_3+w_4) \leq 392,
+n(w_5+w_6+w_7+w_8) \leq 410\}.\]</span> This condition ensures that the
+number of mild patients sampled from all the four dose levels does not
+exceed the available mild patients, and the same applies to the
+moderate/severe patients.</p>
 <p>The cumulative non-proportional logit model is specified as:<span class="math display">\[\log(\frac{\pi_{i1}}{\pi_{i2}+\dots+\pi_{i5}}) =
 \beta_{11}+\beta_{12}x_{i1}+\beta_{13}x_{i2}\]</span> <span class="math display">\[\log(\frac{\pi_{i1}+\pi_{i2}}{\pi_{i3}+\pi_{i4}+\pi_{i5}})
 = \beta_{21}+\beta_{22}x_{i1}+\beta_{23}x_{i2}\]</span> <span class="math display">\[\log(\frac{\pi_{i1}+\pi_{i2}+\pi_{i3}}{\pi_{i4}+\pi_{i5}})
@@ -809,7 +821,7 @@ coefficients from <a href="#example2_MLM_Fisher">Example 2: MLM Fisher
 information matrix</a>:</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>J<span class="ot">=</span><span class="dv">5</span>; p<span class="ot">=</span><span class="dv">12</span>; m<span class="ot">=</span><span class="dv">8</span>; <span class="co">#response levels; num of parameters; num of design points</span></span>
 <span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>beta <span class="ot">=</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">4.047</span>, <span class="sc">-</span><span class="fl">0.131</span>, <span class="fl">4.214</span>, <span class="sc">-</span><span class="fl">2.225</span>, <span class="sc">-</span><span class="fl">0.376</span>, <span class="fl">3.519</span>, <span class="sc">-</span><span class="fl">0.302</span>,</span>
-<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a>    <span class="sc">-</span><span class="fl">0.237</span>,  <span class="fl">2.420</span>, <span class="fl">1.386</span>,  <span class="sc">-</span><span class="fl">0.120</span>,  <span class="fl">1.284</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a>    <span class="sc">-</span><span class="fl">0.237</span>,  <span class="fl">2.420</span>, <span class="fl">1.386</span>,  <span class="sc">-</span><span class="fl">0.120</span>,  <span class="fl">1.284</span>) <span class="co">#coefficients</span></span>
 <span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a>Xi<span class="ot">=</span><span class="fu">rep</span>(<span class="dv">0</span>,J<span class="sc">*</span>p<span class="sc">*</span>m) <span class="co">#design matrix</span></span>
 <span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a><span class="fu">dim</span>(Xi)<span class="ot">=</span><span class="fu">c</span>(J,p,m)</span>
 <span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a>Xi[,,<span class="dv">1</span>] <span class="ot">=</span> <span class="fu">rbind</span>(<span class="fu">c</span>( <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
@@ -859,9 +871,9 @@ information matrix</a>:</p>
 <span id="cb11-50"><a href="#cb11-50" tabindex="-1"></a>                <span class="fu">c</span>( <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
 <span id="cb11-51"><a href="#cb11-51" tabindex="-1"></a>                <span class="fu">c</span>( <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">1</span>),</span>
 <span id="cb11-52"><a href="#cb11-52" tabindex="-1"></a>                <span class="fu">c</span>( <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>))</span></code></pre></div>
-<p>/private/var/folders/vf/_6q3gfkd14v15hhpcwlkrnc00000gn/T/RtmpNvoIa5/Rbuild112ca9d6d91f/CDsampling/vignettes/Intro_to_CDsampling.R</p>
-<p>Similarly, we define the sample size, constraints, and boundaries
-using the following R codes:</p>
+<p>/private/var/folders/vf/_6q3gfkd14v15hhpcwlkrnc00000gn/T/RtmpGXCeEi/Rbuild99117cbf53a7/CDsampling/vignettes/Intro_to_CDsampling.R</p>
+<p>Similarly, we define the sample size (<span class="math inline">\(600\)</span>), constraints, and boundaries using
+the following R codes:</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a>nsample<span class="ot">=</span><span class="dv">600</span> <span class="co">#sample size</span></span>
 <span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>constraint <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">392</span>, <span class="dv">410</span>)  <span class="co">#mild:severe</span></span>
 <span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a></span>
@@ -897,11 +909,11 @@ using the following R codes:</p>
 <span id="cb12-33"><a href="#cb12-33" tabindex="-1"></a>g.con[<span class="dv">4</span><span class="sc">:</span>(<span class="fu">length</span>(constraint)<span class="sc">+</span><span class="dv">1</span><span class="sc">+</span>m), ] <span class="ot">=</span> <span class="fu">diag</span>(<span class="dv">1</span>, <span class="at">nrow=</span>m)</span>
 <span id="cb12-34"><a href="#cb12-34" tabindex="-1"></a>g.dir <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;==&quot;</span>, <span class="st">&quot;&lt;=&quot;</span>,<span class="st">&quot;&lt;=&quot;</span>, <span class="fu">rep</span>(<span class="st">&quot;&gt;=&quot;</span>,m))</span>
 <span id="cb12-35"><a href="#cb12-35" tabindex="-1"></a>g.rhs <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="fu">ifelse</span>((constraint<span class="sc">/</span>nsample<span class="sc">&lt;</span><span class="dv">1</span>),constraint<span class="sc">/</span>nsample,<span class="dv">1</span>), <span class="fu">rep</span>(<span class="dv">0</span>, m))</span></code></pre></div>
-<p>/private/var/folders/vf/_6q3gfkd14v15hhpcwlkrnc00000gn/T/RtmpNvoIa5/Rbuild112ca9d6d91f/CDsampling/vignettes/Intro_to_CDsampling.R</p>
+<p>/private/var/folders/vf/_6q3gfkd14v15hhpcwlkrnc00000gn/T/RtmpGXCeEi/Rbuild99117cbf53a7/CDsampling/vignettes/Intro_to_CDsampling.R</p>
 <p>Define an optional subgroups label for the constrained approximate
 allocations:</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a>label <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;Placebo-Mild&quot;</span>, <span class="st">&quot;Low-Mild&quot;</span>, <span class="st">&quot;Medium-Mild&quot;</span>, <span class="st">&quot;High-Mild&quot;</span>, <span class="st">&quot;Placebo-Severe&quot;</span>, <span class="st">&quot;Low-Severe&quot;</span>, <span class="st">&quot;Medium-Severe&quot;</span>, <span class="st">&quot;High-Severe&quot;</span>)</span></code></pre></div>
-<p>/private/var/folders/vf/_6q3gfkd14v15hhpcwlkrnc00000gn/T/RtmpNvoIa5/Rbuild112ca9d6d91f/CDsampling/vignettes/Intro_to_CDsampling.R</p>
+<p>/private/var/folders/vf/_6q3gfkd14v15hhpcwlkrnc00000gn/T/RtmpGXCeEi/Rbuild99117cbf53a7/CDsampling/vignettes/Intro_to_CDsampling.R</p>
 <p>Then, we can use the constrained lift-one algorithm to find the
 locally D-optimal approximate sampling with <em>liftone_constrained_MLM(
 )</em> function in the package:</p>
@@ -942,7 +954,7 @@ locally D-optimal approximate sampling with <em>liftone_constrained_MLM(
 <span id="cb14-35"><a href="#cb14-35" tabindex="-1"></a><span class="co">#&gt; reason :</span></span>
 <span id="cb14-36"><a href="#cb14-36" tabindex="-1"></a><span class="co">#&gt; &quot;all derivative &lt;=0&quot; </span></span>
 <span id="cb14-37"><a href="#cb14-37" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre></div>
-<p>/private/var/folders/vf/_6q3gfkd14v15hhpcwlkrnc00000gn/T/RtmpNvoIa5/Rbuild112ca9d6d91f/CDsampling/vignettes/Intro_to_CDsampling.R</p>
+<p>/private/var/folders/vf/_6q3gfkd14v15hhpcwlkrnc00000gn/T/RtmpGXCeEi/Rbuild99117cbf53a7/CDsampling/vignettes/Intro_to_CDsampling.R</p>
 <p>Similar to <a href="#example3_trial_data">Example 3: trial_data &amp;
 constrained sampling with GLM</a>, <span class="math inline">\(w\)</span> reports the D-optimal approximate
 allocation, while <span class="math inline">\(w_0\)</span> denotes the
@@ -954,8 +966,8 @@ algorithm.</p>
 function <em>approxtoexact_constrained_func( )</em> in the package, with
 <strong>Fdet_func=Fdet_func_MLM</strong>:</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a>exact_design <span class="ot">=</span> CDsampling<span class="sc">::</span><span class="fu">approxtoexact_constrained_func</span>(<span class="at">n=</span><span class="dv">600</span>, <span class="at">w=</span>approx_design<span class="sc">$</span>w, <span class="at">m=</span><span class="dv">8</span>, </span>
-<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a> <span class="at">beta=</span>beta, <span class="at">link=</span><span class="st">&#39;cumulative&#39;</span>, <span class="at">X=</span>Xi, <span class="at">label=</span>label, <span class="at">Fdet_func=</span>Fdet_func_MLM, </span>
-<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a> <span class="at">iset_func=</span>iset_func_trauma)</span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a> <span class="at">beta=</span>beta, <span class="at">link=</span><span class="st">&#39;cumulative&#39;</span>, <span class="at">X=</span>Xi, <span class="at">Fdet_func=</span>Fdet_func_MLM, </span>
+<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a> <span class="at">iset_func=</span>iset_func_trauma, <span class="at">label=</span>label)</span>
 <span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a></span>
 <span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a><span class="fu">print</span>(exact_design)</span>
 <span id="cb15-6"><a href="#cb15-6" tabindex="-1"></a><span class="co">#&gt; Optimal Sampling Results:</span></span>
@@ -971,7 +983,7 @@ function <em>approxtoexact_constrained_func( )</em> in the package, with
 <span id="cb15-16"><a href="#cb15-16" tabindex="-1"></a><span class="co">#&gt; det.maximum :</span></span>
 <span id="cb15-17"><a href="#cb15-17" tabindex="-1"></a><span class="co">#&gt; 1.63163827059162e+23 </span></span>
 <span id="cb15-18"><a href="#cb15-18" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre></div>
-<p>/private/var/folders/vf/_6q3gfkd14v15hhpcwlkrnc00000gn/T/RtmpNvoIa5/Rbuild112ca9d6d91f/CDsampling/vignettes/Intro_to_CDsampling.R</p>
+<p>/private/var/folders/vf/_6q3gfkd14v15hhpcwlkrnc00000gn/T/RtmpGXCeEi/Rbuild99117cbf53a7/CDsampling/vignettes/Intro_to_CDsampling.R</p>
 <p>If there is no coefficients information, we can find the constrained
 uniform sampling with <em>approxtoexact_constrained_func( )</em> using
 <strong>Fdet_func=Fdet_func_unif</strong>:</p>
@@ -999,7 +1011,7 @@ uniform sampling with <em>approxtoexact_constrained_func( )</em> using
 <span id="cb16-22"><a href="#cb16-22" tabindex="-1"></a><span class="co">#&gt; det.maximum :</span></span>
 <span id="cb16-23"><a href="#cb16-23" tabindex="-1"></a><span class="co">#&gt; 1001129150390625 </span></span>
 <span id="cb16-24"><a href="#cb16-24" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span></code></pre></div>
-<p>/private/var/folders/vf/_6q3gfkd14v15hhpcwlkrnc00000gn/T/RtmpNvoIa5/Rbuild112ca9d6d91f/CDsampling/vignettes/Intro_to_CDsampling.R</p>
+<p>/private/var/folders/vf/_6q3gfkd14v15hhpcwlkrnc00000gn/T/RtmpGXCeEi/Rbuild99117cbf53a7/CDsampling/vignettes/Intro_to_CDsampling.R</p>
 <div class="note-box">
 <p><strong>Note:</strong><br />
 The reported determinant of the Fisher information matrix

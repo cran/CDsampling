@@ -4,12 +4,14 @@
 \alias{bounded_uniform}
 \title{Find (constrained) uniform exact allocation of the study for bounded design}
 \usage{
-bounded_uniform(Ni, nsample)
+bounded_uniform(Ni, nsample, label = NULL)
 }
 \arguments{
 \item{Ni}{a vector with size m, upper bound for exact design of each category/stratification group, if unconstrained, use Inf vector, the function will return unbounded uniform allocation}
 
 \item{nsample}{a number, the sample size}
+
+\item{label}{A vector of text strings for subgroups' names, default value NULL}
 }
 \value{
 n is the constrained/unconstrained uniform exact allocation
